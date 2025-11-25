@@ -4,7 +4,14 @@ import { writeFile, mkdir, readFile } from "fs/promises";
 import { existsSync } from "fs";
 import path from "path";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend only when API key is available (lazy initialization)
+const getResend = () => {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return null;
+  }
+  return new Resend(apiKey);
+};
 
 export async function POST(request: NextRequest) {
   console.log("🚀 QUOTATION API ROUTE CALLED at", new Date().toISOString());
@@ -107,10 +114,10 @@ export async function POST(request: NextRequest) {
     console.log("To:", email);
     console.log("API Key present:", !!process.env.RESEND_API_KEY);
     console.log("API Key first 10 chars:", process.env.RESEND_API_KEY?.substring(0, 10) + "...");
-    console.log("Resend instance:", !!resend);
     
+    const resend = getResend();
     if (!resend) {
-      throw new Error("Resend instance is not initialized");
+      console.error("RESEND_API_KEY is not configured - skipping email");
     }
     
     let emailSent = false;
@@ -180,6 +187,10 @@ export async function POST(request: NextRequest) {
         throw new Error(`Template error: ${templateError.message}`);
       }
 
+      if (!resend) {
+        throw new Error("Resend API key is not configured");
+      }
+      
       console.log("Calling resend.emails.send...");
       
       // Create plain text version for better deliverability

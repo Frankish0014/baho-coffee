@@ -4,7 +4,14 @@ import { writeFile, mkdir, readFile } from "fs/promises";
 import { existsSync } from "fs";
 import path from "path";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend only when API key is available (lazy initialization)
+const getResend = () => {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return null;
+  }
+  return new Resend(apiKey);
+};
 
 export async function POST(request: NextRequest) {
   try {
@@ -90,8 +97,12 @@ export async function POST(request: NextRequest) {
     let emailSent = false;
     let emailError: any = null;
     
-    try {
-      const emailResult = await resend.emails.send({
+    const resend = getResend();
+    if (!resend) {
+      console.error("RESEND_API_KEY is not configured - skipping email");
+    } else {
+      try {
+        const emailResult = await resend.emails.send({
         from: `Baho Coffee <${fromEmail}>`,
         to: email,
         subject: "Thank you for contacting Baho Coffee",
@@ -129,21 +140,22 @@ export async function POST(request: NextRequest) {
         `,
       });
       
-      console.log("✅ Email sent successfully!");
-      console.log("Email result:", JSON.stringify(emailResult, null, 2));
-      emailSent = true;
-    } catch (err: any) {
-      emailError = err;
-      console.error("❌ EMAIL SENDING FAILED!");
-      console.error("Error type:", err?.constructor?.name);
-      console.error("Error message:", err?.message);
-      console.error("Error code:", err?.code);
-      console.error("Error name:", err?.name);
-      console.error("Full error:", JSON.stringify(err, Object.getOwnPropertyNames(err), 2));
-      
-      // Check for specific Resend error types
-      if (err?.response) {
-        console.error("Resend API response:", JSON.stringify(err.response, null, 2));
+        console.log("✅ Email sent successfully!");
+        console.log("Email result:", JSON.stringify(emailResult, null, 2));
+        emailSent = true;
+      } catch (err: any) {
+        emailError = err;
+        console.error("❌ EMAIL SENDING FAILED!");
+        console.error("Error type:", err?.constructor?.name);
+        console.error("Error message:", err?.message);
+        console.error("Error code:", err?.code);
+        console.error("Error name:", err?.name);
+        console.error("Full error:", JSON.stringify(err, Object.getOwnPropertyNames(err), 2));
+        
+        // Check for specific Resend error types
+        if (err?.response) {
+          console.error("Resend API response:", JSON.stringify(err.response, null, 2));
+        }
       }
     }
 
