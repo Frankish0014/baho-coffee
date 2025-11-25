@@ -141,6 +141,9 @@ export class PostgresStorage {
     }
 
     try {
+      // Convert productInterest array - Vercel Postgres handles arrays automatically
+      const productInterestArray: string[] = data.productInterest || [];
+      
       await sql`
         INSERT INTO quotation_requests (
           id, timestamp, name, email, company, country, phone, 
@@ -154,7 +157,7 @@ export class PostgresStorage {
           ${data.company}, 
           ${data.country}, 
           ${data.phone}, 
-          ${data.productInterest}, 
+          ${productInterestArray as any}, 
           ${data.quantity}, 
           ${data.message || null}
         )
