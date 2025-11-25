@@ -74,13 +74,16 @@ export async function POST(request: NextRequest) {
       message: message || "",
     };
 
+    let dataSaved = false;
     try {
       // Save using storage utility (Vercel KV in production, file system in development)
       await Storage.append("quotation-requests", quotationData);
       console.log("✅ Quotation request saved successfully");
-    } catch (saveError) {
+      dataSaved = true;
+    } catch (saveError: any) {
       console.error("❌ Error saving quotation:", saveError);
-      // Continue even if saving fails - email will still be sent
+      console.error("Error details:", saveError?.message);
+      // Log the error but continue - email will still be sent
     }
 
     // Send confirmation email to the user
@@ -437,14 +440,23 @@ Exporting specialty coffee from Rwanda to the world
       // The error is already logged above
     }
 
-    // Return response based on email status
-    if (emailSent) {
+    // Return response based on email and save status
+    if (emailSent && dataSaved) {
       console.log("✅ Returning success response to client");
       return NextResponse.json(
         { message: "Quotation request submitted successfully! Check your email for confirmation." },
         { status: 200 }
       );
-    } else {
+    } else if (emailSent && !dataSaved) {
+      // Email sent but data not saved (likely Vercel KV not configured)
+      return NextResponse.json(
+        { 
+          message: "Quotation request submitted successfully! Check your email for confirmation.",
+          warning: "Your request was sent, but could not be saved to the database. Please set up Vercel KV storage. See VERCEL_KV_SETUP.md for instructions."
+        },
+        { status: 200 }
+      );
+    } else if (!emailSent && dataSaved) {
       // Data was saved, but email failed
       const errorMsg = emailError?.message || "Unknown error";
       console.error("❌ Returning error response to client - email failed");
@@ -453,6 +465,16 @@ Exporting specialty coffee from Rwanda to the world
         { 
           error: `Your quotation request was saved, but we couldn't send the confirmation email. Error: ${errorMsg}. Please contact us directly if needed.`,
           saved: true // Indicate data was saved
+        },
+        { status: 500 }
+      );
+    } else {
+      // Both failed
+      const errorMsg = emailError?.message || "Unknown error";
+      return NextResponse.json(
+        { 
+          error: `Failed to submit quotation request and save data. Email error: ${errorMsg}. Please try again or contact us directly.`,
+          saved: false
         },
         { status: 500 }
       );

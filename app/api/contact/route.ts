@@ -52,13 +52,17 @@ export async function POST(request: NextRequest) {
       message,
     };
 
+    let dataSaved = false;
     try {
       // Save using storage utility (Vercel KV in production, file system in development)
       await Storage.append("contact-submissions", submissionData);
       console.log("✅ Contact submission saved successfully");
-    } catch (saveError) {
+      dataSaved = true;
+    } catch (saveError: any) {
       console.error("❌ Error saving submission:", saveError);
-      // Continue even if saving fails - email will still be sent
+      console.error("Error details:", saveError?.message);
+      // Log the error but continue - email will still be sent
+      // The error will be included in the response
     }
 
     // Send confirmation email to the user
@@ -154,13 +158,22 @@ export async function POST(request: NextRequest) {
     });
     */
 
-    // Return response based on email status
-    if (emailSent) {
+    // Return response based on email and save status
+    if (emailSent && dataSaved) {
       return NextResponse.json(
         { message: "Message sent successfully! Check your email for confirmation." },
         { status: 200 }
       );
-    } else {
+    } else if (emailSent && !dataSaved) {
+      // Email sent but data not saved (likely Vercel KV not configured)
+      return NextResponse.json(
+        { 
+          message: "Message sent successfully! Check your email for confirmation.",
+          warning: "Your message was sent, but could not be saved to the database. Please set up Vercel KV storage. See VERCEL_KV_SETUP.md for instructions."
+        },
+        { status: 200 }
+      );
+    } else if (!emailSent && dataSaved) {
       // Data was saved, but email failed
       const errorMsg = emailError?.message || "Unknown error";
       console.error("Returning error response to client");
@@ -168,6 +181,16 @@ export async function POST(request: NextRequest) {
         { 
           error: `Your message was saved, but we couldn't send the confirmation email. Error: ${errorMsg}. Please contact us directly if needed.`,
           saved: true // Indicate data was saved
+        },
+        { status: 500 }
+      );
+    } else {
+      // Both failed
+      const errorMsg = emailError?.message || "Unknown error";
+      return NextResponse.json(
+        { 
+          error: `Failed to send message and save data. Email error: ${errorMsg}. Please try again or contact us directly.`,
+          saved: false
         },
         { status: 500 }
       );

@@ -31,6 +31,7 @@ export async function GET() {
       apiKeyPrefix: apiKey.substring(0, 10) + "...",
       result,
     });
+    
   } catch (error: any) {
     return NextResponse.json({
       error: error.message,

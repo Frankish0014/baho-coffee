@@ -36,6 +36,16 @@ export class Storage {
    * Save to file system (helper method)
    */
   private static async saveToFile(key: string, data: any[]): Promise<void> {
+    // Check if we're on Vercel (read-only file system)
+    if (process.env.VERCEL === "1") {
+      const error = new Error(
+        "Cannot save to file system on Vercel. Please set up Vercel KV storage. " +
+        "See VERCEL_KV_SETUP.md for instructions."
+      );
+      console.error(`❌ ${error.message}`);
+      throw error;
+    }
+
     try {
       const dataDir = path.join(process.cwd(), "data");
       if (!existsSync(dataDir)) {
