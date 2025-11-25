@@ -142,6 +142,7 @@ function ProductCard({
   index: number;
 }) {
   const [imageError, setImageError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const imageSrc =
     product.images?.[0] ||
     `/products/${product.slug.replace(/\s+/g, "-").toLowerCase()}.jpg`;
@@ -151,23 +152,39 @@ function ProductCard({
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700"
     >
-      <div className="relative h-64 overflow-hidden">
+      {/* Image Container with 3D Effect */}
+      <div className="relative h-72 overflow-hidden">
         {!imageError && imageSrc ? (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <motion.img
               src={imageSrc}
               alt={product.name}
               className="absolute inset-0 h-full w-full object-cover"
               onError={() => setImageError(true)}
               loading="lazy"
+              animate={{
+                scale: isHovered ? 1.1 : 1,
+              }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
             />
-            <div
-              className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"
-              aria-hidden
-            />
+            {/* Multi-layer gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            {/* Floating badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + index * 0.1 }}
+              className="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md rounded-full text-xs font-semibold text-primary-700 dark:text-primary-400 shadow-lg"
+            >
+              {product.processingMethod}
+            </motion.div>
           </>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-coffee-400 to-coffee-800">
@@ -175,35 +192,68 @@ function ProductCard({
           </div>
         )}
       </div>
-      <div className="p-6">
-        <h3 className="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-2">
+
+      {/* Content with enhanced styling */}
+      <div className="p-6 relative">
+        {/* Decorative line */}
+        <div className="absolute top-0 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-primary-300 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        
+        <h3 className="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
           {product.name}
         </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+        <p className="text-gray-600 dark:text-gray-400 mb-5 line-clamp-2 leading-relaxed">
           {product.description}
         </p>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {product.flavorNotes.slice(0, 3).map((note) => (
-            <span
+        
+        {/* Enhanced Flavor Notes */}
+        <div className="flex flex-wrap gap-2 mb-5">
+          {product.flavorNotes.slice(0, 3).map((note, noteIndex) => (
+            <motion.span
               key={note}
-              className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4 + index * 0.1 + noteIndex * 0.05 }}
+              whileHover={{ scale: 1.1 }}
+              className="px-3 py-1.5 bg-gradient-to-r from-primary-50 to-primary-100 dark:from-primary-900/50 dark:to-primary-800/50 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium shadow-sm border border-primary-200/50 dark:border-primary-700/50"
             >
               {note}
-            </span>
+            </motion.span>
           ))}
         </div>
-        <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 mb-4">
-          <span>{product.region}</span>
-          <span>{product.processingMethod}</span>
+        
+        {/* Info Row */}
+        <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-primary-500" />
+            {product.region}
+          </span>
+          <span className="font-medium">{product.processingMethod}</span>
         </div>
-        <Link
-          href={`/products/${product.slug}`}
-          className="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold"
-        >
-          View Details
-          <ArrowRight className="w-4 h-4 ml-2" />
-        </Link>
+        
+        {/* Enhanced CTA Button */}
+        <motion.div whileHover={{ x: 4 }} whileTap={{ scale: 0.95 }}>
+          <Link
+            href={`/products/${product.slug}`}
+            className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold group/link transition-colors"
+          >
+            <span>View Details</span>
+            <motion.div
+              animate={{ x: isHovered ? 4 : 0 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <ArrowRight className="w-4 h-4" />
+            </motion.div>
+          </Link>
+        </motion.div>
       </div>
+
+      {/* Shine effect on hover */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 pointer-events-none"
+        initial={{ x: "-100%" }}
+        animate={isHovered ? { x: "200%" } : { x: "-100%" }}
+        transition={{ duration: 0.6 }}
+      />
     </motion.div>
   );
 }

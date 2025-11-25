@@ -426,8 +426,8 @@ export default async function ProductPage({
 
   if (!product) {
     return (
-      <div className="pt-20 pb-20 text-center">
-        <h1 className="text-4xl font-bold mb-4">Product Not Found</h1>
+      <div className="pt-20 pb-20 text-center bg-white dark:bg-gray-900 transition-colors duration-300 min-h-screen">
+        <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Product Not Found</h1>
         <p className="text-gray-600 dark:text-gray-400">
           The product you&apos;re looking for doesn&apos;t exist.
         </p>
@@ -435,6 +435,10 @@ export default async function ProductPage({
     );
   }
 
-  return <ProductDetails product={product} />;
+  return (
+    <div className="bg-white dark:bg-gray-900 transition-colors duration-300 min-h-screen">
+      <ProductDetails product={product} />
+    </div>
+  );
 }
 

@@ -11,9 +11,33 @@
   body {
     @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
     @apply antialiased;
+    @apply transition-colors duration-300;
   }
   html {
     @apply scroll-smooth;
+  }
+  
+  /* Smooth theme transitions */
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    @apply transition-colors duration-300;
+  }
+  
+  /* Enhanced typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+    letter-spacing: -0.02em;
+  }
+  
+  /* Ensure good contrast for all text */
+  p, span, div, a, li {
+    @apply text-gray-900 dark:text-gray-100;
+  }
+  
+  /* Better contrast for secondary text */
+  .text-secondary {
+    @apply text-gray-600 dark:text-gray-300;
   }
 }
 
@@ -28,6 +52,47 @@
   
   .gradient-coffee {
     @apply bg-gradient-to-br from-coffee-400 via-coffee-600 to-coffee-800;
+  }
+  
+  /* Modern glassmorphism */
+  .glass {
+    @apply bg-white/10 dark:bg-gray-900/10 backdrop-blur-xl border border-white/20 dark:border-gray-800/20;
+  }
+  
+  .glass-strong {
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200/50 dark:border-gray-800/50;
+  }
+  
+  /* Coffee-themed gradients */
+  .gradient-coffee-warm {
+    @apply bg-gradient-to-br from-coffee-500 via-coffee-600 to-primary-700;
+  }
+  
+  .gradient-coffee-cool {
+    @apply bg-gradient-to-br from-primary-500 via-primary-600 to-coffee-700;
+  }
+  
+  /* Interactive hover effects */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+  
+  .hover-glow {
+    @apply transition-shadow duration-300 hover:shadow-xl hover:shadow-primary-500/20;
+  }
+  
+  /* Smooth transitions */
+  .transition-smooth {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  /* Text gradients */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-coffee {
+    @apply bg-gradient-to-r from-coffee-600 to-coffee-800 bg-clip-text text-transparent;
   }
 }
 

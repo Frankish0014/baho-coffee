@@ -37,7 +37,15 @@ export default function ThemeProvider({
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
+    
+    // Add smooth transition class temporarily
+    document.documentElement.classList.add("theme-transitioning");
     document.documentElement.classList.toggle("dark", newTheme === "dark");
+    
+    // Remove transition class after animation completes
+    setTimeout(() => {
+      document.documentElement.classList.remove("theme-transitioning");
+    }, 300);
   };
 
   if (!mounted) {

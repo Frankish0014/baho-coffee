@@ -40,8 +40,8 @@ export default async function WashingStationPage({
 
   if (!station) {
     return (
-      <div className="pt-20 pb-20 text-center">
-        <h1 className="text-4xl font-bold mb-4">Station Not Found</h1>
+      <div className="pt-20 pb-20 text-center bg-white dark:bg-gray-900 transition-colors duration-300 min-h-screen">
+        <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Station Not Found</h1>
         <p className="text-gray-600 dark:text-gray-400">
           The washing station you&apos;re looking for doesn&apos;t exist.
         </p>
@@ -49,6 +49,10 @@ export default async function WashingStationPage({
     );
   }
 
-  return <WashingStationDetails station={station} />;
+  return (
+    <div className="bg-white dark:bg-gray-900 transition-colors duration-300 min-h-screen">
+      <WashingStationDetails station={station} />
+    </div>
+  );
 }
 

@@ -32,51 +32,66 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-primary-900 dark:from-gray-900 dark:via-gray-900 dark:to-primary-900 text-gray-300 dark:text-gray-300 overflow-hidden transition-colors duration-300">
+      {/* Decorative background pattern */}
+      <div className="absolute inset-0 opacity-5 dark:opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+          backgroundSize: '30px 30px'
+        }} />
+      </div>
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
-          <div>
-            <Link href="/" className="inline-block mb-4">
+          <div className="space-y-6">
+            <Link href="/" className="inline-block group">
               <Image
                 src="/hero/logo.avif"
                 alt="Baho Coffee"
                 width={180}
                 height={60}
-                className="h-16 w-auto brightness-0 invert"
+                className="h-16 w-auto brightness-0 invert transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
-            <p className="text-sm mb-4">
+            <p className="text-sm leading-relaxed text-gray-400 dark:text-gray-400">
               Exporting specialty coffee from Rwanda. Connecting farmers
-              with the world.
+              with the world through exceptional quality and sustainable practices.
             </p>
-            <div className="space-y-2 text-sm">
-              <div className="flex items-center space-x-2">
-                <MapPin className="w-4 h-4" />
-                <span>Kigali, Rwanda</span>
+            <div className="space-y-3 text-sm">
+              <div className="flex items-center space-x-3 group cursor-pointer">
+                <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 dark:group-hover:bg-primary-500/20 transition-colors">
+                  <MapPin className="w-4 h-4 text-primary-400 dark:text-primary-400" />
+                </div>
+                <span className="text-gray-300 dark:text-gray-300 group-hover:text-white dark:group-hover:text-white transition-colors">Kigali, Rwanda</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <Phone className="w-4 h-4" />
-                <span>+250 XXX XXX XXX</span>
+              <div className="flex items-center space-x-3 group cursor-pointer">
+                <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 dark:group-hover:bg-primary-500/20 transition-colors">
+                  <Phone className="w-4 h-4 text-primary-400 dark:text-primary-400" />
+                </div>
+                <span className="text-gray-300 dark:text-gray-300 group-hover:text-white dark:group-hover:text-white transition-colors">+250 XXX XXX XXX</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <Mail className="w-4 h-4" />
-                <span>info@bahocoffee.com</span>
+              <div className="flex items-center space-x-3 group cursor-pointer">
+                <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 dark:group-hover:bg-primary-500/20 transition-colors">
+                  <Mail className="w-4 h-4 text-primary-400 dark:text-primary-400" />
+                </div>
+                <span className="text-gray-300 dark:text-gray-300 group-hover:text-white dark:group-hover:text-white transition-colors">info@bahocoffee.com</span>
               </div>
             </div>
           </div>
 
           {/* Company Links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Company</h4>
-            <ul className="space-y-2">
+            <h4 className="text-white dark:text-white font-semibold mb-6 text-lg">Company</h4>
+            <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="hover:text-primary-400 transition-colors text-sm"
+                    className="group flex items-center gap-2 text-gray-300 dark:text-gray-300 hover:text-primary-400 dark:hover:text-primary-400 transition-all duration-300 text-sm"
                   >
-                    {link.label}
+                    <span className="w-0 h-0.5 bg-primary-400 dark:bg-primary-400 group-hover:w-4 transition-all duration-300" />
+                    <span className="group-hover:translate-x-1 transition-transform">{link.label}</span>
                   </Link>
                 </li>
               ))}
@@ -85,15 +100,16 @@ export default function Footer() {
 
           {/* Products Links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Products</h4>
-            <ul className="space-y-2">
+            <h4 className="text-white dark:text-white font-semibold mb-6 text-lg">Products</h4>
+            <ul className="space-y-3">
               {footerLinks.products.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="hover:text-primary-400 transition-colors text-sm"
+                    className="group flex items-center gap-2 text-gray-300 dark:text-gray-300 hover:text-primary-400 dark:hover:text-primary-400 transition-all duration-300 text-sm"
                   >
-                    {link.label}
+                    <span className="w-0 h-0.5 bg-primary-400 dark:bg-primary-400 group-hover:w-4 transition-all duration-300" />
+                    <span className="group-hover:translate-x-1 transition-transform">{link.label}</span>
                   </Link>
                 </li>
               ))}
@@ -102,15 +118,16 @@ export default function Footer() {
 
           {/* Legal & Social */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Legal</h4>
-            <ul className="space-y-2 mb-6">
+            <h4 className="text-white dark:text-white font-semibold mb-6 text-lg">Legal</h4>
+            <ul className="space-y-3 mb-8">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="hover:text-primary-400 transition-colors text-sm"
+                    className="group flex items-center gap-2 text-gray-300 dark:text-gray-300 hover:text-primary-400 dark:hover:text-primary-400 transition-all duration-300 text-sm"
                   >
-                    {link.label}
+                    <span className="w-0 h-0.5 bg-primary-400 dark:bg-primary-400 group-hover:w-4 transition-all duration-300" />
+                    <span className="group-hover:translate-x-1 transition-transform">{link.label}</span>
                   </Link>
                 </li>
               ))}
@@ -124,10 +141,10 @@ export default function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-primary-400 transition-colors"
+                    className="group p-3 bg-gray-800/50 dark:bg-gray-800/50 hover:bg-primary-500/20 dark:hover:bg-primary-500/20 rounded-lg transition-all duration-300 hover:scale-110"
                     aria-label={social.label}
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-5 h-5 text-gray-300 dark:text-gray-300 group-hover:text-primary-400 dark:group-hover:text-primary-400 transition-colors" />
                   </a>
                 );
               })}
@@ -135,11 +152,15 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
-          <p>
-            © {currentYear} Baho Coffee. All rights reserved. | Made with ❤️ in
-            Rwanda
-          </p>
+        <div className="border-t border-gray-800/50 dark:border-gray-800/50 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400 dark:text-gray-400">
+            <p>
+              © {currentYear} Baho Coffee. All rights reserved.
+            </p>
+            <p className="flex items-center gap-2">
+              Made with <span className="text-red-500 dark:text-red-500 animate-pulse">❤️</span> in Rwanda
+            </p>
+          </div>
         </div>
       </div>
     </footer>
