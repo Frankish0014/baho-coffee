@@ -4,7 +4,6 @@ export interface CoffeeProduct {
   slug: string;
   description: string;
   flavorNotes: string[];
-  // roastLevel: "Light" | "Medium" | "Medium-Dark" | "Dark";
   region: string;
   processingMethod: string;
   farm?: string;

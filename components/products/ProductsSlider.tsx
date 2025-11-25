@@ -16,8 +16,6 @@ const allProducts: CoffeeProduct[] = washingStations.flatMap((station) => {
   
   // Create a product for each processing method
   return station.processingMethods.map((processingMethod, methodIndex) => {
-    const roastLevel = processingMethod === "Natural" ? "Medium" : processingMethod === "Honey" ? "Medium" : "Light";
-    
     // Generate flavor notes based on processing method
     const flavorNotes = processingMethod === "Natural" 
       ? ["Berry", "Fruity", "Rich"]
@@ -31,7 +29,6 @@ const allProducts: CoffeeProduct[] = washingStations.flatMap((station) => {
       slug: `${station.slug}-${processingMethod.toLowerCase()}`,
       description: station.description || `Specialty ${processingMethod.toLowerCase()} processed coffee from ${productName} washing station.`,
       flavorNotes,
-      roastLevel,
       region: station.location.address.split(",")[0] || "Rwanda",
       processingMethod,
       washingStation: productName,
@@ -159,6 +156,7 @@ function ProductCard({
       <div className="relative h-64 overflow-hidden">
         {!imageError && imageSrc ? (
           <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imageSrc}
               alt={product.name}

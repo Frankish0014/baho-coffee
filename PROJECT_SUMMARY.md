@@ -17,7 +17,7 @@ A complete, modern, full-featured website for Baho Coffee with all the requested
 ### ☕ Product Pages
 - ✅ Product listing page with filters
 - ✅ Individual product detail pages
-- ✅ Flavor notes, roast level, region, processing method
+- ✅ Flavor notes, region, processing method
 - ✅ Farm/Washing station info
 - ✅ Packaging options
 - ✅ "Request a Sample" button with modal form

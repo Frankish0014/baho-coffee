@@ -15,7 +15,6 @@ const allProducts: CoffeeProduct[] = [
     slug: "bugoyi-washed",
     description: "Bright and clean with notes of citrus and floral",
     flavorNotes: ["Citrus", "Floral", "Tea-like"],
-    roastLevel: "Light",
     region: "Western Province",
     processingMethod: "Washed",
     washingStation: "Bugoyi",
@@ -30,7 +29,6 @@ const allProducts: CoffeeProduct[] = [
     slug: "matyazo-natural",
     description: "Rich and fruity with deep berry notes",
     flavorNotes: ["Berry", "Chocolate", "Wine-like"],
-    roastLevel: "Medium",
     region: "Southern Province",
     processingMethod: "Natural",
     washingStation: "Matyazo",
@@ -45,7 +43,6 @@ const allProducts: CoffeeProduct[] = [
     slug: "humure-washed",
     description: "Smooth and balanced with caramel sweetness from Humure CWS",
     flavorNotes: ["Caramel", "Nuts", "Honey"],
-    roastLevel: "Medium",
     region: "Northern Province",
     processingMethod: "Washed",
     washingStation: "Humure",
@@ -103,7 +100,7 @@ export default function ProductsGrid() {
             </div>
             <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 mb-4">
               <span>{product.region}</span>
-              <span>{product.roastLevel}</span>
+              <span>{product.processingMethod}</span>
             </div>
             <Link
               href={`/products/${product.slug}`}

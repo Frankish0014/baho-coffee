@@ -81,12 +81,6 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
             {/* Product Details */}
             <div className="space-y-4 mb-6">
-              {/* <div className="flex items-center space-x-2">
-                <Coffee className="w-5 h-5 text-primary-600" />
-                <span>
-                  <strong>Roast Level:</strong> {product.roastLevel}
-                </span>
-              </div> */}
               <div className="flex items-center space-x-2">
                 <MapPin className="w-5 h-5 text-primary-600" />
                 <span>
