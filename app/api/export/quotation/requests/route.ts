@@ -1,22 +1,10 @@
 import { NextResponse } from "next/server";
-import { readFile } from "fs/promises";
-import { existsSync } from "fs";
-import path from "path";
+import { Storage } from "@/lib/storage";
 
 export async function GET() {
   try {
-    const requestsFile = path.join(
-      process.cwd(),
-      "data",
-      "quotation-requests.json"
-    );
-
-    if (!existsSync(requestsFile)) {
-      return NextResponse.json({ requests: [] }, { status: 200 });
-    }
-
-    const fileContent = await readFile(requestsFile, "utf-8");
-    const requests = JSON.parse(fileContent);
+    // Load quotation requests using storage utility (Vercel KV in production, file system in development)
+    const requests = await Storage.load("quotation-requests");
 
     // Sort by timestamp (newest first)
     const sortedRequests = requests.sort(

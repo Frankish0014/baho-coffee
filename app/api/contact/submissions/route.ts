@@ -1,22 +1,10 @@
 import { NextResponse } from "next/server";
-import { readFile } from "fs/promises";
-import { existsSync } from "fs";
-import path from "path";
+import { Storage } from "@/lib/storage";
 
 export async function GET() {
   try {
-    const submissionsFile = path.join(
-      process.cwd(),
-      "data",
-      "contact-submissions.json"
-    );
-
-    if (!existsSync(submissionsFile)) {
-      return NextResponse.json({ submissions: [] }, { status: 200 });
-    }
-
-    const fileContent = await readFile(submissionsFile, "utf-8");
-    const submissions = JSON.parse(fileContent);
+    // Load submissions using storage utility (Vercel KV in production, file system in development)
+    const submissions = await Storage.load("contact-submissions");
 
     // Sort by timestamp (newest first)
     const sortedSubmissions = submissions.sort(

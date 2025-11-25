@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-import { writeFile, mkdir, readFile } from "fs/promises";
-import { existsSync } from "fs";
-import path from "path";
+import { Storage } from "@/lib/storage";
 
 // Initialize Resend only when API key is available (lazy initialization)
 const getResend = () => {
@@ -44,7 +42,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Save contact form submission to file
+    // Save contact form submission
     const submissionData = {
       id: Date.now().toString(),
       timestamp: new Date().toISOString(),
@@ -55,32 +53,11 @@ export async function POST(request: NextRequest) {
     };
 
     try {
-      // Create data directory if it doesn't exist
-      const dataDir = path.join(process.cwd(), "data");
-      if (!existsSync(dataDir)) {
-        await mkdir(dataDir, { recursive: true });
-      }
-
-      // Read existing submissions
-      const submissionsFile = path.join(dataDir, "contact-submissions.json");
-      let submissions = [];
-      
-      if (existsSync(submissionsFile)) {
-        const fileContent = await readFile(submissionsFile, "utf-8");
-        submissions = JSON.parse(fileContent);
-      }
-
-      // Add new submission
-      submissions.push(submissionData);
-
-      // Save to file
-      await writeFile(
-        submissionsFile,
-        JSON.stringify(submissions, null, 2),
-        "utf-8"
-      );
+      // Save using storage utility (Vercel KV in production, file system in development)
+      await Storage.append("contact-submissions", submissionData);
+      console.log("✅ Contact submission saved successfully");
     } catch (saveError) {
-      console.error("Error saving submission:", saveError);
+      console.error("❌ Error saving submission:", saveError);
       // Continue even if saving fails - email will still be sent
     }
 

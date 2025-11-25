@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-import { writeFile, mkdir, readFile } from "fs/promises";
-import { existsSync } from "fs";
-import path from "path";
+import { Storage } from "@/lib/storage";
 
 // Initialize Resend only when API key is available (lazy initialization)
 const getResend = () => {
@@ -62,7 +60,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Save quotation request to file
+    // Save quotation request
     const quotationData = {
       id: Date.now().toString(),
       timestamp: new Date().toISOString(),
@@ -77,32 +75,11 @@ export async function POST(request: NextRequest) {
     };
 
     try {
-      // Create data directory if it doesn't exist
-      const dataDir = path.join(process.cwd(), "data");
-      if (!existsSync(dataDir)) {
-        await mkdir(dataDir, { recursive: true });
-      }
-
-      // Read existing quotations
-      const quotationsFile = path.join(dataDir, "quotation-requests.json");
-      let quotations = [];
-      
-      if (existsSync(quotationsFile)) {
-        const fileContent = await readFile(quotationsFile, "utf-8");
-        quotations = JSON.parse(fileContent);
-      }
-
-      // Add new quotation
-      quotations.push(quotationData);
-
-      // Save to file
-      await writeFile(
-        quotationsFile,
-        JSON.stringify(quotations, null, 2),
-        "utf-8"
-      );
+      // Save using storage utility (Vercel KV in production, file system in development)
+      await Storage.append("quotation-requests", quotationData);
+      console.log("✅ Quotation request saved successfully");
     } catch (saveError) {
-      console.error("Error saving quotation:", saveError);
+      console.error("❌ Error saving quotation:", saveError);
       // Continue even if saving fails - email will still be sent
     }
 
