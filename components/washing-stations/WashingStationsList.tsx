@@ -40,6 +40,7 @@ function StationCard({
       <div className="h-48 relative overflow-hidden rounded-t-lg">
         {!imageError && station.photos?.length !== 0 ? (
           <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imageSrc}
               alt={station.name}

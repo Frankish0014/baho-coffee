@@ -47,15 +47,13 @@ export default function WashingStationsMap() {
 
   // Cleanup on unmount
   useEffect(() => {
+    // Capture the ref value at the time the effect runs
+    const container = containerRef.current;
     return () => {
-      if (containerRef.current && typeof window !== "undefined") {
+      if (container && typeof window !== "undefined") {
         // Clean up any Leaflet instances
-        const container = containerRef.current;
-        if (container) {
-          // Remove all Leaflet-related elements
-          const leafletElements = container.querySelectorAll(".leaflet-container, .leaflet-pane, .leaflet-control-container");
-          leafletElements.forEach((el) => el.remove());
-        }
+        const leafletElements = container.querySelectorAll(".leaflet-container, .leaflet-pane, .leaflet-control-container");
+        leafletElements.forEach((el) => el.remove());
       }
     };
   }, []);

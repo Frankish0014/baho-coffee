@@ -421,8 +421,10 @@ Exporting specialty coffee from Rwanda to the world
       // If we get here without an error, the email was sent successfully
       // Resend may return different response structures, so we just check if call succeeded
       emailSent = true;
-      if (emailResult?.id) {
-        console.log("✅ Email confirmed sent with ID:", emailResult.id);
+      // Type-safe check: Resend response can have 'data' with 'id' or just 'id' directly
+      const responseId = (emailResult as any)?.data?.id || (emailResult as any)?.id;
+      if (responseId) {
+        console.log("✅ Email confirmed sent with ID:", responseId);
       } else {
         console.log("✅ Email sent successfully (no ID in response, but call succeeded)");
       }
