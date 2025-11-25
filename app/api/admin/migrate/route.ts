@@ -1,27 +1,31 @@
 import { NextResponse } from "next/server";
 import { Storage } from "@/lib/storage";
+import { PostgresStorage } from "@/lib/db/storage";
 import { readFile } from "fs/promises";
 import { existsSync } from "fs";
 import path from "path";
 
 /**
- * Migration endpoint to move data from file system to Vercel KV
- * This should be called once after setting up Vercel KV
+ * Migration endpoint to move data from file system to Vercel Postgres
+ * This should be called once after setting up Vercel Postgres
  */
 export async function POST() {
   try {
-    console.log("🔄 Starting migration from file system to KV...");
+    console.log("🔄 Starting migration from file system to Postgres...");
 
-    // Check if KV is configured
-    if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
+    // Check if Postgres is configured
+    if (!process.env.POSTGRES_URL) {
       return NextResponse.json(
         { 
-          error: "Vercel KV is not configured. Please set up KV_REST_API_URL and KV_REST_API_TOKEN environment variables.",
+          error: "Vercel Postgres is not configured. Please set up POSTGRES_URL environment variable.",
           configured: false
         },
         { status: 400 }
       );
     }
+
+    // Initialize database tables
+    await PostgresStorage.initialize();
 
     const results: { [key: string]: { migrated: number; errors: string[] } } = {};
 
@@ -33,12 +37,15 @@ export async function POST() {
         const submissions = JSON.parse(fileContent);
         
         if (Array.isArray(submissions) && submissions.length > 0) {
-          await Storage.save("contact-submissions", submissions);
+          // Save each submission to Postgres
+          for (const submission of submissions) {
+            await PostgresStorage.saveContactSubmission(submission);
+          }
           results["contact-submissions"] = { 
             migrated: submissions.length, 
             errors: [] 
           };
-          console.log(`✅ Migrated ${submissions.length} contact submissions`);
+          console.log(`✅ Migrated ${submissions.length} contact submissions to Postgres`);
         } else {
           results["contact-submissions"] = { migrated: 0, errors: ["No data to migrate"] };
         }
@@ -61,12 +68,18 @@ export async function POST() {
         const requests = JSON.parse(fileContent);
         
         if (Array.isArray(requests) && requests.length > 0) {
-          await Storage.save("quotation-requests", requests);
+          // Save each request to Postgres
+          for (const request of requests) {
+            await PostgresStorage.saveQuotationRequest({
+              ...request,
+              productInterest: request.productInterest || request.product_interest || []
+            });
+          }
           results["quotation-requests"] = { 
             migrated: requests.length, 
             errors: [] 
           };
-          console.log(`✅ Migrated ${requests.length} quotation requests`);
+          console.log(`✅ Migrated ${requests.length} quotation requests to Postgres`);
         } else {
           results["quotation-requests"] = { migrated: 0, errors: ["No data to migrate"] };
         }

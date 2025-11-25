@@ -26,6 +26,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env.local
 .env
 
 # vercel
@@ -35,7 +36,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# contact form submissions
-/data/contact-submissions.json
-/data/quotation-requests.json
+# contact form submissions (local file storage)
+/data/
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { Storage } from "@/lib/storage";
+import { PostgresStorage } from "@/lib/db/storage";
 
 // Initialize Resend only when API key is available (lazy initialization)
 const getResend = () => {
@@ -54,8 +55,13 @@ export async function POST(request: NextRequest) {
 
     let dataSaved = false;
     try {
-      // Save using storage utility (Vercel KV in production, file system in development)
-      await Storage.append("contact-submissions", submissionData);
+      // Initialize Postgres if needed (only runs once)
+      if (process.env.POSTGRES_URL) {
+        await PostgresStorage.initialize();
+      }
+      
+      // Save using storage utility (Postgres in production, file system in development)
+      await Storage.saveContactSubmission(submissionData);
       console.log("✅ Contact submission saved successfully");
       dataSaved = true;
     } catch (saveError: any) {
@@ -165,11 +171,11 @@ export async function POST(request: NextRequest) {
         { status: 200 }
       );
     } else if (emailSent && !dataSaved) {
-      // Email sent but data not saved (likely Vercel KV not configured)
+      // Email sent but data not saved (likely Vercel Postgres not configured)
       return NextResponse.json(
         { 
           message: "Message sent successfully! Check your email for confirmation.",
-          warning: "Your message was sent, but could not be saved to the database. Please set up Vercel KV storage. See VERCEL_KV_SETUP.md for instructions."
+          warning: "Your message was sent, but could not be saved to the database. Please set up Vercel Postgres. See VERCEL_POSTGRES_SETUP.md for instructions."
         },
         { status: 200 }
       );

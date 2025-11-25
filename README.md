@@ -54,10 +54,28 @@ npm run dev
 
 Create a `.env.local` file with:
 
-```
+```env
+# Required for email functionality
+RESEND_API_KEY=re_...
+RESEND_FROM_EMAIL=onboarding@resend.dev
+
+# Optional - for Postgres (get from Vercel Dashboard → Storage → Postgres)
+POSTGRES_URL=postgres://...
+POSTGRES_PRISMA_URL=postgres://...
+POSTGRES_URL_NON_POOLING=postgres://...
+
+# Optional - for maps
 NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_key_here
+
+# Optional - for Instagram feed
 NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN=your_token_here
 ```
+
+**Note**: 
+- If `POSTGRES_URL` is set → Uses Postgres database (same as production)
+- If `POSTGRES_URL` is NOT set → Uses file system (`data/*.json` files)
+
+See `SETUP_COMPLETE.md` for detailed setup instructions.
 
 ## License
 
