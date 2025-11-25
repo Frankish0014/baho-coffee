@@ -7,6 +7,16 @@ import path from "path";
 const isVercel = process.env.VERCEL === "1" || process.env.KV_REST_API_URL;
 const kvConfigured = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
 
+// Debug logging
+if (typeof window === "undefined") {
+  console.log("🔍 Storage Debug Info:");
+  console.log("  - VERCEL env:", process.env.VERCEL);
+  console.log("  - KV_REST_API_URL:", process.env.KV_REST_API_URL ? "✅ Set" : "❌ Not set");
+  console.log("  - KV_REST_API_TOKEN:", process.env.KV_REST_API_TOKEN ? "✅ Set" : "❌ Not set");
+  console.log("  - isVercel:", isVercel);
+  console.log("  - kvConfigured:", kvConfigured);
+}
+
 /**
  * Storage utility that uses Vercel KV in production and file system in development
  */
