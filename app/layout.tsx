@@ -5,6 +5,8 @@ import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import ThemeProvider from "@/components/providers/ThemeProvider";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import CursorTrail from "@/components/effects/CursorTrail";
+import BackgroundParticles from "@/components/effects/BackgroundParticles";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -85,11 +87,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${playfair.variable} font-sans`} suppressHydrationWarning>
+      <body
+        className={`${inter.variable} ${playfair.variable} font-sans relative bg-[#050302] text-gray-900 dark:bg-gray-950`}
+        suppressHydrationWarning
+      >
         <ThemeProvider>
-          <Navigation />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
+          <BackgroundParticles />
+          <CursorTrail />
+          <div className="relative z-10 flex min-h-screen flex-col">
+            <Navigation />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
           <WhatsAppButton />
         </ThemeProvider>
       </body>
