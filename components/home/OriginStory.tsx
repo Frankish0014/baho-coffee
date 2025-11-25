@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { MapPin, Award, Users, Leaf } from "lucide-react";
+import { getAllWashingStations } from "@/lib/washingStationsData";
 
 export default function OriginStory() {
   const [ref, inView] = useInView({
@@ -11,8 +12,10 @@ export default function OriginStory() {
     threshold: 0.2,
   });
 
+  const washingStationsCount = getAllWashingStations().length;
+
   const stats = [
-    { icon: MapPin, value: "13", label: "Washing Stations" },
+    { icon: MapPin, value: washingStationsCount.toString(), label: "Washing Stations" },
     { icon: Users, value: "500+", label: "Farmers" },
     { icon: Award, value: "85+", label: "Quality Score" },
     { icon: Leaf, value: "100%", label: "Sustainable" },
