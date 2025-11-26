@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { MapPin, Coffee, Users, Calendar } from "lucide-react";
 import { WashingStation } from "@/types";
-import { getAllWashingStations } from "@/lib/washingStationsData";
+import { getAllWashingStations } from "@/backend/lib/washingStationsData";
 
 // Get all washing stations
 const stations = getAllWashingStations();

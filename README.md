@@ -42,12 +42,17 @@ npm run dev
 ## Project Structure
 
 ```
-├── app/              # Next.js App Router pages
-├── components/       # React components
-├── lib/             # Utilities and helpers
-├── types/           # TypeScript type definitions
-├── public/          # Static assets
-└── styles/          # Global styles
+├── frontend/         # Frontend code
+│   ├── components/  # React components
+│   └── types/       # TypeScript type definitions
+├── backend/         # Backend code
+│   ├── lib/         # Server-side utilities
+│   ├── data/        # Data files (local dev)
+│   └── scripts/    # Utility scripts
+├── app/             # Next.js App Router (required at root)
+│   └── api/         # API routes
+├── public/          # Static assets (required at root)
+└── ...              # Config files (package.json, tsconfig.json, etc.)
 ```
 
 ## Environment Variables
@@ -73,7 +78,9 @@ NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN=your_token_here
 
 **Note**: 
 - If `POSTGRES_URL` is set → Uses Postgres database (same as production)
-- If `POSTGRES_URL` is NOT set → Uses file system (`data/*.json` files)
+- If `POSTGRES_URL` is NOT set → Uses file system (`backend/data/*.json` files)
+
+See `PROJECT_STRUCTURE.md` for detailed structure documentation.
 
 See `SETUP_COMPLETE.md` for detailed setup instructions.
 

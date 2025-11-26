@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1764017715442",
+    "timestamp": "2025-11-24T20:55:15.442Z",
+    "name": "Frank Ishimwe",
+    "email": "ishimwefrank711@gmail.com",
+    "subject": "Test",
+    "message": "testing"
+  },
+  {
+    "id": "1764017928169",
+    "timestamp": "2025-11-24T20:58:48.169Z",
+    "name": "Ishimwe Frank ",
+    "email": "f.ishimwe@alustudent.com",
+    "subject": "Samples inquiry!",
+    "message": "Hi Baho Team,\nI hope this message finds you well. I'm interested in learning more about your products and would like to request samples to explore potential opportunities with your brand.\nCould you please let me know what samples are available and what information you'd need from me to process this request? I'm happy to provide any details about my business or intended use.\nThank you for your time, and I look forward to hearing from you.\nBest regards,\nFrank Ishimwe\nMarketing/Baho Coffee\n+250782658368"
+  },
+  {
+    "id": "1764018605099",
+    "timestamp": "2025-11-24T21:10:05.099Z",
+    "name": "Frank Ishimwe",
+    "email": "ishimwefrank711@gmail.com",
+    "subject": "Testing emaail functionality",
+    "message": "Testing email functionality"
+  },
+  {
+    "id": "1764019242334",
+    "timestamp": "2025-11-24T21:20:42.334Z",
+    "name": "Frank Ishimwe",
+    "email": "ishimwefrank0014@gmail.com",
+    "subject": "Testing",
+    "message": "Testing\n"
+  },
+  {
+    "id": "1764088418543",
+    "timestamp": "2025-11-25T16:33:38.543Z",
+    "name": "Frank Ishimwe",
+    "email": "ishimwefrank0014@gmail.com",
+    "subject": "Hi Testing",
+    "message": "Testing now!"
+  }
+]

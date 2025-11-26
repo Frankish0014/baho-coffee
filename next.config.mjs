@@ -13,9 +13,15 @@ const nextConfig = {
     pagesBufferLength: 5,
   },
   webpack: (config, { isServer, dev }) => {
-    // Exclude Sanity config files from the build
+    // Configure path aliases for new structure
+    const existingAlias = config.resolve.alias || {};
     config.resolve.alias = {
-      ...config.resolve.alias,
+      ...existingAlias,
+      '@': path.resolve(__dirname),
+      '@/components': path.resolve(__dirname, 'frontend/components'),
+      '@/lib': path.resolve(__dirname, 'backend/lib'),
+      '@/types': path.resolve(__dirname, 'frontend/types'),
+      '@/backend': path.resolve(__dirname, 'backend'),
       'sanity.config': false,
       'sanity.cli': false,
     };

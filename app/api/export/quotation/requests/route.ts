@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { Storage } from "@/lib/storage";
-import { PostgresStorage } from "@/lib/db/storage";
+import { Storage } from "@/backend/lib/storage";
+import { PostgresStorage } from "@/backend/lib/db/storage";
 
 export async function GET() {
   try {

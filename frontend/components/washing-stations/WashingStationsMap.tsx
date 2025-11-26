@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import LeafletLoader from "./LeafletLoader";
-import { getAllWashingStations } from "@/lib/washingStationsData";
+import { getAllWashingStations } from "@/backend/lib/washingStationsData";
 
 // Dynamically import Leaflet components to avoid SSR issues
 const MapContainer = dynamic(

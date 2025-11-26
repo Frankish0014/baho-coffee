@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Coffee, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { CoffeeProduct } from "@/types";
-import { getAllWashingStations } from "@/lib/washingStationsData";
+import { getAllWashingStations } from "@/backend/lib/washingStationsData";
 
 // Generate products from all washing stations
 const washingStations = getAllWashingStations();

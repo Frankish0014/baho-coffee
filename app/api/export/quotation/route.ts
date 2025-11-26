@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-import { Storage } from "@/lib/storage";
-import { PostgresStorage } from "@/lib/db/storage";
+import { Storage } from "@/backend/lib/storage";
+import { PostgresStorage } from "@/backend/lib/db/storage";
 
 // Initialize Resend only when API key is available (lazy initialization)
 const getResend = () => {

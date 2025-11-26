@@ -126,7 +126,7 @@ export class Storage {
     }
 
     try {
-      const dataDir = path.join(process.cwd(), "data");
+      const dataDir = path.join(process.cwd(), "backend", "data");
       if (!existsSync(dataDir)) {
         await mkdir(dataDir, { recursive: true });
       }
@@ -153,7 +153,7 @@ export class Storage {
    */
   private static async loadFromFile(key: string): Promise<any[]> {
     try {
-      const filePath = path.join(process.cwd(), "data", `${key}.json`);
+      const filePath = path.join(process.cwd(), "backend", "data", `${key}.json`);
       if (!existsSync(filePath)) {
         console.log(`ℹ️ No file found: ${filePath}`);
         return [];

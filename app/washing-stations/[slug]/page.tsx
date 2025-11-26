@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import WashingStationDetails from "@/components/washing-stations/WashingStationDetails";
 import { WashingStation } from "@/types";
-import { getWashingStationBySlug } from "@/lib/washingStationsData";
+import { getWashingStationBySlug } from "@/backend/lib/washingStationsData";
 
 // Get washing station by slug
 async function getWashingStation(

@@ -29,8 +29,9 @@ export default function Navigation() {
     { href: "/", label: "Home" },
     { href: "/products", label: "Products" },
     { href: "/washing-stations", label: "Washing Stations" },
-    { href: "/blog", label: "Blog" },
     { href: "/export", label: "Export" },
+    { href: "/sales", label: "Digital Sales" },
+    { href: "/roasters", label: "Roasters" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
   ];

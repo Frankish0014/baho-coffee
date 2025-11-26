@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { MapPin, Award, Users, Leaf } from "lucide-react";
-import { getAllWashingStations } from "@/lib/washingStationsData";
+import { getAllWashingStations } from "@/backend/lib/washingStationsData";
 
 export default function OriginStory() {
   const [ref, inView] = useInView({

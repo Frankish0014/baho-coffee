@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { PostgresStorage } from "@/lib/db/storage";
+import { PostgresStorage } from "@/backend/lib/db/storage";
 
 /**
  * Initialize database tables

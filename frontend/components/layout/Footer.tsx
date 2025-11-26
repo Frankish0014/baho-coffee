@@ -32,7 +32,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-primary-900 dark:from-gray-900 dark:via-gray-900 dark:to-primary-900 text-gray-300 dark:text-gray-300 overflow-hidden transition-colors duration-300">
+    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-primary-900 dark:from-gray-900 dark:via-gray-900 dark:to-primary-900 text-white dark:text-white overflow-hidden transition-colors duration-300">
       {/* Decorative background pattern */}
       <div className="absolute inset-0 opacity-5 dark:opacity-5">
         <div className="absolute inset-0" style={{
@@ -49,8 +49,8 @@ export default function Footer() {
               <Image
                 src="/hero/logo.avif"
                 alt="Baho Coffee"
-                width={180}
-                height={60}
+                width={400}
+                height={100}
                 className="h-16 w-auto brightness-0 invert transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
@@ -69,13 +69,13 @@ export default function Footer() {
                 <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 dark:group-hover:bg-primary-500/20 transition-colors">
                   <Phone className="w-4 h-4 text-primary-400 dark:text-primary-400" />
                 </div>
-                <span className="text-gray-300 dark:text-gray-300 group-hover:text-white dark:group-hover:text-white transition-colors">+250 XXX XXX XXX</span>
+                <span className="text-gray-300 dark:text-gray-300 group-hover:text-white dark:group-hover:text-white transition-colors">+250 788 302 976  </span>
               </div>
               <div className="flex items-center space-x-3 group cursor-pointer">
                 <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 dark:group-hover:bg-primary-500/20 transition-colors">
                   <Mail className="w-4 h-4 text-primary-400 dark:text-primary-400" />
                 </div>
-                <span className="text-gray-300 dark:text-gray-300 group-hover:text-white dark:group-hover:text-white transition-colors">info@bahocoffee.com</span>
+                <span className="text-gray-300 dark:text-gray-300 group-hover:text-white dark:group-hover:text-white transition-colors">bahocoffee@gmail.com</span>
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group flex items-center gap-2 text-gray-300 dark:text-gray-300 hover:text-primary-400 dark:hover:text-primary-400 transition-all duration-300 text-sm"
+                    className="group flex items-center gap-2 !text-white dark:!text-white hover:!text-primary-400 dark:hover:!text-primary-400 transition-all duration-300 text-sm"
                   >
                     <span className="w-0 h-0.5 bg-primary-400 dark:bg-primary-400 group-hover:w-4 transition-all duration-300" />
                     <span className="group-hover:translate-x-1 transition-transform">{link.label}</span>
@@ -106,7 +106,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group flex items-center gap-2 text-gray-300 dark:text-gray-300 hover:text-primary-400 dark:hover:text-primary-400 transition-all duration-300 text-sm"
+                    className="group flex items-center gap-2 !text-white dark:!text-white hover:!text-primary-400 dark:hover:!text-primary-400 transition-all duration-300 text-sm"
                   >
                     <span className="w-0 h-0.5 bg-primary-400 dark:bg-primary-400 group-hover:w-4 transition-all duration-300" />
                     <span className="group-hover:translate-x-1 transition-transform">{link.label}</span>
@@ -124,7 +124,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group flex items-center gap-2 text-gray-300 dark:text-gray-300 hover:text-primary-400 dark:hover:text-primary-400 transition-all duration-300 text-sm"
+                    className="group flex items-center gap-2 !text-white dark:!text-white hover:!text-primary-400 dark:hover:!text-primary-400 transition-all duration-300 text-sm"
                   >
                     <span className="w-0 h-0.5 bg-primary-400 dark:bg-primary-400 group-hover:w-4 transition-all duration-300" />
                     <span className="group-hover:translate-x-1 transition-transform">{link.label}</span>
@@ -153,11 +153,11 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800/50 dark:border-gray-800/50 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400 dark:text-gray-400">
-            <p>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+            <p className="!text-white dark:!text-white">
               © {currentYear} Baho Coffee. All rights reserved.
             </p>
-            <p className="flex items-center gap-2">
+            <p className="flex items-center gap-2 !text-white dark:!text-white">
               Made with <span className="text-red-500 dark:text-red-500 animate-pulse">❤️</span> in Rwanda
             </p>
           </div>

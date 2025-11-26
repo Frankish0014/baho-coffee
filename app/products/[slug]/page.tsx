@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import ProductDetails from "@/components/products/ProductDetails";
 import { CoffeeProduct } from "@/types";
-import { getAllWashingStations } from "@/lib/washingStationsData";
+import { getAllWashingStations } from "@/backend/lib/washingStationsData";
 
 // Generate products dynamically from washing stations (same as ProductsSlider)
 function generateAllProducts(): CoffeeProduct[] {

@@ -17,7 +17,7 @@ const slides = [
     image: "/hero/hero-2.jpg",
     fallback: "/hero-2.jpg",
     title: "Empowering Women in Coffee",
-    subtitle: "Supporting Communities, One Cup at a Time",
+    subtitle: "Supporting Communities, Connecting People Through Coffee",
     accent: "Building Sustainable Futures",
   },
   {
