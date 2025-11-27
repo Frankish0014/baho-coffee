@@ -363,13 +363,14 @@ export default function AboutContent() {
                 </p>
               </div>
             </div>
-            <div className="relative h-full rounded-lg overflow-hidden shadow-xl">
+            <div className="relative w-full h-96 sm:h-80 md:h-96 lg:h-full lg:min-h-[500px] rounded-lg overflow-hidden shadow-xl">
               <Image
                 src="/hero/MD.jpg"
                 alt="Emmanuel Rusatira, CEO of Baho Coffee"
                 fill
                 className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+                priority
               />
             </div>
           </div>

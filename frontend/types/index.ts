@@ -45,6 +45,7 @@ export interface WashingStation {
     photo?: string;
     description?: string;
   };
+  
 }
 
 export interface Farmer {
