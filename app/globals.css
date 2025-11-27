@@ -28,9 +28,26 @@
   }
   
   /* Enhanced typography */
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3, h5, h6 {
     @apply font-serif;
     letter-spacing: -0.02em;
+  }
+  
+  /* Footer headings should be white */
+  footer h4 {
+    color: rgb(255, 255, 255) !important;
+  }
+  
+  /* All footer text content should be white */
+  footer p,
+  footer span:not(footer svg *),
+  footer li {
+    color: rgb(255, 255, 255) !important;
+  }
+  
+  /* Footer icons should be white */
+  footer svg {
+    color: rgb(255, 255, 255) !important;
   }
   
   /* Ensure good contrast for all text */
@@ -46,14 +63,11 @@
   /* Footer links should be white - override global styles with higher specificity */
   footer a,
   footer a.link,
-  footer a[class*="text-white"] {
-    color: white !important;
-  }
-  
-  html.dark footer a,
-  html.dark footer a.link,
-  html.dark footer a[class*="text-white"] {
-    color: white !important;
+  footer a[class*="text-white"],
+  footer ul a,
+  footer li a,
+  footer div a {
+    color: rgb(255, 255, 255) !important;
   }
   
   /* Better contrast for secondary text */
@@ -62,18 +76,15 @@
   }
 }
 
-/* Footer links - outside layer for maximum priority */
+/* Footer links - outside layer for maximum priority - ALWAYS white */
 footer a,
 footer a.group,
 footer a[class*="text-white"],
-footer a[class*="!text-white"] {
-  color: rgb(255, 255, 255) !important;
-}
-
-html.dark footer a,
-html.dark footer a.group,
-html.dark footer a[class*="text-white"],
-html.dark footer a[class*="!text-white"] {
+footer a[class*="!text-white"],
+footer ul a,
+footer li a,
+footer div a,
+footer nav a {
   color: rgb(255, 255, 255) !important;
 }
 

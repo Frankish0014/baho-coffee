@@ -54,7 +54,7 @@ export default function Footer() {
                 className="h-16 w-auto brightness-0 invert transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
-            <p className="text-sm leading-relaxed text-gray-400 dark:text-gray-400">
+            <p className="text-sm leading-relaxed !text-white dark:!text-white">
               Exporting specialty coffee from Rwanda. Connecting farmers
               with the world through exceptional quality and sustainable practices.
             </p>
@@ -63,26 +63,26 @@ export default function Footer() {
                 <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 dark:group-hover:bg-primary-500/20 transition-colors">
                   <MapPin className="w-4 h-4 text-primary-400 dark:text-primary-400" />
                 </div>
-                <span className="text-gray-300 dark:text-gray-300 group-hover:text-white dark:group-hover:text-white transition-colors">Kigali, Rwanda</span>
+                <span className="!text-white dark:!text-white group-hover:!text-white dark:group-hover:!text-white transition-colors">Kigali, Rwanda</span>
               </div>
               <div className="flex items-center space-x-3 group cursor-pointer">
                 <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 dark:group-hover:bg-primary-500/20 transition-colors">
                   <Phone className="w-4 h-4 text-primary-400 dark:text-primary-400" />
                 </div>
-                <span className="text-gray-300 dark:text-gray-300 group-hover:text-white dark:group-hover:text-white transition-colors">+250 788 302 976  </span>
+                <span className="!text-white dark:!text-white group-hover:!text-white dark:group-hover:!text-white transition-colors">+250 788 302 976  </span>
               </div>
               <div className="flex items-center space-x-3 group cursor-pointer">
                 <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 dark:group-hover:bg-primary-500/20 transition-colors">
                   <Mail className="w-4 h-4 text-primary-400 dark:text-primary-400" />
                 </div>
-                <span className="text-gray-300 dark:text-gray-300 group-hover:text-white dark:group-hover:text-white transition-colors">bahocoffee@gmail.com</span>
+                <span className="!text-white dark:!text-white group-hover:!text-white dark:group-hover:!text-white transition-colors">bahocoffee@gmail.com</span>
               </div>
             </div>
           </div>
 
           {/* Company Links */}
           <div>
-            <h4 className="text-white dark:text-white font-semibold mb-6 text-lg">Company</h4>
+            <h4 className="!text-white dark:!text-white font-semibold mb-6 text-lg">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
@@ -100,7 +100,7 @@ export default function Footer() {
 
           {/* Products Links */}
           <div>
-            <h4 className="text-white dark:text-white font-semibold mb-6 text-lg">Products</h4>
+            <h4 className="!text-white dark:!text-white font-semibold mb-6 text-lg">Products</h4>
             <ul className="space-y-3">
               {footerLinks.products.map((link) => (
                 <li key={link.href}>
@@ -118,7 +118,7 @@ export default function Footer() {
 
           {/* Legal & Social */}
           <div>
-            <h4 className="text-white dark:text-white font-semibold mb-6 text-lg">Legal</h4>
+            <h4 className="!text-white dark:!text-white font-semibold mb-6 text-lg">Legal</h4>
             <ul className="space-y-3 mb-8">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
@@ -144,7 +144,7 @@ export default function Footer() {
                     className="group p-3 bg-gray-800/50 dark:bg-gray-800/50 hover:bg-primary-500/20 dark:hover:bg-primary-500/20 rounded-lg transition-all duration-300 hover:scale-110"
                     aria-label={social.label}
                   >
-                    <Icon className="w-5 h-5 text-gray-300 dark:text-gray-300 group-hover:text-primary-400 dark:group-hover:text-primary-400 transition-colors" />
+                    <Icon className="w-5 h-5 !text-white dark:!text-white group-hover:!text-primary-400 dark:group-hover:!text-primary-400 transition-colors" />
                   </a>
                 );
               })}

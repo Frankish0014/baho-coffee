@@ -16,8 +16,15 @@ export default function Navigation() {
   
   // Pages that should have white navigation before scrolling (home page with hero)
   const hasHeroBackground = pathname === "/";
+  
+  // Determine if nav should be white (homepage and not scrolled)
+  // In light mode, nav should be white before scrolling on homepage
+  const shouldBeWhite = hasHeroBackground && !scrolled;
 
   useEffect(() => {
+    // Check initial scroll position
+    setScrolled(window.scrollY > 20);
+    
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
@@ -58,7 +65,9 @@ export default function Navigation() {
                 width={300}
                 height={100}
                 className={`h-16 w-auto transition-all duration-300 ${
-                  (scrolled || !hasHeroBackground) && theme === "light"
+                  shouldBeWhite
+                    ? "brightness-0 invert"
+                    : theme === "light"
                     ? ""
                     : "brightness-0 invert"
                 } group-hover:opacity-90`}
@@ -76,16 +85,22 @@ export default function Navigation() {
                   key={link.href}
                   href={link.href}
                   className={`relative px-4 py-2 rounded-lg transition-all duration-300 font-medium group ${
-                    scrolled || !hasHeroBackground
-                      ? "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-                      : "text-white/90 hover:text-white"
+                    shouldBeWhite
+                      ? "!text-white hover:!text-white"
+                      : theme === "light"
+                      ? "text-gray-700 hover:text-primary-600"
+                      : "text-gray-300 hover:text-primary-400"
                   }`}
                 >
                   <span className="relative z-10">{link.label}</span>
                   {isActive && (
                     <motion.div
                       layoutId="activeNav"
-                      className="absolute inset-0 bg-primary-100/50 dark:bg-primary-900/30 rounded-lg"
+                      className={`absolute inset-0 rounded-lg ${
+                        theme === "light"
+                          ? "bg-primary-100/50"
+                          : "bg-primary-900/30"
+                      }`}
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
                   )}
@@ -101,9 +116,11 @@ export default function Navigation() {
               whileHover={{ scale: 1.1, rotate: 15 }}
               whileTap={{ scale: 0.9 }}
               className={`p-2.5 rounded-xl transition-all duration-300 ${
-                scrolled || !hasHeroBackground
-                  ? "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
-                  : "hover:bg-white/20 text-white"
+                shouldBeWhite
+                  ? "hover:bg-white/20 !text-white"
+                  : theme === "light"
+                  ? "hover:bg-gray-100 text-gray-700"
+                  : "hover:bg-gray-800 text-gray-300"
               }`}
               aria-label="Toggle theme"
             >
@@ -121,9 +138,11 @@ export default function Navigation() {
               onClick={toggleTheme}
               whileTap={{ scale: 0.9 }}
               className={`p-2.5 rounded-xl transition-all ${
-                scrolled
-                  ? "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-300"
-                  : "hover:bg-white/20 text-white"
+                shouldBeWhite
+                  ? "hover:bg-white/20 !text-white"
+                  : theme === "light"
+                  ? "hover:bg-gray-100 text-gray-900"
+                  : "hover:bg-gray-800 text-gray-300"
               }`}
               aria-label="Toggle theme"
             >
@@ -137,9 +156,11 @@ export default function Navigation() {
               onClick={() => setIsOpen(!isOpen)}
               whileTap={{ scale: 0.9 }}
               className={`p-2.5 rounded-xl transition-all ${
-                scrolled || !hasHeroBackground
-                  ? "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-300"
-                  : "hover:bg-white/20 text-white"
+                shouldBeWhite
+                  ? "hover:bg-white/20 !text-white"
+                  : theme === "light"
+                  ? "hover:bg-gray-100 text-gray-900"
+                  : "hover:bg-gray-800 text-gray-300"
               }`}
               aria-label="Toggle menu"
             >
