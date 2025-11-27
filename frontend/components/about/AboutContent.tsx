@@ -396,7 +396,7 @@ export default function AboutContent() {
               <div className="text-primary-100">Washing Stations</div>
             </div>
             <div>
-              <div className="text-4xl font-bold mb-2">2,000-2,500</div>
+              <div className="text-4xl font-bold mb-2">2,000+</div>
               <div className="text-primary-100">Daily Workers</div>
             </div>
             <div>
