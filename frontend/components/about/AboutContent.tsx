@@ -249,12 +249,12 @@ export default function AboutContent() {
             className="h-96 relative rounded-lg overflow-hidden shadow-xl"
           >
             <Image
-              src="/hero/BAHO_27.jpg"
+              src="/hero/baho_team.jpg"
               alt="Baho Coffee team at the washing station"
               fill
               className="object-cover"
               priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              sizes="(max-width: 1024px) 1000vw, 500px vw"
             />
           </motion.div>
         </div>
@@ -363,9 +363,9 @@ export default function AboutContent() {
                 </p>
               </div>
             </div>
-            <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
+            <div className="relative h-full rounded-lg overflow-hidden shadow-xl">
               <Image
-                src="/hero/BAHO_27.jpg"
+                src="/hero/MD.jpg"
                 alt="Emmanuel Rusatira, CEO of Baho Coffee"
                 fill
                 className="object-cover"
@@ -387,19 +387,19 @@ export default function AboutContent() {
           <h2 className="text-4xl font-serif font-bold mb-8">Our Impact</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
-              <div className="text-5xl font-bold mb-2">16,000+</div>
+              <div className="text-4xl font-bold mb-2">16,000+</div>
               <div className="text-primary-100">Smallholder Farmers</div>
             </div>
             <div>
-              <div className="text-5xl font-bold mb-2">15+</div>
+              <div className="text-4xl font-bold mb-2">16+</div>
               <div className="text-primary-100">Washing Stations</div>
             </div>
             <div>
-              <div className="text-5xl font-bold mb-2">2,000-2,500</div>
+              <div className="text-4xl font-bold mb-2">2,000-2,500</div>
               <div className="text-primary-100">Daily Workers</div>
             </div>
             <div>
-              <div className="text-5xl font-bold mb-2">80+</div>
+              <div className="text-4xl font-bold mb-2">80+</div>
               <div className="text-primary-100">Permanent Staff</div>
             </div>
           </div>

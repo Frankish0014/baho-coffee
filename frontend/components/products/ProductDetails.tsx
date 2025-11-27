@@ -12,7 +12,7 @@ import {
   Play,
 } from "lucide-react";
 import { CoffeeProduct } from "@/types";
-import SampleRequestModal from "./SampleRequestModal";
+import SampleRequestModal from "./SampleRequestModal";  
 
 interface ProductDetailsProps {
   product: CoffeeProduct;

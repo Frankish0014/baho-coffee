@@ -9,30 +9,30 @@ import { Testimonial } from "@/types";
 const testimonials: Testimonial[] = [
   {
     id: "1",
-    name: "Sarah Johnson",
-    company: "Blue Mountain Roasters",
-    role: "Head Roaster",
-    country: "USA",
+    name: "Wilden Pretorius",
+    company: "Archer Roasters",
+    role: "Cupper",
+    country: "Dubai",
     content:
       "Baho Coffee consistently delivers exceptional quality. Their washed coffees from stations like Bugoyi and Humure have become customer favorites with their bright, clean profiles.",
     rating: 5,
   },
   {
     id: "2",
-    name: "Michael Chen",
-    company: "Shanghai Coffee Co.",
-    role: "Founder",
-    country: "China",
+    name: "Drew",
+    company: "Three Coffee",
+    role: "Head Roaster",
+    country: "Dubai",
     content:
       "The traceability and transparency that Baho Coffee provides is unmatched. We know exactly where our coffee comes from.",
     rating: 5,
   },
   {
     id: "3",
-    name: "Emma Schmidt",
-    company: "Berlin Specialty Coffee",
-    role: "Buyer",
-    country: "Germany",
+    name: "Ben Bowdoin",
+    company: "Sundog Trading",
+    role: "Founder",
+    country: "USA",
     content:
       "Working with Baho Coffee has been a game-changer. Their commitment to sustainability and quality is evident in every cup.",
     rating: 5,

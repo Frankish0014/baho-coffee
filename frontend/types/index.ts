@@ -40,6 +40,11 @@ export interface WashingStation {
   farmers: Farmer[];
   annualCapacity: string;
   established: number;
+  manager?: {
+    name: string;
+    photo?: string;
+    description?: string;
+  };
 }
 
 export interface Farmer {

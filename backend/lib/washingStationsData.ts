@@ -1,5 +1,25 @@
 import { WashingStation } from "@/types";
 
+/**
+ * WASHING STATIONS DATA FILE
+ * 
+ * To add or update manager information for any washing station:
+ * 1. Find the washing station in the array below
+ * 2. Add or update the "manager" field with:
+ *    - name: Manager's full name
+ *    - photo: Path to manager's photo (e.g., "/washing-stations/managers/john-doe.jpg")
+ *    - description: Important description about the manager
+ * 
+ * Example:
+ * manager: {
+ *   name: "John Doe",
+ *   photo: "/washing-stations/managers/john-doe.jpg",
+ *   description: "John has been managing this station for over 10 years..."
+ * }
+ * 
+ * 3. Save the file and the changes will appear on the website
+ */
+
 // All washing stations data
 export const washingStations: WashingStation[] = [
   {
@@ -12,13 +32,18 @@ export const washingStations: WashingStation[] = [
     },
     description:
       "Humure Coffee Washing Station is dedicated to producing high-quality specialty coffee through sustainable practices and direct partnerships with local farmers.",
-    photos: ["/washing-stations/humure.jpg"],
+    photos: ["/washing-stations/humure.jpg","/washing-stations/shara.jpg","/washing-stations/ngororero.jpg"],
     videos: [],
     processingMethods: ["Washed", "Natural", "Honey", "Other Experimental Methods"],
     varieties: ["Red Bourbon"],
     farmers: [],
     annualCapacity: "180 tons",
     established: 2011,
+    manager: {
+      name: "Nzaramba Straton",
+      photo: "/washing-stations/managers/humure-manager.jpg",
+      description: "Include his experience, achievements or any other.",
+    },
   },
   {
     id: "2",
@@ -37,6 +62,11 @@ export const washingStations: WashingStation[] = [
     farmers: [],
     annualCapacity: "200 tons",
     established: 2010,
+    manager: {
+      name: "Munyangaju Aphordis",
+      photo: "/washing-stations/managers/humure-manager.jpg",
+      description: "Add an important description about the manager here. This could include their experience, achievements, or role at the washing station.",
+    },
   },
   {
     id: "3",

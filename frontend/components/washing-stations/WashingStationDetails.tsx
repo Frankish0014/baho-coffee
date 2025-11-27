@@ -167,22 +167,48 @@ export default function WashingStationDetails({
           </div>
         )}
 
+        {/* Manager */}
+        {station.manager && (
+          <div>
+            <h2 className="text-2xl font-semibold mb-6">Station Manager</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+              <div className="flex flex-col md:flex-row gap-6 items-start">
+                {/* Manager Photo */}
+                {station.manager.photo && (
+                  <div className="relative w-60 h-60 md:w-60 md:h-60 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 flex-shrink-0 mx-auto md:mx-0">
+                    <Image
+                      src={station.manager.photo}
+                      alt={station.manager.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                
+                {/* Manager Info */}
+                <div className="flex-1 text-center md:text-left">
+                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">
+                    {station.manager.name}
+                  </h3>
+                  {station.manager.description && (
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                      {station.manager.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Photos */}
         {station.photos.length > 0 && (
           <div>
-            <h2 className="text-2xl font-semibold mb-6">Photos</h2>
+            <h2 className="text-2xl font-semibold mb-6">Station Photos</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {station.photos.map((photo, index) => (
-                <div
-                  key={index}
-                  className="relative aspect-square rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-800"
-                >
-                  <Image
-                    src={photo}
-                    alt={`${station.name} photo ${index + 1}`}
-                    fill
-                    className="object-cover"
-                  />
+              {station.photos.map((photo) => (
+                <div key={photo}>
+                  <Image src={photo} alt={station.name} width={300} height={300} />
                 </div>
               ))}
             </div>

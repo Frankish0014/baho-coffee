@@ -44,7 +44,7 @@ export default function StorySection() {
                 communities across Rwanda.
               </p>
               <p>
-                Through our partnerships with washing stations across Rwanda, including Humure, Fugi, Gitoki, Muzo, Gakenke, Cyabingo, Ngoma, Akagera, Bugoyi, Matyazo, Bweyeye, Kinazi, and Karambi, we&apos;re able to trace every bean back to its origin, ensuring transparency and quality at every step.
+                Through our washing stations across Rwanda, including Humure, Fugi, Gitoki, Muzo, Gakenke, Cyabingo, Ngoma, Akagera, Bugoyi, Matyazo, Bweyeye, Kinazi, Ngororero, Shangi, Mugera, Shara, and Karambi, we&apos;re able to trace every bean back to its origin, ensuring transparency and quality at every step.
               </p>
             </div>
             <motion.a
@@ -81,7 +81,7 @@ export default function StorySection() {
               className="absolute inset-0"
             >
               <Image
-                src="/hero/BAHO_27.jpg"
+                src="/hero/baho_team.jpg"
                 alt="Baho Coffee Story"
                 fill
                 className="object-cover"
