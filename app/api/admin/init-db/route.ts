@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { PostgresStorage } from "@/backend/lib/db/storage";
+import { PaymentStorage } from "@/backend/lib/db/payments";
 
 /**
  * Initialize database tables
@@ -19,6 +20,7 @@ export async function POST() {
 
     console.log("🔄 Initializing database tables...");
     await PostgresStorage.initialize();
+    await PaymentStorage.initialize();
 
     return NextResponse.json({
       success: true,

@@ -54,6 +54,8 @@ const nextConfig = {
         hostname: "**.cdn.instagram.com",
       },
     ],
+    // Allow unoptimized images in development to avoid 400 errors for missing images
+    unoptimized: process.env.NODE_ENV === "development",
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion", "react-leaflet"],

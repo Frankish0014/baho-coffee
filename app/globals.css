@@ -3,7 +3,42 @@
 /* stylelint-disable-next-line at-rule-no-unknown */
 @tailwind components;
 /* stylelint-disable-next-line at-rule-no-unknown */
-@tailwind utilities;  
+@tailwind utilities;
+
+/* Stripe Elements Styling */
+.StripeElement {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.StripeElement--focus {
+  border-color: #389158;
+  box-shadow: 0 0 0 3px rgba(56, 145, 88, 0.1);
+}
+
+.StripeElement--invalid {
+  border-color: #ef4444;
+}
+
+.StripeElement--complete {
+  border-color: #10b981;
+}
+
+/* Dark mode for Stripe Elements */
+.dark .StripeElement {
+  background-color: #111827;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+.dark .StripeElement--focus {
+  border-color: #389158;
+  box-shadow: 0 0 0 3px rgba(56, 145, 88, 0.2);
+}  
 
 :root {
   --font-inter: 'Inter', system-ui, sans-serif;
