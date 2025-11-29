@@ -2,13 +2,31 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function StorySection() {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.2,
+    threshold: 0.01, // Lower threshold for mobile
+    rootMargin: "0px 0px -10% 0px",
   });
+  
+  const [hasAnimated, setHasAnimated] = useState(false);
+  
+  useEffect(() => {
+    if (inView) {
+      setHasAnimated(true);
+    } else {
+      // Fallback: show content after 500ms
+      const timer = setTimeout(() => {
+        setHasAnimated(true);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [inView]);
+
+  const shouldAnimate = inView || hasAnimated;
 
   return (
     <section ref={ref} className="relative py-24 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 overflow-hidden">
@@ -20,7 +38,7 @@ export default function StorySection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            animate={shouldAnimate ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
@@ -71,7 +89,7 @@ export default function StorySection() {
 
           <motion.div
             initial={{ opacity: 0, x: 50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            animate={shouldAnimate ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl group"
           >
