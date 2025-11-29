@@ -1,15 +1,10 @@
 export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-11-23'
 
-export const dataset = assertValue(
-  process.env.NEXT_PUBLIC_SANITY_DATASET,
-  'Missing environment variable: NEXT_PUBLIC_SANITY_DATASET'
-)
+// Sanity is optional - only throw errors if actually trying to use it
+export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
 
-export const projectId = assertValue(
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  'Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID'
-)
+export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || ''
 
 function assertValue<T>(v: T | undefined, errorMessage: string): T {
   if (v === undefined) {
@@ -17,4 +12,9 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
   }
 
   return v
+}
+
+// Helper to check if Sanity is configured
+export const isSanityConfigured = (): boolean => {
+  return !!(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && process.env.NEXT_PUBLIC_SANITY_DATASET)
 }

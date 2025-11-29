@@ -9,8 +9,15 @@
     "lint": "next lint",
     "verify-setup": "node scripts/verify-setup.js"
   },
+
+  "overrides": {
+    "pg": "npm:@neondatabase/serverless@^1.0.0"
+  },
+  
   "dependencies": {
+    "pg": "npm:@neondatabase/serverless@^1.0.0",
     "@hookform/resolvers": "^3.3.4",
+    "@neondatabase/serverless": "^1.0.2",
     "@react-google-maps/api": "^2.20.7",
     "@stripe/react-stripe-js": "^5.4.1",
     "@stripe/stripe-js": "^8.5.3",

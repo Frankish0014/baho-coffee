@@ -1,14 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Coffee, Users, Award, TrendingUp, Mail, Calendar, 
-  FileText, BarChart, Handshake, Target, Zap, Globe
+  FileText, BarChart, Handshake, Target, Zap, Globe, CheckCircle2, X
 } from "lucide-react";
 
 export default function RoasterPortal() {
   const [activeTab, setActiveTab] = useState<"overview" | "resources" | "connect">("overview");
+  const [formData, setFormData] = useState({
+    companyName: "",
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
 
   const benefits = [
     {
@@ -37,6 +48,57 @@ export default function RoasterPortal() {
       description: "Explore partnership opportunities with our roasters",
     },
   ];
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
+    try {
+      const response = await fetch("/api/roasters/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // Show success message
+        let successMessage = data.message || "Message sent successfully!";
+        
+        // If email is not configured, show a different message
+        if (data.emailConfigured === false) {
+          successMessage = "Your message has been received and saved! We'll contact you soon.";
+        } else if (data.saved && !data.emailConfigured) {
+          successMessage = "Your message has been received and saved! We'll contact you soon. (Email notifications are not configured.)";
+        }
+        
+        setSubmitStatus({
+          type: "success",
+          message: successMessage,
+        });
+        // Reset form
+        setFormData({ companyName: "", name: "", email: "", message: "" });
+      } else {
+        const errorMessage = data.error || data.message || "Failed to send message. Please try again.";
+        setSubmitStatus({
+          type: "error",
+          message: errorMessage,
+        });
+      }
+    } catch (error: any) {
+      console.error("Network Error:", error);
+      setSubmitStatus({
+        type: "error",
+        message: error.message || "An error occurred. Please check your connection and try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const resources = [
     {
@@ -206,49 +268,110 @@ export default function RoasterPortal() {
             <p className="text-gray-600 dark:text-gray-400 mb-8">
               Ready to start a partnership? Get in touch with our roaster relations team.
             </p>
-            <form className="space-y-6">
+            <form 
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
-                  Company Name
+                  Company Name *
                 </label>
                 <input
                   type="text"
+                  required
+                  value={formData.companyName}
+                  onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
-                  Your Name
+                  Your Name *
                 </label>
                 <input
                   type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
-                  Email
+                  Email *
                 </label>
                 <input
                   type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
-                  Message
+                  Message *
                 </label>
                 <textarea
                   rows={5}
+                  required
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500"
                   placeholder="Tell us about your roastery and what you're looking for..."
                 />
               </div>
+
+              <AnimatePresence>
+                {submitStatus.type && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className={`p-4 rounded-lg flex items-start gap-3 ${
+                      submitStatus.type === "success"
+                        ? "bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 border border-green-200 dark:border-green-800"
+                        : "bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800"
+                    }`}
+                  >
+                    {submitStatus.type === "success" ? (
+                      <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                    ) : (
+                      <X className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                    )}
+                    <div className="flex-1">
+                      <p className="font-medium mb-1">
+                        {submitStatus.type === "success" ? "Message Sent Successfully!" : "Error"}
+                      </p>
+                      <p className="text-sm">{submitStatus.message}</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setSubmitStatus({ type: null, message: "" })}
+                      className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
               >
-                Send Message
+                {isSubmitting ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Mail className="w-5 h-5" />
+                    Send Message
+                  </>
+                )}
               </button>
             </form>
           </motion.div>

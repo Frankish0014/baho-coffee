@@ -8,6 +8,7 @@ import { CoffeeProduct } from "@/types";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import PaymentForm from "./PaymentForm";
+import { BANK_DETAILS } from "@/config/bankDetails";
 
 // Lazy load Stripe only when needed
 const getStripePromise = () => {
@@ -597,16 +598,69 @@ export default function DigitalSales() {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
+  const [lastPaymentMethod, setLastPaymentMethod] = useState<"card" | "bank" | null>(null);
 
-  const handlePaymentSuccess = (orderId: string, total: number) => {
-    setOrderId(orderId);
+  const handlePaymentSuccess = (newOrderId: string, total: number, method: string) => {
+    setOrderId(newOrderId);
     setOrderTotal(total);
+    setLastPaymentMethod(method === "bank" ? "bank" : "card");
     setCheckoutStep("confirmation");
     setCart([]);
+    setPaymentError(null);
   };
 
   const handlePaymentError = (error: string) => {
     setPaymentError(error);
+  };
+
+  const submitBankTransferOrder = async () => {
+    if (cart.length === 0) {
+      return;
+    }
+
+    try {
+      setIsProcessingPayment(true);
+      setPaymentError(null);
+
+      const paymentItems = cart.map((item) => ({
+        productId: item.product.id,
+        productName: item.product.name,
+        quantity: item.quantity,
+        price: item.product.price || 0,
+        total: (item.product.price || 0) * item.quantity,
+      }));
+
+      const response = await fetch("/api/payments/bank-transfer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          customerName: checkoutData.name,
+          customerEmail: checkoutData.email,
+          customerPhone: checkoutData.phone,
+          shippingAddress: checkoutData.address,
+          shippingCity: checkoutData.city,
+          shippingCountry: checkoutData.country,
+          shippingZip: checkoutData.zipCode,
+          items: paymentItems,
+          amount: totalCartValue,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create bank transfer order.");
+      }
+
+      handlePaymentSuccess(data.orderId, totalCartValue, "bank");
+    } catch (error: any) {
+      const message = error?.message || "Unable to process bank transfer request.";
+      setPaymentError(message);
+    } finally {
+      setIsProcessingPayment(false);
+    }
   };
 
   const handleBackToCart = () => {
@@ -1019,6 +1073,11 @@ export default function DigitalSales() {
               {/* Payment Step */}
               {checkoutStep === "payment" && (
                 <>
+                  {paymentError && (
+                    <div className="mb-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                      <p className="text-sm text-red-700 dark:text-red-300">{paymentError}</p>
+                    </div>
+                  )}
                   {stripePromise ? (
                     <Elements stripe={stripePromise}>
                       <PaymentForm
@@ -1043,8 +1102,8 @@ export default function DigitalSales() {
                       />
                     </Elements>
                   ) : (
-                    <div className="p-6">
-                      <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-4">
+                    <div className="p-6 space-y-5">
+                      <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
                         <p className="text-sm text-yellow-800 dark:text-yellow-200">
                           ⚠️ Stripe payment is not configured. Please add your <code className="bg-yellow-100 dark:bg-yellow-900 px-1 rounded">NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY</code> to your environment variables.
                         </p>
@@ -1052,18 +1111,49 @@ export default function DigitalSales() {
                       {checkoutData.paymentMethod === "bank" ? (
                         <div className="space-y-4">
                           <p className="text-gray-600 dark:text-gray-400">
-                            For bank transfer, please contact us directly to complete your order.
+                            You can still place your order via bank transfer. Use the details below and we'll email you the confirmation.
                           </p>
+                          <div className="bg-primary-50 dark:bg-primary-900/10 border border-primary-100 dark:border-primary-900/30 rounded-lg p-4 text-left space-y-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-700 dark:text-gray-200">
+                              <div>
+                                <p className="text-xs uppercase text-gray-500 tracking-wider">Account Name</p>
+                                <p className="font-medium">{BANK_DETAILS.accountName}</p>
+                              </div>
+                              <div>
+                                <p className="text-xs uppercase text-gray-500 tracking-wider">Bank</p>
+                                <p className="font-medium">{BANK_DETAILS.bankName}</p>
+                              </div>
+                              <div>
+                                <p className="text-xs uppercase text-gray-500 tracking-wider">Account / IBAN</p>
+                                <p className="font-medium break-words">{BANK_DETAILS.accountNumber} / {BANK_DETAILS.iban}</p>
+                              </div>
+                              <div>
+                                <p className="text-xs uppercase text-gray-500 tracking-wider">SWIFT</p>
+                                <p className="font-medium">{BANK_DETAILS.swiftCode}</p>
+                              </div>
+                            </div>
+                            <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                              {BANK_DETAILS.instructions.map((instruction, index) => (
+                                <li key={index}>{instruction}</li>
+                              ))}
+                            </ul>
+                          </div>
                           <button
-                            onClick={() => {
-                              const currentTotal = cart.reduce((sum, item) => sum + ((item.product.price || 0) * item.quantity), 0);
-                              setOrderTotal(currentTotal);
-                              setCheckoutStep("confirmation");
-                              setCart([]);
-                            }}
-                            className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 rounded-lg font-semibold transition-colors"
+                            onClick={submitBankTransferOrder}
+                            disabled={isProcessingPayment}
+                            className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
                           >
-                            Complete Order (Bank Transfer)
+                            {isProcessingPayment ? (
+                              <>
+                                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                Processing...
+                              </>
+                            ) : (
+                              <>
+                                Complete Order (Bank Transfer)
+                                <CheckCircle2 className="w-5 h-5" />
+                              </>
+                            )}
                           </button>
                         </div>
                       ) : (
@@ -1096,10 +1186,12 @@ export default function DigitalSales() {
                     <CheckCircle2 className="w-12 h-12 text-green-600 dark:text-green-400" />
                   </motion.div>
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                    Order Confirmed!
+                    {lastPaymentMethod === "bank" ? "Awaiting Bank Transfer" : "Order Confirmed!"}
                   </h2>
                   <p className="text-gray-600 dark:text-gray-400 mb-6">
-                    Thank you for your order. We've sent a confirmation email to {checkoutData.email}
+                    {lastPaymentMethod === "bank"
+                      ? `We've emailed bank transfer instructions to ${checkoutData.email}. Your order ships as soon as we confirm the funds.`
+                      : `Thank you for your order. We've sent a confirmation email to ${checkoutData.email}`}
                   </p>
                   {orderId && (
                     <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
@@ -1113,10 +1205,53 @@ export default function DigitalSales() {
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       <strong>Shipping to:</strong> {checkoutData.address}, {checkoutData.city}, {checkoutData.country}
                     </p>
+                    {lastPaymentMethod === "bank" && (
+                      <p className="text-sm text-yellow-700 dark:text-yellow-300 mt-3">
+                        Status: Pending bank transfer confirmation
+                      </p>
+                    )}
                   </div>
+                  {lastPaymentMethod === "bank" && (
+                    <div className="bg-primary-50 dark:bg-primary-900/10 border border-primary-100 dark:border-primary-800 rounded-lg p-5 text-left mb-6">
+                      <h3 className="text-lg font-semibold text-primary-900 dark:text-primary-200 mb-3">
+                        Bank Transfer Details
+                      </h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-700 dark:text-gray-300 mb-4">
+                        <div>
+                          <p className="text-xs uppercase text-gray-500 tracking-wider">Account Name</p>
+                          <p className="font-medium">{BANK_DETAILS.accountName}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs uppercase text-gray-500 tracking-wider">Bank</p>
+                          <p className="font-medium">{BANK_DETAILS.bankName}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs uppercase text-gray-500 tracking-wider">Account / IBAN</p>
+                          <p className="font-medium break-words">{BANK_DETAILS.accountNumber} / {BANK_DETAILS.iban}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs uppercase text-gray-500 tracking-wider">SWIFT</p>
+                          <p className="font-medium">{BANK_DETAILS.swiftCode}</p>
+                        </div>
+                      </div>
+                      <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-300 space-y-1 mb-4">
+                        {BANK_DETAILS.instructions.map((instruction, index) => (
+                          <li key={index}>{instruction}</li>
+                        ))}
+                      </ul>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">
+                        Send payment proof to <span className="font-medium">{BANK_DETAILS.contactEmail}</span> or{" "}
+                        <span className="font-medium">{BANK_DETAILS.contactPhone}</span>. Your reservation is held for{" "}
+                        {BANK_DETAILS.paymentDeadlineHours} hours.
+                      </p>
+                    </div>
+                  )}
                   <button
                     onClick={() => {
                       setCheckoutStep(null);
+                      setLastPaymentMethod(null);
+                      setOrderId(null);
+                      setOrderTotal(0);
                       setCheckoutData({
                         name: "",
                         email: "",

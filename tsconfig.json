@@ -25,7 +25,8 @@
       "@/lib/*": ["./backend/lib/*"],
       "@/types": ["./frontend/types"],
       "@/types/*": ["./frontend/types/*"],
-      "@/backend/*": ["./backend/*"]
+      "@/backend/*": ["./backend/*"],
+      "@/config/*": ["./config/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

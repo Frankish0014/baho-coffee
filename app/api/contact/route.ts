@@ -14,15 +14,6 @@ const getResend = () => {
 
 export async function POST(request: NextRequest) {
   try {
-    // Check if Resend API key is configured
-    if (!process.env.RESEND_API_KEY) {
-      console.error("RESEND_API_KEY is not set in environment variables");
-      return NextResponse.json(
-        { error: "Email service is not configured. Please contact the administrator." },
-        { status: 500 }
-      );
-    }
-
     const body = await request.json();
     const { name, email, subject, message } = body;
 
@@ -67,26 +58,24 @@ export async function POST(request: NextRequest) {
     } catch (saveError: any) {
       console.error("❌ Error saving submission:", saveError);
       console.error("Error details:", saveError?.message);
-      // Log the error but continue - email will still be sent
-      // The error will be included in the response
+      // Continue - email will still be attempted
     }
 
-    // Send confirmation email to the user
+    // Check if Resend API key is configured
+    const hasResendKey = !!process.env.RESEND_API_KEY;
+
+    // Send confirmation email to the user (if Resend is configured)
     // Note: For testing, use onboarding@resend.dev. For production, verify your domain in Resend
     const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
-    
-    console.log("=== EMAIL SENDING ATTEMPT ===");
-    console.log("From:", fromEmail);
-    console.log("To:", email);
-    console.log("API Key present:", !!process.env.RESEND_API_KEY);
-    console.log("API Key first 10 chars:", process.env.RESEND_API_KEY?.substring(0, 10) + "...");
+    const adminEmail = process.env.ADMIN_EMAIL || "bahocoffee@gmail.com";
     
     let emailSent = false;
     let emailError: any = null;
     
     const resend = getResend();
-    if (!resend) {
-      console.error("RESEND_API_KEY is not configured - skipping email");
+    if (!hasResendKey || !resend) {
+      console.warn("⚠️ RESEND_API_KEY is not configured - skipping email");
+      console.warn("💡 To enable email notifications, add RESEND_API_KEY to your .env.local file");
     } else {
       try {
         const emailResult = await resend.emails.send({
@@ -167,38 +156,74 @@ export async function POST(request: NextRequest) {
     // Return response based on email and save status
     if (emailSent && dataSaved) {
       return NextResponse.json(
-        { message: "Message sent successfully! Check your email for confirmation." },
+        { 
+          message: "Message sent successfully! Check your email inbox (not spam) for confirmation.",
+          success: true 
+        },
         { status: 200 }
       );
     } else if (emailSent && !dataSaved) {
-      // Email sent but data not saved (likely Vercel Postgres not configured)
       return NextResponse.json(
         { 
-          message: "Message sent successfully! Check your email for confirmation.",
-          warning: "Your message was sent, but could not be saved to the database. Please set up Vercel Postgres. See VERCEL_POSTGRES_SETUP.md for instructions."
+          message: "Message sent successfully! Check your email inbox (not spam) for confirmation.",
+          warning: "Your message was sent, but could not be saved to the database.",
+          success: true
         },
         { status: 200 }
       );
     } else if (!emailSent && dataSaved) {
-      // Data was saved, but email failed
-      const errorMsg = emailError?.message || "Unknown error";
-      console.error("Returning error response to client");
-      return NextResponse.json(
-        { 
-          error: `Your message was saved, but we couldn't send the confirmation email. Error: ${errorMsg}. Please contact us directly if needed.`,
-          saved: true // Indicate data was saved
-        },
-        { status: 500 }
-      );
+      // Message saved but email not sent (either not configured or failed)
+      if (!hasResendKey) {
+        return NextResponse.json(
+          { 
+            message: "Your message has been received and saved! We'll contact you soon. (Email notifications are not configured on this server.)",
+            success: true,
+            saved: true,
+            emailConfigured: false
+          },
+          { status: 200 }
+        );
+      } else {
+        const errorMsg = emailError?.message || "Unknown error";
+        return NextResponse.json(
+          { 
+            message: "Your message has been received and saved! However, we couldn't send a confirmation email. We'll contact you directly.",
+            success: true,
+            saved: true,
+            emailError: errorMsg
+          },
+          { status: 200 }
+        );
+      }
+    } else if (!emailSent && !dataSaved) {
+      // Neither email nor save worked
+      if (!hasResendKey) {
+        return NextResponse.json(
+          { 
+            error: "Your message could not be saved. Please try again or contact us directly. (Email service is not configured.)",
+            saved: false,
+            emailConfigured: false
+          },
+          { status: 500 }
+        );
+      } else {
+        const errorMsg = emailError?.message || "Unknown error";
+        return NextResponse.json(
+          { 
+            error: `Failed to send message and save data. Error: ${errorMsg}. Please try again or contact us directly.`,
+            saved: false
+          },
+          { status: 500 }
+        );
+      }
     } else {
-      // Both failed
-      const errorMsg = emailError?.message || "Unknown error";
+      // This shouldn't happen, but handle it
       return NextResponse.json(
         { 
-          error: `Failed to send message and save data. Email error: ${errorMsg}. Please try again or contact us directly.`,
-          saved: false
+          message: "Your message has been received! We'll contact you soon.",
+          success: true
         },
-        { status: 500 }
+        { status: 200 }
       );
     }
   } catch (error: any) {

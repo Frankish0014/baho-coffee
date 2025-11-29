@@ -3,6 +3,7 @@
 import { useState, FormEvent } from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { CreditCard, CheckCircle2, ArrowLeft, X } from "lucide-react";
+import { BANK_DETAILS } from "@/config/bankDetails";
 
 interface PaymentFormProps {
   amount: number;
@@ -24,7 +25,7 @@ interface PaymentFormProps {
     total: number;
   }>;
   onBack: () => void;
-  onSuccess: (orderId: string, total: number) => void;
+  onSuccess: (orderId: string, total: number, method: string) => void;
   onError: (error: string) => void;
   onPaymentMethodChange?: (method: string) => void;
 }
@@ -48,8 +49,51 @@ export default function PaymentForm({
     e.preventDefault();
 
     if (paymentMethod === "bank") {
-      // For bank transfer, just show confirmation
-      onSuccess("", amount);
+      try {
+        setIsProcessing(true);
+        setError(null);
+
+        const paymentItems = items.map((item) => ({
+          productId: item.productId,
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          total: item.total,
+        }));
+
+        const response = await fetch("/api/payments/bank-transfer", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            customerName: checkoutData.name,
+            customerEmail: checkoutData.email,
+            customerPhone: checkoutData.phone,
+            shippingAddress: checkoutData.address,
+            shippingCity: checkoutData.city,
+            shippingCountry: checkoutData.country,
+            shippingZip: checkoutData.zipCode,
+            items: paymentItems,
+            amount,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to create bank transfer request");
+        }
+
+        onSuccess(data.orderId, amount, "bank");
+      } catch (err: any) {
+        const errorMessage =
+          err.message || "Bank transfer request failed. Please try again.";
+        setError(errorMessage);
+        onError(errorMessage);
+      } finally {
+        setIsProcessing(false);
+      }
       return;
     }
 
@@ -146,7 +190,7 @@ export default function PaymentForm({
           throw new Error("Failed to confirm payment");
         }
 
-        onSuccess(data.orderId, totalCartValue);
+        onSuccess(data.orderId, totalCartValue, "card");
       }
     } catch (err: any) {
       const errorMessage = err.message || "Payment failed. Please try again.";
@@ -257,6 +301,43 @@ export default function PaymentForm({
           </div>
         )}
 
+        {paymentMethod === "bank" && (
+          <div className="space-y-4 bg-primary-50 dark:bg-primary-900/10 border border-primary-100 dark:border-primary-900/40 rounded-lg p-4">
+            <div>
+              <p className="text-sm font-semibold text-primary-800 dark:text-primary-200 mb-3">
+                Complete your transfer within {BANK_DETAILS.paymentDeadlineHours} hours to secure your order.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-700 dark:text-gray-300">
+                <div>
+                  <p className="text-gray-500 text-xs uppercase tracking-wider">Account Name</p>
+                  <p className="font-medium">{BANK_DETAILS.accountName}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500 text-xs uppercase tracking-wider">Bank</p>
+                  <p className="font-medium">{BANK_DETAILS.bankName}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500 text-xs uppercase tracking-wider">Account / IBAN</p>
+                  <p className="font-medium break-words">{BANK_DETAILS.accountNumber} / {BANK_DETAILS.iban}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500 text-xs uppercase tracking-wider">SWIFT</p>
+                  <p className="font-medium">{BANK_DETAILS.swiftCode}</p>
+                </div>
+              </div>
+            </div>
+            <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-300 space-y-1">
+              {BANK_DETAILS.instructions.map((instruction, index) => (
+                <li key={index}>{instruction}</li>
+              ))}
+            </ul>
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              Send proof of payment to <span className="font-medium">{BANK_DETAILS.contactEmail}</span> or{" "}
+              <span className="font-medium">{BANK_DETAILS.contactPhone}</span> so we can finalize your order quickly.
+            </p>
+          </div>
+        )}
+
         {error && (
           <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
             <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
@@ -282,7 +363,7 @@ export default function PaymentForm({
             </button>
             <button
               type="submit"
-              disabled={!stripe || isProcessing}
+              disabled={(paymentMethod === "card" && !stripe) || isProcessing}
               className="flex-1 bg-primary-600 hover:bg-primary-700 text-white py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isProcessing ? (

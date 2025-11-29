@@ -311,7 +311,10 @@ export default function ExportPortal() {
             <p className="text-gray-700 dark:text-gray-300 mb-6">
               Contact our export team for personalized pricing based on your needs, volume, and partnership goals.
             </p>
-            <button className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+            <button 
+              onClick={() => setActiveTab("request")}
+              className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+            >
               Request Custom Quote
             </button>
           </section>

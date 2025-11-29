@@ -11,9 +11,7 @@ export default function ContactInfo() {
             <div>
               <h3 className="font-semibold mb-1">Address</h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Kigali, Rwanda
-                <br />
-                (Office address to be added)
+                Kimihurura, Rugando, Kigali, Rwanda
               </p>
             </div>
           </div>
@@ -23,7 +21,9 @@ export default function ContactInfo() {
             <div>
               <h3 className="font-semibold mb-1">Phone</h3>
               <p className="text-gray-600 dark:text-gray-400">
-                +250 XXX XXX XXX
+                <a href="tel:+250788302976" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                  +250 788 302 976
+                </a>
               </p>
             </div>
           </div>
@@ -33,7 +33,9 @@ export default function ContactInfo() {
             <div>
               <h3 className="font-semibold mb-1">Email</h3>
               <p className="text-gray-600 dark:text-gray-400">
-                info@bahocoffee.com
+                <a href="mailto:bahocoffee@gmail.com" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                  bahocoffee@gmail.com
+                </a>
               </p>
             </div>
           </div>
@@ -43,11 +45,11 @@ export default function ContactInfo() {
             <div>
               <h3 className="font-semibold mb-1">Business Hours</h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Monday - Friday: 9:00 AM - 5:00 PM
+                Monday - Friday: 8:00 AM - 5:00 PM
                 <br />
-                Saturday: 9:00 AM - 1:00 PM
+                Saturday: 8:00 AM - 1:00 PM
                 <br />
-                Sunday: Closed
+                Sunday: Not in office, But flexibly available.
               </p>
             </div>
           </div>

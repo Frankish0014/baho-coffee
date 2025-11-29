@@ -31,20 +31,27 @@ export default function ContactForm() {
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (response.ok && data.success) {
+        // Show success message
+        let successMessage = data.message || "Message sent successfully!";
+        
+        // If email is not configured, show a different message
+        if (data.emailConfigured === false) {
+          successMessage = "Your message has been received and saved! We'll contact you soon.";
+        } else if (data.saved && !data.emailConfigured) {
+          successMessage = "Your message has been received and saved! We'll contact you soon. (Email notifications are not configured.)";
+        }
+        
         setSubmitStatus({
           type: "success",
-          message: data.message || "Message sent successfully! Check your email for confirmation.",
+          message: successMessage,
         });
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
-        console.error("API Error Response:", data);
-        console.error("Response Status:", response.status);
-        // Show error even if data was saved
         const errorMessage = data.error || data.message || "Failed to send message. Please try again.";
         setSubmitStatus({
           type: "error",
-          message: errorMessage + (data.saved ? " (Your message was saved, but email failed.)" : ""),
+          message: errorMessage,
         });
       }
     } catch (error: any) {
