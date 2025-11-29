@@ -27,6 +27,25 @@ export interface PaymentData {
   metadata?: Record<string, any>;
 }
 
+interface PaymentRow {
+  id: string;
+  order_id: string;
+  customer_name: string;
+  customer_email: string;
+  customer_phone?: string | null;
+  shipping_address: string;
+  shipping_city: string;
+  shipping_country: string;
+  shipping_zip?: string | null;
+  payment_method: string;
+  payment_status: string;
+  stripe_payment_intent_id?: string | null;
+  amount: string | number;
+  currency: string;
+  items: PaymentItem[];
+  metadata?: Record<string, any> | null;
+}
+
 export class PaymentStorage {
   /**
    * Check if Postgres is configured
@@ -181,24 +200,24 @@ export class PaymentStorage {
         return null;
       }
 
-      const row = result.rows[0];
+      const row = result.rows[0] as any;
       return {
         id: row.id,
         orderId: row.order_id,
         customerName: row.customer_name,
         customerEmail: row.customer_email,
-        customerPhone: row.customer_phone,
+        customerPhone: row.customer_phone || undefined,
         shippingAddress: row.shipping_address,
         shippingCity: row.shipping_city,
         shippingCountry: row.shipping_country,
-        shippingZip: row.shipping_zip,
+        shippingZip: row.shipping_zip || undefined,
         paymentMethod: row.payment_method,
-        paymentStatus: row.payment_status,
-        stripePaymentIntentId: row.stripe_payment_intent_id,
-        amount: parseFloat(row.amount),
+        paymentStatus: row.payment_status as PaymentData["paymentStatus"],
+        stripePaymentIntentId: row.stripe_payment_intent_id || undefined,
+        amount: parseFloat(String(row.amount)),
         currency: row.currency,
         items: row.items,
-        metadata: row.metadata,
+        metadata: row.metadata || undefined,
       };
     } catch (error) {
       console.error("Error getting payment:", error);
@@ -221,23 +240,23 @@ export class PaymentStorage {
         LIMIT ${limit}
       `;
 
-      return result.rows.map((row) => ({
+      return result.rows.map((row: any) => ({
         id: row.id,
         orderId: row.order_id,
         customerName: row.customer_name,
         customerEmail: row.customer_email,
-        customerPhone: row.customer_phone,
+        customerPhone: row.customer_phone || undefined,
         shippingAddress: row.shipping_address,
         shippingCity: row.shipping_city,
         shippingCountry: row.shipping_country,
-        shippingZip: row.shipping_zip,
+        shippingZip: row.shipping_zip || undefined,
         paymentMethod: row.payment_method,
-        paymentStatus: row.payment_status,
-        stripePaymentIntentId: row.stripe_payment_intent_id,
-        amount: parseFloat(row.amount),
+        paymentStatus: row.payment_status as PaymentData["paymentStatus"],
+        stripePaymentIntentId: row.stripe_payment_intent_id || undefined,
+        amount: parseFloat(String(row.amount)),
         currency: row.currency,
         items: row.items,
-        metadata: row.metadata,
+        metadata: row.metadata || undefined,
       }));
     } catch (error) {
       console.error("Error getting payments:", error);

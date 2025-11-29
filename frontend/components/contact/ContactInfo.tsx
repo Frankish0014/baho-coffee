@@ -11,7 +11,7 @@ export default function ContactInfo() {
             <div>
               <h3 className="font-semibold mb-1">Address</h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Kimihurura, Rugando, Kigali, Rwanda
+                Kimihurura, Rugando,  Kigali, Rwanda
               </p>
             </div>
           </div>
