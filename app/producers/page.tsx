@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ProducerResources from "@/components/producers/ProducerResources";
+import ProducersPageClient from "./ProducersPageClient";
 
 export const metadata: Metadata = {
   title: "Digital Marketing for Producers",
@@ -8,10 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function ProducersPage() {
-  return (
-    <div className="pt-20 pb-20 bg-white dark:bg-gray-900 transition-colors duration-300 min-h-screen">
-      <ProducerResources />
-    </div>
-  );
+  return <ProducersPageClient />;
 }
 

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import AboutContent from "@/components/about/AboutContent";
+import AboutPageClient from "./AboutPageClient";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -8,10 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return (
-    <div className="pt-20 pb-20 bg-white dark:bg-gray-900 transition-colors duration-300 min-h-screen">
-      <AboutContent />
-    </div>
-  );
+  return <AboutPageClient />;
 }
 

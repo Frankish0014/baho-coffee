@@ -1,18 +1,12 @@
-import { Metadata } from "next";
+"use client";
+
 import Image from "next/image";
 import ProductsSlider from "@/components/products/ProductsSlider";
 import ProductsFilter from "@/components/products/ProductsFilter";
-import ProductsPageClient from "./ProductsPageClient";
+import { PageAnimation } from "@/components/ui/PageAnimation";
+import { motion } from "framer-motion";
 
-export const metadata: Metadata = {
-  title: "Products",
-  description:
-    "Explore our selection of Rwandan specialty coffees. Each coffee is carefully selected and traceable to its origin.",
-};
-
-export default function ProductsPage() {
-  return <ProductsPageClient />;
-}
+export default function ProductsPageClient() {
   return (
     <div className="pt-20 pb-20 bg-white dark:bg-gray-900 transition-colors duration-300 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import RoasterPortal from "@/components/roasters/RoasterPortal";
+import RoastersPageClient from "./RoastersPageClient";
 
 export const metadata: Metadata = {
   title: "Roaster Portal",
@@ -8,10 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function RoastersPage() {
-  return (
-    <div className="pt-20 pb-20 bg-white dark:bg-gray-900 transition-colors duration-300 min-h-screen">
-      <RoasterPortal />
-    </div>
-  );
+  return <RoastersPageClient />;
 }
 

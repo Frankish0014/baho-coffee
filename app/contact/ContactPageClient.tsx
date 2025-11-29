@@ -1,15 +1,10 @@
-import { Metadata } from "next";
-import ContactPageClient from "./ContactPageClient";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Contact Us",
-  description:
-    "Get in touch with Baho Coffee. We're here to answer your questions about our coffee, exports, and partnerships.",
-};
+import ContactForm from "@/components/contact/ContactForm";
+import ContactInfo from "@/components/contact/ContactInfo";
+import { PageAnimation, PageHeader } from "@/components/ui/PageAnimation";
 
-export default function ContactPage() {
-  return <ContactPageClient />;
-}
+export default function ContactPageClient() {
   return (
     <div className="pt-20 pb-20 bg-white dark:bg-gray-900 transition-colors duration-300 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
