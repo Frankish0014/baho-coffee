@@ -6,6 +6,8 @@ import Footer from "@/components/layout/Footer";
 import ThemeProvider from "@/components/providers/ThemeProvider";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import CursorTrail from "@/components/effects/CursorTrail";
+import CookieConsent from "@/components/analytics/CookieConsent";
+import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -91,6 +93,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider>
+          <AnalyticsProvider />
           <CursorTrail />
           <div className="relative z-10 flex min-h-screen flex-col">
             <Navigation />
@@ -98,6 +101,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <WhatsAppButton />
+          <CookieConsent />
         </ThemeProvider>
       </body>
     </html>

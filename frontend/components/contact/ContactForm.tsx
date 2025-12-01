@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackEvent } from "@/components/analytics/GoogleAnalytics";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -32,6 +33,9 @@ export default function ContactForm() {
       const data = await response.json();
 
       if (response.ok && data.success) {
+        // Track successful form submission
+        trackEvent("submit", "contact_form", "Contact Form Submitted", 1);
+        
         // Show success message
         let successMessage = data.message || "Message sent successfully!";
         
@@ -48,6 +52,8 @@ export default function ContactForm() {
         });
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
+        // Track form submission error
+        trackEvent("error", "contact_form", "Contact Form Error", 0);
         const errorMessage = data.error || data.message || "Failed to send message. Please try again.";
         setSubmitStatus({
           type: "error",

@@ -8,8 +8,8 @@ import Link from "next/link";
 
 // Instagram posts using available photos
 const instagramPosts = [
-  { id: "1", image: "/hero/BAHO_27.jpg", url: "https://instagram.com/bahocoffee" },
-  { id: "2", image: "/hero/BAHO_29.jpg", url: "https://instagram.com/bahocoffee" },
+  { id: "1", image: "/hero/casual.jpg", url: "https://instagram.com/bahocoffee" },
+  { id: "2", image: "/hero/BAHO_31 (1).jpg", url: "https://instagram.com/bahocoffee" },
   { id: "3", image: "/hero/BAHO_31 (1).jpg", url: "https://instagram.com/bahocoffee" },
   { id: "4", image: "/hero/BAHO_32 (1).jpg", url: "https://instagram.com/bahocoffee" },
   { id: "5", image: "/hero/BAHO_35.jpg", url: "https://instagram.com/bahocoffee" },

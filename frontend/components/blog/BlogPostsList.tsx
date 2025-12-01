@@ -17,7 +17,7 @@ const blogPosts: BlogPost[] = [
     content: "",
     author: "Baho Coffee Team",
     publishedAt: "2024-01-15",
-    image: "/hero/BAHO_27.jpg",
+    image: "/hero/casual.jpg",
     category: "farming",
     tags: ["processing", "education"],
   },

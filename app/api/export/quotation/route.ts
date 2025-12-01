@@ -218,15 +218,15 @@ We typically respond to quotation requests within 24-48 hours during business da
 For inquiries, please contact:
 Export Department
 Email: export@bahocoffee.com
-Phone: +250 XXX XXX XXX
+Phone: +250 788 302 976
 Website: www.bahocoffee.com
 
 Best regards,
 The Baho Coffee Export Team
 
 ---
-Baho Coffee Company | Kigali, Rwanda
-Exporting specialty coffee from Rwanda to the world
+Baho Coffee Company Ltd | Kigali, Rwanda
+Exporting Specialty coffee from Rwanda to the world
       `.trim();
 
       console.log("Sending email with:", {
@@ -237,10 +237,10 @@ Exporting specialty coffee from Rwanda to the world
       });
 
       const emailResult = await resend.emails.send({
-        from: `Baho Coffee <${fromEmail}>`,
+        from: `Baho Coffee Company Ltd<${fromEmail}>`,
         to: email,
         // replyTo removed - can cause issues if domain not verified
-        subject: `Quotation Request Acknowledgment - ${quotationNumber} | Baho Coffee`,
+        subject: `Quotation Request Acknowledgment - ${quotationNumber} | Baho Coffee Company Ltd`,
         text: plainText, // Add plain text version
         html: `
           <!DOCTYPE html>
@@ -248,7 +248,7 @@ Exporting specialty coffee from Rwanda to the world
             <head>
               <meta charset="utf-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>Quotation Request Acknowledgment - Baho Coffee</title>
+              <title>Quotation Request Acknowledgment - Baho Coffee Coffee Company</title>
             </head>
             <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f5f5f5;">
               <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 20px;">
@@ -370,7 +370,7 @@ Exporting specialty coffee from Rwanda to the world
                                 <p style="margin: 0 0 10px 0; font-size: 13px; color: #333; font-weight: 600;">For inquiries, please contact:</p>
                                 <p style="margin: 0 0 5px 0; font-size: 12px; color: #666;"><strong>Export Department</strong></p>
                                 <p style="margin: 0 0 3px 0; font-size: 12px; color: #666;">Email: <a href="mailto:export@bahocoffee.com" style="color: #8B4513; text-decoration: underline;">export@bahocoffee.com</a></p>
-                                <p style="margin: 0 0 3px 0; font-size: 12px; color: #666;">Phone: +250 XXX XXX XXX</p>
+                                <p style="margin: 0 0 3px 0; font-size: 12px; color: #666;">Phone: +250 788 302 976</p>
                                 <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">Website: <a href="https://bahocoffee.com" style="color: #8B4513; text-decoration: underline;">bahocoffee.com</a></p>
                               </td>
                             </tr>
@@ -392,10 +392,10 @@ Exporting specialty coffee from Rwanda to the world
                       <tr>
                         <td style="background-color: #2c2c2c; padding: 20px 30px; text-align: center;">
                           <p style="margin: 0 0 8px 0; font-size: 11px; color: #999;">
-                            <strong style="color: #fff;">Baho Coffee Company</strong> | Kigali, Rwanda
+                            <strong style="color: #fff;">Baho Coffee Company Ltd</strong> | Kigali, Rwanda
                           </p>
                           <p style="margin: 0 0 5px 0; font-size: 10px; color: #999;">
-                            Exporting specialty coffee from Rwanda to the world
+                            Exporting Specialty coffee from Rwanda to the world
                           </p>
                           <p style="margin: 10px 0 0 0; font-size: 10px; color: #666;">
                             This email and any attachments are confidential and intended solely for the addressee. If you are not the intended recipient, please delete this email and notify the sender immediately.

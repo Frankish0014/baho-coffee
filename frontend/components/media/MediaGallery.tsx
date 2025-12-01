@@ -17,7 +17,7 @@ const tabs = [
 // All images organized by category
 const imageCategories = {
   hero: [
-    { src: "/hero/BAHO_27.jpg", alt: "Baho Coffee" },
+    { src: "/hero/casual.jpg", alt: "Baho Coffee" },
     { src: "/hero/BAHO_29.jpg", alt: "Baho Coffee" },
     { src: "/hero/BAHO_31 (1).jpg", alt: "Baho Coffee" },
     { src: "/hero/BAHO_32 (1).jpg", alt: "Baho Coffee" },
@@ -36,7 +36,7 @@ const imageCategories = {
     { src: "/hero/Export.png", alt: "Export" },
   ],
   products: [
-    { src: "/products/BAHO_27.jpg", alt: "Baho Coffee Product" },
+    { src: "/products/casual.jpg", alt: "Baho Coffee Product" },
     { src: "/products/BAHO_29.jpg", alt: "Baho Coffee Product" },
     { src: "/products/BAHO_31 (1).jpg", alt: "Baho Coffee Product" },
     { src: "/products/BAHO_32 (1).jpg", alt: "Baho Coffee Product" },
@@ -203,7 +203,7 @@ export default function MediaGallery() {
       {activeTab === "videos" && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
-            { title: "Coffee Processing at Washing Station", thumbnail: "/hero/BAHO_27.jpg" },
+            { title: "Coffee Processing at Washing Station", thumbnail: "/hero/casual.jpg" },
             { title: "Farm to Cup Journey", thumbnail: "/hero/BAHO_29.jpg" },
             { title: "Sustainable Farming Practices", thumbnail: "/hero/BAHO_35.jpg" },
             { title: "Women in Coffee", thumbnail: "/hero/BAHO_61.jpg" },

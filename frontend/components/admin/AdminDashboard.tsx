@@ -187,19 +187,19 @@ export default function AdminDashboard() {
                                 {submission.name}
                               </h3>
                             </div>
-                            <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400 ml-8">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0 text-sm text-gray-600 dark:text-gray-400 ml-8">
                               <div className="flex items-center space-x-1">
-                                <Mail className="w-4 h-4" />
+                                <Mail className="w-4 h-4 flex-shrink-0" />
                                 <a
                                   href={`mailto:${submission.email}`}
-                                  className="hover:text-primary-600 hover:underline"
+                                  className="hover:text-primary-600 hover:underline break-all"
                                 >
                                   {submission.email}
                                 </a>
                               </div>
                               <div className="flex items-center space-x-1">
-                                <Calendar className="w-4 h-4" />
-                                <span>{formatDate(submission.timestamp)}</span>
+                                <Calendar className="w-4 h-4 flex-shrink-0" />
+                                <span className="whitespace-nowrap">{formatDate(submission.timestamp)}</span>
                               </div>
                             </div>
                           </div>
@@ -293,29 +293,29 @@ export default function AdminDashboard() {
                               </div>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-600 dark:text-gray-400 ml-8 mt-2">
                                 <div className="flex items-center space-x-1">
-                                  <Mail className="w-4 h-4" />
+                                  <Mail className="w-4 h-4 flex-shrink-0" />
                                   <a
                                     href={`mailto:${quotation.email}`}
-                                    className="hover:text-primary-600 hover:underline"
+                                    className="hover:text-primary-600 hover:underline break-all"
                                   >
                                     {quotation.email}
                                   </a>
                                 </div>
                                 <div className="flex items-center space-x-1">
-                                  <Phone className="w-4 h-4" />
-                                  <span>{quotation.phone}</span>
+                                  <Phone className="w-4 h-4 flex-shrink-0" />
+                                  <span className="break-all">{quotation.phone}</span>
                                 </div>
                                 <div className="flex items-center space-x-1">
-                                  <Building2 className="w-4 h-4" />
-                                  <span>{quotation.company}</span>
+                                  <Building2 className="w-4 h-4 flex-shrink-0" />
+                                  <span className="break-words">{quotation.company}</span>
                                 </div>
                                 <div className="flex items-center space-x-1">
-                                  <Globe className="w-4 h-4" />
-                                  <span>{quotation.country}</span>
+                                  <Globe className="w-4 h-4 flex-shrink-0" />
+                                  <span className="break-words">{quotation.country}</span>
                                 </div>
-                                <div className="flex items-center space-x-1">
-                                  <Calendar className="w-4 h-4" />
-                                  <span>{formatDate(quotation.timestamp)}</span>
+                                <div className="flex items-center space-x-1 md:col-span-2">
+                                  <Calendar className="w-4 h-4 flex-shrink-0" />
+                                  <span className="whitespace-nowrap">{formatDate(quotation.timestamp)}</span>
                                 </div>
                               </div>
                             </div>

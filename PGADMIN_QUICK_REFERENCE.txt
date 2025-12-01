@@ -1,0 +1,56 @@
+═══════════════════════════════════════════════════════════════
+  QUICK REFERENCE: pgAdmin Connection Details
+═══════════════════════════════════════════════════════════════
+
+SERVER NAME: Neon Database (or any name you prefer)
+
+CONNECTION TAB:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Host name/address: ep-divine-tree-ahtojv7c-pooler.c-3.us-east-1.aws.neon.tech
+Port:              5432
+Maintenance db:    neondb
+Username:          neondb_owner
+Password:          npg_RsaNZtw0WF1D
+☑ Save password:   YES (check this box)
+
+SSL TAB (CRITICAL!):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SSL mode:          Require  ⚠️ NOT "Prefer" or "Disable"
+
+═══════════════════════════════════════════════════════════════
+  NAVIGATION PATH TO TABLES
+═══════════════════════════════════════════════════════════════
+
+Servers
+  └─ Neon Database
+      └─ Databases
+          └─ neondb
+              └─ Schemas
+                  └─ public
+                      └─ Tables
+                          ├─ contact_submissions
+                          ├─ quotation_requests
+                          └─ payments
+
+═══════════════════════════════════════════════════════════════
+  QUICK SQL QUERIES
+═══════════════════════════════════════════════════════════════
+
+-- View all contact submissions
+SELECT * FROM contact_submissions ORDER BY timestamp DESC;
+
+-- View all quotation requests
+SELECT * FROM quotation_requests ORDER BY timestamp DESC;
+
+-- Count records
+SELECT COUNT(*) FROM contact_submissions;
+SELECT COUNT(*) FROM quotation_requests;
+
+═══════════════════════════════════════════════════════════════
+  IF TABLES DON'T EXIST
+═══════════════════════════════════════════════════════════════
+
+Visit: http://localhost:3000/api/admin/init-db
+
+═══════════════════════════════════════════════════════════════
+
