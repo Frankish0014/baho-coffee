@@ -92,12 +92,27 @@ export default function WashingStationsMap() {
               position={station.location.coordinates}
             >
               <Popup>
-                <div>
-                  <h3 className="font-semibold mb-1">{station.name}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{station.description}</p>
+                <div className="p-2">
+                  <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">{station.name}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{station.location.address}</p>
+                  {station.location.altitude && (
+                    <p className="text-xs text-gray-500 dark:text-gray-500 mb-1">
+                      <span className="font-medium">Altitude:</span> {station.location.altitude}
+                    </p>
+                  )}
+                  {station.location.latitude && (
+                    <p className="text-xs text-gray-500 dark:text-gray-500 mb-1">
+                      <span className="font-medium">Latitude:</span> {station.location.latitude}
+                    </p>
+                  )}
+                  {station.location.longitude && (
+                    <p className="text-xs text-gray-500 dark:text-gray-500 mb-1">
+                      <span className="font-medium">Longitude:</span> {station.location.longitude}
+                    </p>
+                  )}
                   <a
                     href={`/washing-stations/${station.slug}`}
-                    className="text-primary-600 hover:underline text-sm"
+                    className="text-primary-600 hover:underline text-sm mt-2 inline-block"
                   >
                     View Details →
                   </a>

@@ -25,10 +25,9 @@ export default function Footer() {
   };
 
   const socialLinks = [
-    { icon: Facebook, href: "https://facebook.com/bahocoffee", label: "Facebook" },
+    // { icon: Facebook, href: "https://facebook.com/bahocoffee", label: "Facebook" },
     { icon: Instagram, href: "https://instagram.com/bahocoffee", label: "Instagram" },
-    { icon: Twitter, href: "https://twitter.com/bahocoffee", label: "Twitter" },
-    { icon: Linkedin, href: "https://linkedin.com/company/bahocoffee", label: "LinkedIn" },
+    // { icon: Linkedin, href: "https://linkedin.com/company/bahocoffee", label: "LinkedIn" },
   ];
 
   return (
@@ -115,7 +114,6 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-
           {/* Legal & Social */}
           <div>
             <h4 className="!text-white dark:!text-white font-semibold mb-6 text-lg">Legal</h4>

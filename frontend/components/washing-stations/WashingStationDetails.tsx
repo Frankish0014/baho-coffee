@@ -19,6 +19,10 @@ const Marker = dynamic(
   () => import("react-leaflet").then((mod) => mod.Marker),
   { ssr: false }
 );
+const Popup = dynamic(
+  () => import("react-leaflet").then((mod) => mod.Popup),
+  { ssr: false }
+);
 
 interface WashingStationDetailsProps {
   station: WashingStation;
@@ -63,6 +67,24 @@ export default function WashingStationDetails({
                   <MapPin className="w-5 h-5 text-primary-600" />
                   <span>{station.location.address}</span>
                 </div>
+                {station.location.altitude && (
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Altitude:</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">{station.location.altitude}</span>
+                  </div>
+                )}
+                {station.location.latitude && (
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Latitude:</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">{station.location.latitude}</span>
+                  </div>
+                )}
+                {station.location.longitude && (
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Longitude:</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">{station.location.longitude}</span>
+                  </div>
+                )}
                 <div className="flex items-center space-x-2">
                   <Calendar className="w-5 h-5 text-primary-600" />
                   <span>Established: {station.established}</span>
@@ -125,7 +147,29 @@ export default function WashingStationDetails({
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   />
-                  <Marker position={station.location.coordinates} />
+                  <Marker position={station.location.coordinates}>
+                    <Popup>
+                      <div className="p-2">
+                        <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">{station.name}</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{station.location.address}</p>
+                        {station.location.altitude && (
+                          <p className="text-xs text-gray-500 dark:text-gray-500 mb-1">
+                            <span className="font-medium">Altitude:</span> {station.location.altitude}
+                          </p>
+                        )}
+                        {station.location.latitude && (
+                          <p className="text-xs text-gray-500 dark:text-gray-500 mb-1">
+                            <span className="font-medium">Latitude:</span> {station.location.latitude}
+                          </p>
+                        )}
+                        {station.location.longitude && (
+                          <p className="text-xs text-gray-500 dark:text-gray-500 mb-1">
+                            <span className="font-medium">Longitude:</span> {station.location.longitude}
+                          </p>
+                        )}
+                      </div>
+                    </Popup>
+                  </Marker>
                 </MapContainer>
               </div>
             ) : (

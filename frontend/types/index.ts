@@ -31,6 +31,9 @@ export interface WashingStation {
   location: {
     address: string;
     coordinates: [number, number]; // [lat, lng]
+    altitude?: string; // Altitude in meters
+    longitude?: string; // Longitude in degrees
+    latitude?: string; // Latitude in degrees
   };
   description: string;
   photos: string[];

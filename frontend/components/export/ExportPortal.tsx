@@ -35,7 +35,7 @@ export default function ExportPortal() {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 dark:bg-primary-900/30 rounded-full mb-6">
               <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
               <span className="text-sm font-medium text-primary-700 dark:text-primary-300">
-                Premium Green Coffee
+                Specialty Green Coffee
               </span>
             </div>
             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 text-gray-900 dark:text-white">
