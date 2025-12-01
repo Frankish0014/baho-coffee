@@ -26,7 +26,7 @@ export default function TermsOfServicePage() {
           {/* Introduction */}
           <section className="mb-8">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              Welcome to Baho Coffee Company ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, services, and products. By accessing or using our services, you agree to be bound by these Terms.
+              Welcome to Baho Coffee Company (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). These Terms of Service (&quot;Terms&quot;) govern your access to and use of our website, services, and products. By accessing or using our services, you agree to be bound by these Terms.
             </p>
           </section>
 
@@ -171,7 +171,7 @@ export default function TermsOfServicePage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">11. Changes to Terms</h2>
             <p className="text-gray-700 dark:text-gray-300">
-              We reserve the right to modify these Terms at any time. We will notify you of any material changes by posting the updated Terms on this page and updating the "Last updated" date. Your continued use of our services after such changes constitutes acceptance of the modified Terms.
+              We reserve the right to modify these Terms at any time. We will notify you of any material changes by posting the updated Terms on this page and updating the &quot;Last updated&quot; date. Your continued use of our services after such changes constitutes acceptance of the modified Terms.
             </p>
           </section>
 
