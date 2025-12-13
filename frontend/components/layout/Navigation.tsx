@@ -65,11 +65,9 @@ export default function Navigation() {
                 width={300}
                 height={100}
                 className={`h-16 w-auto transition-all duration-300 ${
-                  shouldBeWhite
+                  shouldBeWhite || theme === "dark"
                     ? "brightness-0 invert"
-                    : theme === "light"
-                    ? ""
-                    : "brightness-0 invert"
+                    : ""
                 } group-hover:opacity-90`}
                 priority
               />

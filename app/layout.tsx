@@ -5,7 +5,9 @@ import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import ThemeProvider from "@/components/providers/ThemeProvider";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import AIAgentWidget from "@/components/ui/AIAgentWidget";
 import CursorTrail from "@/components/effects/CursorTrail";
+import SuppressMetaMaskErrors from "@/components/effects/SuppressMetaMaskErrors";
 import CookieConsent from "@/components/analytics/CookieConsent";
 import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 
@@ -94,6 +96,7 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <AnalyticsProvider />
+          <SuppressMetaMaskErrors />
           <CursorTrail />
           <div className="relative z-10 flex min-h-screen flex-col">
             <Navigation />
@@ -101,6 +104,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <WhatsAppButton />
+          <AIAgentWidget />
           <CookieConsent />
         </ThemeProvider>
       </body>
