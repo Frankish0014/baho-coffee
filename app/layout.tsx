@@ -9,6 +9,7 @@ import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import AIAgentWidget from "@/components/ui/AIAgentWidget";
 import CursorTrail from "@/components/effects/CursorTrail";
 import SuppressMetaMaskErrors from "@/components/effects/SuppressMetaMaskErrors";
+import ChunkLoadErrorHandler from "@/components/effects/ChunkLoadErrorHandler";
 import CookieConsent from "@/components/analytics/CookieConsent";
 import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 import WhiteFavicon from "@/components/ui/WhiteFavicon";
@@ -45,10 +46,10 @@ export const metadata: Metadata = {
   creator: "Baho Coffee",
   publisher: "Baho Coffee",
   metadataBase: new URL("https://bahocoffee.com"),
-  // Icons are handled by WhiteFavicon component for white favicon
+  // Icons - WhiteFavicon component overrides for dark mode; this prevents 404
   icons: {
-    icon: [],
-    apple: [],
+    icon: [{ url: "/hero/logo.avif", type: "image/avif" }],
+    apple: [{ url: "/hero/logo.avif", type: "image/avif" }],
   },
   openGraph: {
     type: "website",
@@ -104,7 +105,7 @@ export default function RootLayout({
       >
         <Script
           id="suppress-metamask-script"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -154,7 +155,7 @@ export default function RootLayout({
         />
         <Script
           id="white-favicon-script"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -244,6 +245,7 @@ export default function RootLayout({
         <ThemeProvider>
           <AnalyticsProvider />
           <SuppressMetaMaskErrors />
+          <ChunkLoadErrorHandler />
           <CursorTrail />
           <div className="relative z-10 flex min-h-screen flex-col">
             <Navigation />

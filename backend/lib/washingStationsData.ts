@@ -44,7 +44,7 @@ export const washingStations: WashingStation[] = [
     established: 2011,
     manager: {
       name: "Nzaramba Straton",
-      photo: "/washing-stations/managers/straton.jpg",
+      photo: "/washing-stations/managers/Straton Nzaramba.jpg",
       description: "Experience, achievements or any other.",
     },
   },

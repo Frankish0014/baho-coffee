@@ -13,6 +13,11 @@ const nextConfig = {
     pagesBufferLength: 5,
   },
   webpack: (config, { isServer, dev }) => {
+    // Increase chunk loading timeout (default 12s) - helps with slow networks/CDN
+    if (!isServer) {
+      config.output = config.output || {};
+      config.output.chunkLoadTimeout = 30000;
+    }
     // Configure path aliases for new structure
     const existingAlias = config.resolve.alias || {};
     config.resolve.alias = {
