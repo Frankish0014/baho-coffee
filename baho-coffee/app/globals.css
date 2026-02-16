@@ -1,0 +1,229 @@
+/* stylelint-disable-next-line at-rule-no-unknown */
+@tailwind base;
+/* stylelint-disable-next-line at-rule-no-unknown */
+@tailwind components;
+/* stylelint-disable-next-line at-rule-no-unknown */
+@tailwind utilities;
+
+/* Stripe Elements Styling */
+.StripeElement {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.StripeElement--focus {
+  border-color: #389158;
+  box-shadow: 0 0 0 3px rgba(56, 145, 88, 0.1);
+}
+
+.StripeElement--invalid {
+  border-color: #ef4444;
+}
+
+.StripeElement--complete {
+  border-color: #10b981;
+}
+
+/* Dark mode for Stripe Elements */
+.dark .StripeElement {
+  background-color: #111827;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+.dark .StripeElement--focus {
+  border-color: #389158;
+  box-shadow: 0 0 0 3px rgba(56, 145, 88, 0.2);
+}  
+
+:root {
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-playfair: 'Playfair Display', serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+    @apply antialiased;
+    @apply transition-colors duration-300;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  
+  /* Smooth theme transitions */
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    @apply transition-colors duration-300;
+  }
+  
+  /* Enhanced typography */
+  h1, h2, h3, h5, h6 {
+    @apply font-serif;
+    letter-spacing: -0.02em;
+  }
+  
+  /* Footer headings should be white */
+  footer h4 {
+    color: rgb(255, 255, 255) !important;
+  }
+  
+  /* All footer text content should be white */
+  footer p,
+  footer span:not(footer svg *),
+  footer li {
+    color: rgb(255, 255, 255) !important;
+  }
+  
+  /* Footer icons should be white */
+  footer svg {
+    color: rgb(255, 255, 255) !important;
+  }
+  
+  /* Ensure good contrast for all text */
+  p, span, div, li {
+    @apply text-gray-900 dark:text-gray-100;
+  }
+  
+  /* Links inherit from parent or use explicit classes - exclude footer */
+  a:not(footer a) {
+    @apply text-gray-900 dark:text-gray-100;
+  }
+  
+  /* Leaflet map zoom controls - make icons black */
+  .leaflet-control-zoom-in,
+  .leaflet-control-zoom-out {
+    color: #000000 !important;
+    background-color: #ffffff !important;
+    border-color: #cccccc !important;
+  }
+  
+  .leaflet-control-zoom-in:hover,
+  .leaflet-control-zoom-out:hover {
+    background-color: #f0f0f0 !important;
+    color: #000000 !important;
+  }
+  
+  .leaflet-control-zoom-in:active,
+  .leaflet-control-zoom-out:active {
+    background-color: #e0e0e0 !important;
+    color: #000000 !important;
+  }
+
+  /* Footer links should be white - override global styles with higher specificity */
+  footer a,
+  footer a.link,
+  footer a[class*="text-white"],
+  footer ul a,
+  footer li a,
+  footer div a {
+    color: rgb(255, 255, 255) !important;
+  }
+  
+  /* Better contrast for secondary text */
+  .text-secondary {
+    @apply text-gray-600 dark:text-gray-300;
+  }
+}
+
+/* Footer links - outside layer for maximum priority - ALWAYS white */
+footer a,
+footer a.group,
+footer a[class*="text-white"],
+footer a[class*="!text-white"],
+footer ul a,
+footer li a,
+footer div a,
+footer nav a {
+  color: rgb(255, 255, 255) !important;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-800;
+  }
+  
+  .gradient-coffee {
+    @apply bg-gradient-to-br from-coffee-400 via-coffee-600 to-coffee-800;
+  }
+  
+  /* Modern glassmorphism */
+  .glass {
+    @apply bg-white/10 dark:bg-gray-900/10 backdrop-blur-xl border border-white/20 dark:border-gray-800/20;
+  }
+  
+  .glass-strong {
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200/50 dark:border-gray-800/50;
+  }
+  
+  /* Coffee-themed gradients */
+  .gradient-coffee-warm {
+    @apply bg-gradient-to-br from-coffee-500 via-coffee-600 to-primary-700;
+  }
+  
+  .gradient-coffee-cool {
+    @apply bg-gradient-to-br from-primary-500 via-primary-600 to-coffee-700;
+  }
+  
+  /* Interactive hover effects */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+  
+  .hover-glow {
+    @apply transition-shadow duration-300 hover:shadow-xl hover:shadow-primary-500/20;
+  }
+  
+  /* Smooth transitions */
+  .transition-smooth {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  /* Text gradients */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-coffee {
+    @apply bg-gradient-to-r from-coffee-600 to-coffee-800 bg-clip-text text-transparent;
+  }
+}
+
+/* Leaflet map styles */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(243 244 246); /* gray-100 */
+}
+
+.dark ::-webkit-scrollbar-track {
+  background-color: rgb(31 41 55); /* gray-800 */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #389158; /* primary-500 */
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #2a7445; /* primary-600 */
+}
+
