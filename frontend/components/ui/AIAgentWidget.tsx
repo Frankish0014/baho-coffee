@@ -13,10 +13,10 @@ interface Message {
 }
 
 const QUICK_QUESTIONS = [
-  "What products do you have?",
-  "Tell me about your washing stations",
+  "What coffees do you have with berry or fruity notes?",
+  "Tell me about Humure washing station",
+  "What are the latest trends in specialty coffee?",
   "How can I place an order?",
-  "Do you ship internationally?",
 ];
 
 export default function AIAgentWidget() {
@@ -26,7 +26,7 @@ export default function AIAgentWidget() {
     {
       id: "1",
       role: "assistant",
-      content: "Hello! I'm Baho Coffee's assistant. I can help you learn about our Rwandan specialty coffee, answer questions about our products, washing stations, or help you with orders. How can I assist you today?",
+      content: "Hello! I'm Baho Coffee's assistant. I can search our products, washing stations, and blog to give you accurate, up-to-date answers. Ask me about specific coffees, flavors, regions, or how to order—I'll look it up for you!",
       timestamp: new Date(),
     },
   ]);
@@ -392,7 +392,7 @@ export default function AIAgentWidget() {
                     </button>
                   </div>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-                    Ask about our products, washing stations, orders, or anything else!
+                    I can search products, stations & blog—try &quot;coffees with berry notes&quot; or &quot;tell me about Humure&quot;
                   </p>
                 </div>
               </motion.div>

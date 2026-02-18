@@ -6,9 +6,11 @@ export default function WhiteFavicon() {
   useEffect(() => {
     // Function to create white favicon - runs immediately and consistently
     const createWhiteFavicon = () => {
-      // Remove existing favicon links
+      // Remove existing favicon links (guard: only if still in DOM to avoid removeChild of null)
       const existingLinks = document.querySelectorAll('link[rel*="icon"], link[rel*="shortcut"]');
-      existingLinks.forEach((link) => link.remove());
+      existingLinks.forEach((link) => {
+        if (link.parentNode) link.remove();
+      });
 
       // Create canvas to apply white filter
       const canvas = document.createElement("canvas");

@@ -39,6 +39,9 @@ next-env.d.ts
 # contact form submissions (local file storage)
 /data/
 
+# local dev data (newsletter, contact submissions, etc.)
+backend/data/*.json
+
 # shell history and config (may contain API keys, SSH credentials)
 .bash_history
 .bash_profile

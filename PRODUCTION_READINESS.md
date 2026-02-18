@@ -40,6 +40,8 @@ Before deploying, ensure these are set in your hosting platform:
 - `RESEND_FROM_EMAIL` - Email address for sending emails
 
 **Optional but Recommended:**
+- `OPENAI_API_KEY` - For AI chatbot (Ask Baho) with reasoning and tool use
+- `SERPER_API_KEY` - For AI web search (industry trends, Rwanda news, external data). Get free tier at serper.dev
 - `POSTGRES_URL` - For database storage (if using)
 - `STRIPE_SECRET_KEY` - For payment processing
 - `STRIPE_PUBLISHABLE_KEY` - For payment processing (public)

@@ -1,4 +1,7 @@
 import { sql, isPostgresConfigured } from "./connection";
+import { writeFile, mkdir, readFile } from "fs/promises";
+import { existsSync } from "fs";
+import path from "path";
 
 export interface NewsletterSubscriber {
   id: string;
@@ -64,10 +67,6 @@ export class NewsletterStorage {
    * Subscribe an email to the newsletter
    */
   static async subscribe(email: string): Promise<{ success: boolean; message: string; alreadySubscribed?: boolean }> {
-    if (!this.isPostgresConfigured()) {
-      throw new Error("Postgres is not configured");
-    }
-
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -76,6 +75,10 @@ export class NewsletterStorage {
 
     const id = `NEWS-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
     const normalizedEmail = email.toLowerCase().trim();
+
+    if (!this.isPostgresConfigured()) {
+      return this.subscribeToFile(normalizedEmail, id);
+    }
 
     try {
       await sql`
@@ -118,14 +121,63 @@ export class NewsletterStorage {
   }
 
   /**
+   * File-based fallback for local development when Postgres is not configured
+   */
+  private static async subscribeToFile(
+    normalizedEmail: string,
+    id: string
+  ): Promise<{ success: boolean; message: string; alreadySubscribed?: boolean }> {
+    if (process.env.VERCEL === "1") {
+      throw new Error("Postgres is not configured. Please set POSTGRES_URL on Vercel.");
+    }
+
+    const dataDir = path.join(process.cwd(), "backend", "data");
+    const filePath = path.join(dataDir, "newsletter-subscribers.json");
+
+    let subscribers: NewsletterSubscriber[] = [];
+    if (existsSync(filePath)) {
+      const content = await readFile(filePath, "utf-8");
+      const parsed = JSON.parse(content);
+      subscribers = Array.isArray(parsed) ? parsed : [];
+    }
+
+    const existing = subscribers.find((s) => s.email === normalizedEmail);
+    const wasAlreadySubscribed = !!existing && existing.status === "active";
+
+    if (existing) {
+      existing.status = "active";
+      existing.timestamp = new Date().toISOString();
+    } else {
+      subscribers.push({
+        id,
+        email: normalizedEmail,
+        timestamp: new Date().toISOString(),
+        status: "active",
+      });
+    }
+
+    if (!existsSync(dataDir)) {
+      await mkdir(dataDir, { recursive: true });
+    }
+    await writeFile(filePath, JSON.stringify(subscribers, null, 2), "utf-8");
+
+    console.log(`✅ Newsletter subscription saved (file): ${normalizedEmail}`);
+    return {
+      success: true,
+      message: wasAlreadySubscribed ? "You're already subscribed! We'll keep you updated." : "Successfully subscribed to our newsletter!",
+      alreadySubscribed: wasAlreadySubscribed,
+    };
+  }
+
+  /**
    * Unsubscribe an email from the newsletter
    */
   static async unsubscribe(email: string): Promise<void> {
-    if (!this.isPostgresConfigured()) {
-      throw new Error("Postgres is not configured");
-    }
-
     const normalizedEmail = email.toLowerCase().trim();
+
+    if (!this.isPostgresConfigured()) {
+      return this.unsubscribeFromFile(normalizedEmail);
+    }
 
     try {
       await sql`
@@ -138,6 +190,23 @@ export class NewsletterStorage {
       console.error("Error unsubscribing from newsletter:", error);
       throw error;
     }
+  }
+
+  private static async unsubscribeFromFile(normalizedEmail: string): Promise<void> {
+    if (process.env.VERCEL === "1") {
+      throw new Error("Postgres is not configured. Please set POSTGRES_URL on Vercel.");
+    }
+
+    const filePath = path.join(process.cwd(), "backend", "data", "newsletter-subscribers.json");
+    if (!existsSync(filePath)) return;
+
+    const content = await readFile(filePath, "utf-8");
+    const parsed = JSON.parse(content);
+    const subscribers: NewsletterSubscriber[] = Array.isArray(parsed) ? parsed : [];
+    const sub = subscribers.find((s) => s.email === normalizedEmail);
+    if (sub) sub.status = "unsubscribed";
+    await writeFile(filePath, JSON.stringify(subscribers, null, 2), "utf-8");
+    console.log(`✅ Newsletter unsubscription (file): ${normalizedEmail}`);
   }
 
   /**

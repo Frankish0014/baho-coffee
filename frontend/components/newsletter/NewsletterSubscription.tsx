@@ -48,7 +48,15 @@ export default function NewsletterSubscription({
         body: JSON.stringify({ email }),
       });
 
-      const data = await response.json();
+      let data: { success?: boolean; message?: string; error?: string };
+      try {
+        data = await response.json();
+      } catch {
+        // Server returned non-JSON (e.g. HTML 404 page)
+        setStatus("error");
+        setMessage(response.status === 404 ? "Service temporarily unavailable. Please try again in a moment." : "Something went wrong. Please try again.");
+        return;
+      }
 
       if (response.ok && data.success) {
         setStatus("success");
@@ -60,7 +68,7 @@ export default function NewsletterSubscription({
       }
     } catch (error) {
       setStatus("error");
-      setMessage("Network error. Please try again later.");
+      setMessage("Unable to connect. Please check your connection and try again.");
     } finally {
       setIsSubmitting(false);
     }
