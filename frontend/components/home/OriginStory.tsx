@@ -25,7 +25,7 @@ export default function OriginStory() {
     <section ref={ref} className="py-20 relative text-white overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/hero/BAHO_35.jpg"
+          src="/hero/BAHOCOFFEECOMPANYLTD._35.jpg"
           alt="Rwandan coffee landscape"
           fill
           className="object-cover"

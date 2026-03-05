@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Coffee, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
@@ -60,11 +60,37 @@ if (typeof window !== "undefined") {
   console.log("Generated Product Slugs:", allProducts.map(p => ({ name: p.name, slug: p.slug })));
 }
 
-export default function ProductsSlider() {
+interface ProductsSliderProps {
+  regionFilter?: string;
+  processingMethodFilter?: string;
+}
+
+export default function ProductsSlider({
+  regionFilter = "",
+  processingMethodFilter = "",
+}: ProductsSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerView = 3; // Show 3 items at a time on desktop
 
-  const totalSlides = Math.ceil(allProducts.length / itemsPerView);
+  const filteredProducts = useMemo(() => {
+    return allProducts.filter((product) => {
+      const matchRegion = !regionFilter || product.region === regionFilter;
+      const matchMethod =
+        !processingMethodFilter ||
+        product.processingMethod === processingMethodFilter;
+      return matchRegion && matchMethod;
+    });
+  }, [regionFilter, processingMethodFilter]);
+
+  const totalSlides = Math.max(
+    1,
+    Math.ceil(filteredProducts.length / itemsPerView)
+  );
+
+  // Reset to first slide when filters change
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [regionFilter, processingMethodFilter]);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % totalSlides);
@@ -87,7 +113,7 @@ export default function ProductsSlider() {
 
   const getVisibleProducts = () => {
     const start = currentIndex * itemsPerView;
-    return allProducts.slice(start, start + itemsPerView);
+    return filteredProducts.slice(start, start + itemsPerView);
   };
 
   return (

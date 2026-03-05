@@ -70,7 +70,7 @@ export default function ExportPortal() {
             className="relative h-96 rounded-xl overflow-hidden shadow-2xl"
           >
             <Image
-              src="/hero/BAHO_29.jpg"
+              src="/hero/BAHOCOFFEECOMPANYLTD._29.jpg"
               alt="Baho Coffee Green Coffee"
               fill
               className="object-cover"

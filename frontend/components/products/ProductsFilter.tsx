@@ -3,7 +3,35 @@
 import { useState } from "react";
 import { Filter } from "lucide-react";
 
-export default function ProductsFilter() {
+const REGIONS = [
+  "",
+  "Eastern Province",
+  "Northern Province",
+  "Southern Province",
+  "Western Province",
+];
+
+const PROCESSING_METHODS = [
+  "",
+  "Washed",
+  "Natural",
+  "Honey",
+  "Other Experimental Methods",
+];
+
+interface ProductsFilterProps {
+  region: string;
+  onRegionChange: (value: string) => void;
+  processingMethod: string;
+  onProcessingMethodChange: (value: string) => void;
+}
+
+export default function ProductsFilter({
+  region,
+  onRegionChange,
+  processingMethod,
+  onProcessingMethodChange,
+}: ProductsFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -20,23 +48,37 @@ export default function ProductsFilter() {
         <div className="mt-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Region</label>
-              <select className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900">
-                <option>All Regions</option>
-                <option>Western Province</option>
-                <option>Southern Province</option>
-                <option>Northern Province</option>
+              <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+                Region
+              </label>
+              <select
+                value={region}
+                onChange={(e) => onRegionChange(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              >
+                <option value="">All Regions</option>
+                {REGIONS.filter(Boolean).map((r) => (
+                  <option key={r} value={r}>
+                    {r}
+                  </option>
+                ))}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
                 Processing Method
               </label>
-              <select className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900">
-                <option>All Methods</option>
-                <option>Washed</option>
-                <option>Natural</option>
-                <option>Honey</option>
+              <select
+                value={processingMethod}
+                onChange={(e) => onProcessingMethodChange(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              >
+                <option value="">All Methods</option>
+                {PROCESSING_METHODS.filter(Boolean).map((m) => (
+                  <option key={m} value={m}>
+                    {m}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -45,4 +87,3 @@ export default function ProductsFilter() {
     </div>
   );
 }
-

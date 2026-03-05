@@ -61,7 +61,7 @@ export const metadata: Metadata = {
       "Exporting specialty coffee from Rwanda. Discover our washing stations and meet our farmers.",
     images: [
       {
-        url: "/hero/BAHO_29.jpg",
+        url: "/hero/BAHOCOFFEECOMPANYLTD._29.jpg",
         width: 1200,
         height: 630,
         alt: "Baho Coffee - Rwandan Specialty Coffee",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     title: "Baho Coffee - Rwandan Specialty Coffee",
     description:
       "Exporting specialty coffee from Rwanda. Discover our washing stations and meet our farmers.",
-    images: ["/hero/BAHO_29.jpg"],
+    images: ["/hero/BAHOCOFFEECOMPANYLTD._29.jpg"],
   },
   robots: {
     index: true,

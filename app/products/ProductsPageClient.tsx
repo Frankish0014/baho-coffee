@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import ProductsSlider from "@/components/products/ProductsSlider";
 import ProductsFilter from "@/components/products/ProductsFilter";
@@ -7,6 +8,9 @@ import { PageAnimation } from "@/components/ui/PageAnimation";
 import { motion } from "framer-motion";
 
 export default function ProductsPageClient() {
+  const [region, setRegion] = useState("");
+  const [processingMethod, setProcessingMethod] = useState("");
+
   return (
     <div className="pt-20 pb-20 bg-white dark:bg-gray-900 transition-colors duration-300 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,10 +41,18 @@ export default function ProductsPageClient() {
           </PageAnimation>
         </div>
         <PageAnimation direction="up" delay={0.3}>
-          <ProductsFilter />
+          <ProductsFilter
+            region={region}
+            onRegionChange={setRegion}
+            processingMethod={processingMethod}
+            onProcessingMethodChange={setProcessingMethod}
+          />
         </PageAnimation>
         <PageAnimation direction="up" delay={0.4}>
-          <ProductsSlider />
+          <ProductsSlider
+            regionFilter={region}
+            processingMethodFilter={processingMethod}
+          />
         </PageAnimation>
       </div>
     </div>

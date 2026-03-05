@@ -17,23 +17,18 @@ const tabs = [
 // All images organized by category
 const imageCategories = {
   hero: [
-    { src: "/hero/casual.jpg", alt: "Baho Coffee" },
-    { src: "/hero/BAHO_29.jpg", alt: "Baho Coffee" },
-    { src: "/hero/BAHO_31 (1).jpg", alt: "Baho Coffee" },
-    { src: "/hero/BAHO_32 (1).jpg", alt: "Baho Coffee" },
-    { src: "/hero/BAHO_35.jpg", alt: "Baho Coffee" },
-    { src: "/hero/BAHO_61.jpg", alt: "Baho Coffee" },
-    { src: "/hero/BAHO_74.jpg", alt: "Baho Coffee" },
-    { src: "/hero/BOR2025.png", alt: "Baho Coffee" },
-    { src: "/hero/DSC08945.jpg", alt: "Baho Coffee" },
-    { src: "/hero/hero-1.jpg", alt: "Baho Coffee Hero" },
-    { src: "/hero/hero-2.jpg", alt: "Baho Coffee Hero" },
-    { src: "/hero/hero-3.jpg", alt: "Baho Coffee Hero" },
-    { src: "/hero/IMAGE_27.jpg", alt: "Baho Coffee" },
-    { src: "/hero/Ngoma.jpg", alt: "Ngoma" },
-    { src: "/hero/Ni  Ngoma.jpg", alt: "Ngoma" },
-    { src: "/hero/Bag.png", alt: "Coffee Bag" },
-    { src: "/hero/Export.png", alt: "Export" },
+    { src: "/hero/BAHOCOFFEECOMPANYLTD._29.jpg", alt: "Baho Coffee team at washing station" },
+    { src: "/hero/Baho big team.jpg", alt: "Baho Coffee full team" },
+    { src: "/hero/Baho Team.jpg", alt: "Baho Coffee team" },
+    { src: "/hero/Bahoteam.jpg", alt: "Baho Coffee staff" },
+    { src: "/hero/Quality control team.jpg", alt: "Quality control team" },
+    { src: "/hero/Quality team.jpg", alt: "Quality team" },
+    { src: "/hero/Finance team.jpg", alt: "Finance team" },
+    { src: "/hero/Humure team.jpg", alt: "Humure washing station team" },
+    { src: "/hero/Gakenke team.jpg", alt: "Gakenke washing station team" },
+    { src: "/hero/Bugoyi team.jpg", alt: "Bugoyi washing station team" },
+    { src: "/hero/Ngoma team.jpg", alt: "Ngoma washing station team" },
+    { src: "/hero/Kinazi Team.jpg", alt: "Kinazi washing station team" },
   ],
   products: [
     { src: "/products/casual.jpg", alt: "Baho Coffee Product" },
@@ -203,10 +198,10 @@ export default function MediaGallery() {
       {activeTab === "videos" && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
-            { title: "Coffee Processing at Washing Station", thumbnail: "/hero/casual.jpg" },
-            { title: "Farm to Cup Journey", thumbnail: "/hero/BAHO_29.jpg" },
-            { title: "Sustainable Farming Practices", thumbnail: "/hero/BAHO_35.jpg" },
-            { title: "Women in Coffee", thumbnail: "/hero/BAHO_61.jpg" },
+            { title: "Coffee Processing at Washing Station", thumbnail: "/hero/Quality control team.jpg" },
+            { title: "Farm to Cup Journey", thumbnail: "/hero/BAHOCOFFEECOMPANYLTD._29.jpg" },
+            { title: "Sustainable Farming Practices", thumbnail: "/hero/BAHOCOFFEECOMPANYLTD._35.jpg" },
+            { title: "Women in Coffee", thumbnail: "/hero/Beatha Uwingabire Accountant.jpg" },
             { title: "Coffee Harvesting", thumbnail: "/washing-stations/farm.jpg" },
             { title: "Quality Control", thumbnail: "/products/bugoyi-washed.jpg" },
           ].map((video, index) => (

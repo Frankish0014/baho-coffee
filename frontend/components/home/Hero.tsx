@@ -7,22 +7,22 @@ import Link from "next/link";
 
 const slides = [
   {
-    image: "/hero/hero-1.jpg",
-    fallback: "/hero-1.jpg",
+    image: "/hero/BAHO_61.jpg",
+    fallback: "/hero/BAHO_61.jpg",
     title: "Rwandan Specialty Coffee",
     subtitle: "From Farm to Cup, Excellence in Every Bean",
     accent: "Discover the Art of Coffee",
   },
   {
-    image: "/hero/hero-2.jpg",
-    fallback: "/hero-2.jpg",
+    image: "/hero/Ngoma.jpg",
+    fallback: "/hero/Ngoma.jpg",
     title: "Empowering Women in Coffee",
     subtitle: "Supporting Communities, Connecting People Through Coffee",
     accent: "Building Sustainable Futures",
   },
   {
     image: "/hero/hero-3.jpg",
-    fallback: "/hero-3.jpg",
+    fallback: "/hero/hero-3.jpg",
     title: "Traceable & Sustainable",
     subtitle: "Know Your Coffee's Journey from Seed to Cup",
     accent: "Transparency in Every Sip",
