@@ -8,12 +8,12 @@ import Link from "next/link";
 
 // Instagram posts using available photos
 const instagramPosts = [
-  { id: "1", image: "/hero/BAHOCOFFEECOMPANYLTD._29.jpg", url: "https://instagram.com/bahocoffee" },
-  { id: "2", image: "/hero/Baho big team.jpg", url: "https://instagram.com/bahocoffee" },
-  { id: "3", image: "/hero/Baho Team.jpg", url: "https://instagram.com/bahocoffee" },
-  { id: "4", image: "/hero/Quality control team.jpg", url: "https://instagram.com/bahocoffee" },
-  { id: "5", image: "/hero/Humure team.jpg", url: "https://instagram.com/bahocoffee" },
-  { id: "6", image: "/hero/Ngoma team.jpg", url: "https://instagram.com/bahocoffee" },
+  { id: "1", image: "/hero/BAHO_29.jpg", url: "https://instagram.com/bahocoffee" },
+  { id: "2", image: "/hero/women-in-coffee.jpg", url: "https://instagram.com/bahocoffee" },
+  { id: "3", image: "/hero/washed.jpg", url: "https://instagram.com/bahocoffee" },
+  { id: "4", image: "/hero/hero-2.jpg", url: "https://instagram.com/bahocoffee" },
+  { id: "5", image: "/hero/JuteBag.png", url: "https://instagram.com/bahocoffee" },
+  { id: "6", image: "/hero/Export.png", url: "https://instagram.com/bahocoffee" },
 ];
 
 export default function InstagramFeed() {

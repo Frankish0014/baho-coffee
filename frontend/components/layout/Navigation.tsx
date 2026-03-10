@@ -17,9 +17,10 @@ export default function Navigation() {
   // Pages that should have white navigation before scrolling (home page with hero)
   const hasHeroBackground = pathname === "/";
   
-  // Determine if nav should be white (homepage and not scrolled)
-  // In light mode, nav should be white before scrolling on homepage
+  // Match logo: white when over hero OR in dark theme; dark when scrolled in light theme
   const shouldBeWhite = hasHeroBackground && !scrolled;
+  const useWhiteText = shouldBeWhite || theme === "dark";
+  const linkColor = useWhiteText ? "#ffffff" : "#111827"; // white or gray-900
 
   useEffect(() => {
     // Check initial scroll position
@@ -47,6 +48,7 @@ export default function Navigation() {
 
   return (
     <nav
+      data-nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
           ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg border-b border-gray-200/50 dark:border-gray-800/50"
@@ -67,9 +69,7 @@ export default function Navigation() {
                 width={300}
                 height={100}
                 className={`h-16 w-auto transition-all duration-300 ${
-                  shouldBeWhite || theme === "dark"
-                    ? "brightness-0 invert"
-                    : ""
+                  useWhiteText ? "brightness-0 invert" : ""
                 } group-hover:opacity-90`}
                 priority
               />
@@ -84,20 +84,17 @@ export default function Navigation() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-4 py-2 rounded-lg transition-all duration-300 font-medium group ${
-                    shouldBeWhite || theme === "light"
-                      ? "!text-white hover:!text-white"
-                      : "text-gray-300 hover:text-primary-400"
-                  }`}
+                  style={{ color: linkColor }}
+                  className="relative px-4 py-2 rounded-lg transition-all duration-300 font-medium group hover:opacity-90"
                 >
                   <span className="relative z-10">{link.label}</span>
                   {isActive && (
                     <motion.div
                       layoutId="activeNav"
                       className={`absolute inset-0 rounded-lg ${
-                        theme === "light"
-                          ? "bg-primary-100/50"
-                          : "bg-primary-900/30"
+                        shouldBeWhite
+                          ? "bg-white/20"
+                          : "bg-primary-100/50 dark:bg-white/20"
                       }`}
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
@@ -113,12 +110,9 @@ export default function Navigation() {
               onClick={toggleTheme}
               whileHover={{ scale: 1.1, rotate: 15 }}
               whileTap={{ scale: 0.9 }}
+              style={{ color: linkColor }}
               className={`p-2.5 rounded-xl transition-all duration-300 ${
-                shouldBeWhite
-                  ? "hover:bg-white/20 !text-white"
-                  : theme === "light"
-                  ? "hover:bg-gray-100 text-gray-700"
-                  : "hover:bg-gray-800 text-gray-300"
+                useWhiteText ? "hover:bg-white/20" : "hover:bg-gray-100"
               }`}
               aria-label="Toggle theme"
             >
@@ -135,12 +129,9 @@ export default function Navigation() {
             <motion.button
               onClick={toggleTheme}
               whileTap={{ scale: 0.9 }}
+              style={{ color: linkColor }}
               className={`p-2.5 rounded-xl transition-all ${
-                shouldBeWhite
-                  ? "hover:bg-white/20 !text-white"
-                  : theme === "light"
-                  ? "hover:bg-gray-100 text-gray-900"
-                  : "hover:bg-gray-800 text-gray-300"
+                useWhiteText ? "hover:bg-white/20" : "hover:bg-gray-100"
               }`}
               aria-label="Toggle theme"
             >
@@ -153,12 +144,9 @@ export default function Navigation() {
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
               whileTap={{ scale: 0.9 }}
+              style={{ color: linkColor }}
               className={`p-2.5 rounded-xl transition-all ${
-                shouldBeWhite
-                  ? "hover:bg-white/20 !text-white"
-                  : theme === "light"
-                  ? "hover:bg-gray-100 text-gray-900"
-                  : "hover:bg-gray-800 text-gray-300"
+                useWhiteText ? "hover:bg-white/20" : "hover:bg-gray-100"
               }`}
               aria-label="Toggle menu"
             >

@@ -99,7 +99,7 @@ export default function StorySection() {
               className="absolute inset-0"
             >
               <Image
-                src="/hero/baho_team.jpg"
+                src="/hero/Baho Team.jpg"
                 alt="Baho Coffee Story"
                 fill
                 className="object-cover"

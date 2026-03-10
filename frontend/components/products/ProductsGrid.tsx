@@ -1,61 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Coffee, ArrowRight } from "lucide-react";
 import { CoffeeProduct } from "@/types";
+import { getAllProducts } from "@/backend/lib/productsData";
 
-// Mock data - replace with API call
-const allProducts: CoffeeProduct[] = [
-  {
-    id: "1",
-    name: "Bugoyi Washed",
-    slug: "bugoyi-washed",
-    description: "Bright and clean with notes of citrus and floral",
-    flavorNotes: ["Citrus", "Floral", "Tea-like"],
-    region: "Western Province",
-    processingMethod: "Washed",
-    washingStation: "Bugoyi",
-    packagingOptions: [{ size: "250g", weight: "250g" }],
-    images: ["/products/bugoyi-washed.jpg"],
-    available: true,
-    featured: true,
-  },
-  {
-    id: "2",
-    name: "Matyazo Natural",
-    slug: "matyazo-natural",
-    description: "Rich and fruity with deep berry notes",
-    flavorNotes: ["Berry", "Chocolate", "Wine-like"],
-    region: "Southern Province",
-    processingMethod: "Natural",
-    washingStation: "Matyazo",
-    packagingOptions: [{ size: "250g", weight: "250g" }],
-    images: ["/products/matyazo-natural.jpg"],
-    available: true,
-    featured: true,
-  },
-  {
-    id: "3",
-    name: "Humure Washed",
-    slug: "humure-washed",
-    description: "Smooth and balanced with caramel sweetness from Humure CWS",
-    flavorNotes: ["Caramel", "Nuts", "Honey"],
-    region: "Northern Province",
-    processingMethod: "Washed",
-    washingStation: "Humure",
-    packagingOptions: [{ size: "250g", weight: "250g" }],
-    images: ["/products/humure-washed.jpg"],
-    available: true,
-    featured: false,
-  },
-];
+// Single source of truth: backend/lib/productsData.ts
+const allProducts: CoffeeProduct[] = getAllProducts().filter(
+  (product) => product.available !== false
+);
 
 export default function ProductsGrid() {
-  const [filteredProducts, setFilteredProducts] =
-    useState<CoffeeProduct[]>(allProducts);
+  const filteredProducts = allProducts;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

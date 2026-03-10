@@ -5,60 +5,12 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Coffee, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { CoffeeProduct } from "@/types";
-import { getAllWashingStations } from "@/backend/lib/washingStationsData";
+import { getAllProducts } from "@/backend/lib/productsData";
 
-// Helper function to create URL-friendly slugs from processing method names
-function createSlugFromProcessingMethod(method: string): string {
-  return method
-    .toLowerCase()
-    .replace(/\s+/g, "-") // Replace spaces with hyphens
-    .replace(/[^a-z0-9-]/g, "") // Remove special characters
-    .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
-    .replace(/^-|-$/g, ""); // Remove leading/trailing hyphens
-}
-
-// Generate products from all washing stations
-const washingStations = getAllWashingStations();
-
-// Create products for each processing method of each station
-const allProducts: CoffeeProduct[] = washingStations.flatMap((station) => {
-  const productName = station.name.replace(" CWS", "");
-  
-  // Create a product for each processing method
-  return station.processingMethods.map((processingMethod, methodIndex) => {
-    // Generate flavor notes based on processing method
-    const flavorNotes = processingMethod === "Natural" 
-      ? ["Berry", "Fruity", "Rich"]
-      : processingMethod === "Honey"
-      ? ["Sweet", "Honey", "Caramel"]
-      : processingMethod === "Other Experimental Methods"
-      ? ["Unique", "Complex", "Experimental"]
-      : ["Citrus", "Floral", "Clean"];
-    
-    const methodSlug = createSlugFromProcessingMethod(processingMethod);
-    const productSlug = `${station.slug}-${methodSlug}`;
-    
-    return {
-      id: `${station.id}-${methodIndex}`,
-      name: `${productName} ${processingMethod}`,
-      slug: productSlug,
-      description: station.description || `Specialty ${processingMethod.toLowerCase()} processed coffee from ${productName} washing station.`,
-      flavorNotes,
-      region: station.location.address.split(",")[0] || "Rwanda",
-      processingMethod,
-      washingStation: productName,
-      packagingOptions: [{ size: "250g", weight: "250g" }],
-      images: [`/products/${station.slug}-${methodSlug}.jpg`],
-      available: true,
-      featured: true,
-    };
-  });
-});
-
-// Log all generated product slugs (for debugging - remove in production)
-if (typeof window !== "undefined") {
-  console.log("Generated Product Slugs:", allProducts.map(p => ({ name: p.name, slug: p.slug })));
-}
+// Single source of truth: backend/lib/productsData.ts
+const allProducts: CoffeeProduct[] = getAllProducts().filter(
+  (product) => product.available !== false
+);
 
 interface ProductsSliderProps {
   regionFilter?: string;

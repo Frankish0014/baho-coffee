@@ -21,7 +21,8 @@ export interface CoffeeProduct {
 export interface PackagingOption {
   size: string;
   weight: string;
-  price?: number;
+  price?: string;
+  // priceRange?: string;
 }
 
 export interface WashingStation {

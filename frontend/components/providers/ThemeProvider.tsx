@@ -21,15 +21,14 @@ export default function ThemeProvider({
 
   useEffect(() => {
     setMounted(true);
-    const savedTheme = localStorage.getItem("theme") as Theme;
-    if (savedTheme) {
+    const savedTheme = localStorage.getItem("theme") as Theme | null;
+    if (savedTheme === "light" || savedTheme === "dark") {
       setTheme(savedTheme);
       document.documentElement.classList.toggle("dark", savedTheme === "dark");
     } else {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const initialTheme = prefersDark ? "dark" : "light";
-      setTheme(initialTheme);
-      document.documentElement.classList.toggle("dark", initialTheme === "dark");
+      // Default to light theme for first-time visitors; user can toggle to dark
+      setTheme("light");
+      document.documentElement.classList.remove("dark");
     }
   }, []);
 

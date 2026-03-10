@@ -17,45 +17,51 @@ function createSlugFromProcessingMethod(method: string): string {
 // Generate products dynamically from washing stations (fallback for products not in productsData.ts)
 function generateAllProducts(): CoffeeProduct[] {
   const washingStations = getAllWashingStations();
-  
-  return washingStations.flatMap((station) => {
+  const products: CoffeeProduct[] = [];
+
+  for (const station of washingStations) {
     const productName = station.name.replace(" CWS", "");
-    
-    return station.processingMethods.map((processingMethod, methodIndex) => {
-      const flavorNotes = processingMethod === "Natural" 
-        ? ["Berry", "Fruity", "Rich"]
-        : processingMethod === "Honey"
-        ? ["Sweet", "Honey", "Caramel"]
-        : processingMethod === "Other Experimental Methods"
-        ? ["Unique", "Complex", "Experimental"]
-        : ["Citrus", "Floral", "Clean"];
-      
+
+    station.processingMethods.forEach((processingMethod, methodIndex) => {
+      const flavorNotes =
+        processingMethod === "Natural"
+          ? ["Berry", "Fruity", "Rich"]
+          : processingMethod === "Honey"
+          ? ["Sweet", "Honey", "Caramel"]
+          : processingMethod === "Other Experimental Methods"
+          ? ["Unique", "Complex", "Experimental"]
+          : ["Citrus", "Floral", "Clean"];
+
       const methodSlug = createSlugFromProcessingMethod(processingMethod);
       const productSlug = `${station.slug}-${methodSlug}`;
-      
-      return {
+
+      products.push({
         id: `${station.id}-${methodIndex}`,
         name: `${productName} ${processingMethod}`,
         slug: productSlug,
-        description: station.description || `Specialty ${processingMethod.toLowerCase()} processed coffee from ${productName} washing station.`,
+        description:
+          station.description ||
+          `Specialty ${processingMethod.toLowerCase()} processed coffee from ${productName} washing station.`,
         flavorNotes,
         region: station.location.address.split(",")[0] || "Rwanda",
         processingMethod,
         washingStation: productName,
         farm: "Multiple smallholder farms",
         packagingOptions: [
-          { size: "250g", weight: "250g", price: 15 },
-          { size: "500g", weight: "500g", price: 28 },
-          { size: "1kg", weight: "1kg", price: 50 },
+          { size: "250g", weight: "250g", price: "15" },
+          { size: "500g", weight: "500g", price: "28" },
+          { size: "1kg", weight: "1kg", price: "50" },
         ],
         images: [`/products/${station.slug}-${methodSlug}.jpg`],
         videoUrl: "https://youtube.com/watch?v=example",
         pdfProfileUrl: `/pdfs/${station.slug}-${methodSlug}-profile.pdf`,
         available: true,
         featured: true,
-      };
+      });
     });
-  });
+  }
+
+  return products;
 }
 
 // Helper function to normalize slugs for matching (handles spaces, hyphens, etc.)

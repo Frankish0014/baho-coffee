@@ -90,9 +90,14 @@
     @apply text-gray-900 dark:text-gray-100;
   }
   
-  /* Links inherit from parent or use explicit classes - exclude footer */
-  a:not(footer a) {
+  /* Links inherit from parent or use explicit classes - exclude footer and nav */
+  a:not(footer a):not(nav a) {
     @apply text-gray-900 dark:text-gray-100;
+  }
+  
+  /* Nav link spans inherit parent color - base layer sets text-gray-900 on all spans otherwise */
+  nav[data-nav] a span {
+    color: inherit !important;
   }
   
   /* Leaflet map zoom controls - make icons black */

@@ -249,7 +249,7 @@ export default function AboutContent() {
             className="h-96 relative rounded-lg overflow-hidden shadow-xl"
           >
             <Image
-              src="/hero/baho_team.jpg"
+              src="/hero/Baho Team.jpg"
               alt="Baho Coffee team at the washing station"
               fill
               className="object-cover"
@@ -365,7 +365,7 @@ export default function AboutContent() {
             </div>
             <div className="relative w-full h-64 sm:h-80 md:h-[500px] lg:h-full lg:min-h-[500px] rounded-lg overflow-hidden shadow-xl">
               <Image
-                src="/hero/MD.jpg"
+                src="/hero/Emmanuel.jpg"
                 alt="Emmanuel Rusatira, CEO of Baho Coffee"
                 fill
                 className="object-cover md:object-contain lg:object-cover"

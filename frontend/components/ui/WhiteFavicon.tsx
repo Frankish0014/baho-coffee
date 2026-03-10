@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function WhiteFavicon() {
+  const isMountedRef = useRef(true);
+
   useEffect(() => {
+    isMountedRef.current = true;
+
     // Function to create white favicon - runs immediately and consistently
     const createWhiteFavicon = () => {
-      // Remove existing favicon links (guard: only if still in DOM to avoid removeChild of null)
-      const existingLinks = document.querySelectorAll('link[rel*="icon"], link[rel*="shortcut"]');
-      existingLinks.forEach((link) => {
-        if (link.parentNode) link.remove();
-      });
+      if (!isMountedRef.current || typeof document === "undefined") return;
 
       // Create canvas to apply white filter
       const canvas = document.createElement("canvas");
@@ -25,78 +25,85 @@ export default function WhiteFavicon() {
       img.crossOrigin = "anonymous";
       
       img.onload = () => {
-        // Draw image to canvas
-        ctx.drawImage(img, 0, 0, 64, 64);
+        if (!isMountedRef.current || !document.head) return;
+        try {
+          // Draw image to canvas
+          ctx.drawImage(img, 0, 0, 64, 64);
 
-        // Get image data
-        const imageData = ctx.getImageData(0, 0, 64, 64);
-        const data = imageData.data;
+          // Get image data
+          const imageData = ctx.getImageData(0, 0, 64, 64);
+          const data = imageData.data;
 
-        // Apply white filter: convert to white while preserving shape
-        for (let i = 0; i < data.length; i += 4) {
-          const r = data[i];
-          const g = data[i + 1];
-          const b = data[i + 2];
-          const a = data[i + 3];
+          // Apply white filter: convert to white while preserving shape
+          for (let i = 0; i < data.length; i += 4) {
+            const r = data[i];
+            const g = data[i + 1];
+            const b = data[i + 2];
+            const a = data[i + 3];
 
-          // If pixel has content (not fully transparent)
-          if (a > 10) {
-            // Make it white, preserving the shape based on alpha
-            const whiteValue = 255; // Pure white
-            
-            data[i] = whiteValue;     // R
-            data[i + 1] = whiteValue; // G
-            data[i + 2] = whiteValue; // B
-            // Use original alpha but ensure it's visible
-            data[i + 3] = Math.max(a, 200); // Ensure good visibility
+            // If pixel has content (not fully transparent)
+            if (a > 10) {
+              // Make it white, preserving the shape based on alpha
+              const whiteValue = 255; // Pure white
+
+              data[i] = whiteValue;     // R
+              data[i + 1] = whiteValue; // G
+              data[i + 2] = whiteValue; // B
+              // Use original alpha but ensure it's visible
+              data[i + 3] = Math.max(a, 200); // Ensure good visibility
+            }
           }
+
+          ctx.putImageData(imageData, 0, 0);
+
+          // Create favicon from canvas
+          const favicon = canvas.toDataURL("image/png");
+
+          // Create or update our own favicon link without touching Next.js-managed tags
+          let link =
+            document.querySelector<HTMLLinkElement>(
+              'link[rel="icon"][data-white-favicon="true"]'
+            ) || document.createElement("link");
+
+          link.rel = "icon";
+          link.type = "image/png";
+          link.href = favicon;
+          link.sizes = "32x32";
+          link.setAttribute("data-white-favicon", "true");
+
+          if (!link.parentNode) {
+            document.head.appendChild(link);
+          }
+        } catch {
+          // Ignore DOM errors if component unmounted or head changed
         }
-
-        ctx.putImageData(imageData, 0, 0);
-
-        // Create favicon from canvas
-        const favicon = canvas.toDataURL("image/png");
-
-        // Create and add favicon link
-        const link = document.createElement("link");
-        link.rel = "icon";
-        link.type = "image/png";
-        link.href = favicon;
-        link.sizes = "32x32";
-        document.head.appendChild(link);
-
-        // Add 16x16 version
-        const link16 = document.createElement("link");
-        link16.rel = "icon";
-        link16.type = "image/png";
-        link16.href = favicon;
-        link16.sizes = "16x16";
-        document.head.appendChild(link16);
-
-        // Also add for Apple devices
-        const appleLink = document.createElement("link");
-        appleLink.rel = "apple-touch-icon";
-        appleLink.href = favicon;
-        document.head.appendChild(appleLink);
-
-        // Add shortcut icon
-        const shortcutLink = document.createElement("link");
-        shortcutLink.rel = "shortcut icon";
-        shortcutLink.href = favicon;
-        document.head.appendChild(shortcutLink);
       };
 
       img.onerror = () => {
-        // Fallback: create a simple white square if image fails to load
-        ctx.fillStyle = "#FFFFFF";
-        ctx.fillRect(0, 0, 64, 64);
-        const favicon = canvas.toDataURL("image/png");
-        
-        const link = document.createElement("link");
-        link.rel = "icon";
-        link.type = "image/png";
-        link.href = favicon;
-        document.head.appendChild(link);
+        if (!isMountedRef.current || !document.head) return;
+        try {
+          // Fallback: create a simple white square if image fails to load
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fillRect(0, 0, 64, 64);
+          const favicon = canvas.toDataURL("image/png");
+
+          let link =
+            document.querySelector<HTMLLinkElement>(
+              'link[rel="icon"][data-white-favicon="true"]'
+            ) || document.createElement("link");
+
+          link.rel = "icon";
+          link.type = "image/png";
+          link.href = favicon;
+          link.sizes = "32x32";
+          link.setAttribute("data-white-favicon", "true");
+
+          if (!link.parentNode) {
+            document.head.appendChild(link);
+          }
+        } catch {
+          // Ignore DOM errors if component unmounted
+        }
       };
 
       img.src = "/hero/logo.avif";
@@ -133,6 +140,7 @@ export default function WhiteFavicon() {
     const interval = setInterval(createWhiteFavicon, 5000);
 
     return () => {
+      isMountedRef.current = false;
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       clearInterval(interval);
       if (typeof window !== "undefined" && handleReady) {

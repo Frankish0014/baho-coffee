@@ -7,62 +7,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Coffee } from "lucide-react";
 import { CoffeeProduct } from "@/types";
+import { getFeaturedProducts } from "@/backend/lib/productsData";
 
-// Mock data - replace with actual data from CMS/API
-const featuredProducts: CoffeeProduct[] = [
-  {
-    id: "1",
-    name: "Bugoyi Washed",
-    slug: "bugoyi-washed",
-    description: "Bright and clean with notes of citrus and floral",
-    flavorNotes: ["Citrus", "Floral", "We can add more flavor notes here"],
-    region: "Western Province",
-    processingMethod: "Washed",
-    washingStation: "Bugoyi",
-    packagingOptions: [
-      { size: "250g", weight: "250g" },
-      { size: "500g", weight: "500g" },
-      { size: "1kg", weight: "1kg" },
-    ],
-    images: ["/products/bugoyi-washed.jpg"],
-    available: true,
-    featured: true,
-  },
-  {
-    id: "2",
-    name: "Matyazo Natural",
-    slug: "matyazo-natural",
-    description: "Rich and fruity with deep berry notes",
-    flavorNotes: ["Berry", "Chocolate", "We can add more flavor notes here"],
-    region: "Northern Province",
-    processingMethod: "Natural",
-    washingStation: "Matyazo",
-    packagingOptions: [
-      { size: "250g", weight: "250g" },
-      { size: "500g", weight: "500g" },
-    ],
-    images: ["/products/matyazo-natural.jpg"],
-    available: true,
-    featured: true,
-  },
-  {
-    id: "3",
-    name: "Humure Washed",
-    slug: "humure-washed",
-    description: "Smooth and balanced with caramel sweetness from Humure CWS",
-    flavorNotes: ["Caramel", "Nuts", "Honey", "We can add more flavor notes here"],
-    region: "Eastern Province",
-    processingMethod: "Washed",
-    washingStation: "Humure",
-    packagingOptions: [
-      { size: "250g", weight: "250g" },
-      { size: "1kg", weight: "1kg" },
-    ],
-    images: ["/products/humure-washed.jpg"],
-    available: true,
-    featured: true,
-  },
-];
+// Featured products are now controlled from backend/lib/productsData.ts
+const featuredProducts: CoffeeProduct[] = getFeaturedProducts()
+  .filter((product) => product.available !== false)
+  .slice(0, 3);
 
 function ProductCard({
   product,
