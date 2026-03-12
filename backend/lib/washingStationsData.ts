@@ -95,7 +95,7 @@ export const washingStations: WashingStation[] = [
     annualCapacity: "150 tons",
     established: 2012,
     manager: {
-      name: "Gitoki Station Manager",
+      name: "Nyirishema",
       photo: "/washing-stations/managers/Nyirishema.jpg",
       description: "Experience, achievements or any other.",
     },
@@ -113,7 +113,7 @@ export const washingStations: WashingStation[] = [
     },
     description:
       "Muzo Coffee Washing Station processes specialty coffees with a focus on traceability and supporting local farming communities.",
-    photos: ["/washing-stations/Muzo.jpg"],
+    photos: ["/washing-stations/VedasteMuzo.jpg"],
     videos: [],
     processingMethods: ["Washed", "Honey", "Natural"],
     varieties: ["Bourbon"],
@@ -121,8 +121,8 @@ export const washingStations: WashingStation[] = [
     annualCapacity: "220 tons",
     established: 2009,
     manager: {
-      name: "Muzo Station Manager",
-      photo: "/washing-stations/managers/",
+      name: "Vedaste",
+      photo: "/washing-stations/VedasteMuzo.jpg",
       description: "Experience, achievements or any other.",
     },
   },
@@ -170,8 +170,8 @@ export const washingStations: WashingStation[] = [
     annualCapacity: "170 tons",
     established: 2025,
     manager: {
-      name: "Cyabingo Station Manager",
-      photo: "/washing-stations/managers/Spirie (2).jpg",
+      name: "Charles Mvuyekure",
+      photo: "/washing-stations/managers/Charles.jpg",
       description: "Experience, achievements or any other.",
     },
   },
@@ -214,7 +214,7 @@ export const washingStations: WashingStation[] = [
     },
     description:
       "Akagera Coffee Washing Station, named after the nearby Akagera National Park, focuses on sustainable practices and environmental conservation.",
-    photos: ["/washing-stations/akagera.jpg"],
+    photos: ["/washing-stations/Akagera.jpg"],
     videos: [],
     processingMethods: ["Washed", "Honey"],
     varieties: ["Bourbon"],
@@ -223,7 +223,7 @@ export const washingStations: WashingStation[] = [
     established: 2013,
     manager: {
       name: "Akagera Station Manager",
-      photo: "/washing-stations/managers/Nyirishema.jpg",
+      photo: "/washing-stations/managers/Aphrodic.jpg",
       description: "Experience, achievements or any other.",
     },
   },
@@ -274,8 +274,8 @@ export const washingStations: WashingStation[] = [
     annualCapacity: "185 tons",
     established: 2012,
     manager: {
-      name: "Matyazo Station Manager",
-      photo: "/washing-stations/managers/Innocent.jpg",
+      name: "Charles Mvuyekure",
+      photo: "/washing-stations/managers/Charles.jpg",
       description: "Experience, achievements or any other.",
     },
   },
@@ -326,8 +326,8 @@ export const washingStations: WashingStation[] = [
     annualCapacity: "195 tons",
     established: 2010,
     manager: {
-      name: "Kinazi Station Manager",
-      photo: "/washing-stations/managers/Spirie (2).jpg",
+      name: "Valens Ganishuri",
+      photo: "/washing-stations/managers/Valens.jpg", 
       description: "Experience, achievements or any other.",
     },
   },
@@ -404,9 +404,9 @@ export const washingStations: WashingStation[] = [
     annualCapacity: "180 tons",
     established: 2011,
     manager: {
-      name: "Shara Station Manager",
-      photo: "/washing-stations/managers/Spirie (2).jpg",
-      description: "Empowering women farmers and sustainable practices in Western Province.",
+      name: "Cyprie Komezusenge",
+      photo: "/washing-stations/managers/Spirie.jpg",
+      description: "Experience, achievements or any other.",
     },
   },
   {
@@ -430,8 +430,8 @@ export const washingStations: WashingStation[] = [
     annualCapacity: "180 tons",
     established: 2024,
     manager: {
-      name: "Ngororero Station Manager",
-      photo: "/washing-stations/managers/Innocent.jpg",
+      name: "Innocent",
+      photo: "/washing-stations/managers/innocent.jpg",
       description: "Experience, achievements or any other.",
     },
   },

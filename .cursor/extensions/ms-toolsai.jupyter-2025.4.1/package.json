@@ -2108,21 +2108,6 @@
 			}
 		]
 	},
-	"enabledApiProposals": [
-		"notebookDeprecated",
-		"notebookMessaging",
-		"notebookMime",
-		"contribNotebookStaticPreloads",
-		"portsAttributes",
-		"quickPickSortByLabel",
-		"notebookKernelSource",
-		"interactiveWindow",
-		"quickPickItemTooltip",
-		"notebookExecution",
-		"notebookCellExecution",
-		"notebookVariableProvider",
-		"notebookReplDocument"
-	],
 	"scripts": {
 		"package": "gulp clean && gulp prePublishBundle && vsce package -o ms-toolsai-jupyter-insiders.vsix",
 		"packagePreRelease": "gulp clean && gulp prePublishBundle && vsce package --pre-release -o ms-toolsai-jupyter-insiders.vsix",

@@ -11,7 +11,7 @@ export const staffMembers: StaffMember[] = [
     id: "1",
     name: "Emmanuel Rusatira",
     role: "Founder & CEO",
-    photo: "/hero/Emmanuel.jpg",
+    photo: "/hero/BAHO_31 (1).jpg",
     bio: "Over 19 years in the coffee industry. Former wet mill manager, Zone Supervision Manager, and Head of Specialty, Sustainability & Certification. UN consultant training on best practices for coffee washing stations in East Africa.",
   },
   {
