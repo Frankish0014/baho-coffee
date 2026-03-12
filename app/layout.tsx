@@ -28,8 +28,8 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "Baho Coffee - Rwandan Specialty Coffee",
-    template: "%s | Baho Coffee",
+    default: "BAHO COFFEE COMPANY LTD | RWANDA Specialty Coffee Company",
+    template: "%s | BAHO COFFEE COMPANY LTD",
   },
   description:
     "Baho Coffee exports specialty coffee from Rwanda. Discover our washing stations, meet our farmers, and experience the finest Rwandan coffee.",
@@ -55,8 +55,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://bahocoffee.com",
-    siteName: "Baho Coffee",
-    title: "Baho Coffee - Rwandan Specialty Coffee",
+    siteName: "BAHO COFFEE COMPANY LTD",
+    title: "BAHO COFFEE COMPANY LTD | RWANDA Specialty Coffee Company",
     description:
       "Exporting specialty coffee from Rwanda. Discover our washing stations and meet our farmers.",
     images: [
@@ -64,13 +64,13 @@ export const metadata: Metadata = {
         url: "/hero/BAHOCOFFEECOMPANYLTD._29.jpg",
         width: 1200,
         height: 630,
-        alt: "Baho Coffee - Rwandan Specialty Coffee",
+        alt: "BAHO COFFEE COMPANY LTD | RWANDA Specialty Coffee Company",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Baho Coffee - Rwandan Specialty Coffee",
+    title: "BAHO COFFEE COMPANY LTD | RWANDA Specialty Coffee Company",
     description:
       "Exporting specialty coffee from Rwanda. Discover our washing stations and meet our farmers.",
     images: ["/hero/BAHOCOFFEECOMPANYLTD._29.jpg"],
