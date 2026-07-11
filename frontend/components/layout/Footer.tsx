@@ -90,12 +90,17 @@ export default function Footer() {
                 </div>
                 <span className="!text-white dark:!text-white group-hover:!text-white dark:group-hover:!text-white transition-colors">+250 788 302 976  </span>
               </div>
-              <div className="flex items-center space-x-3 group cursor-pointer">
+              <a
+                href="mailto:info@bahocoffee.com"
+                className="flex items-center space-x-3 group cursor-pointer"
+              >
                 <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 dark:group-hover:bg-primary-500/20 transition-colors">
                   <Mail className="w-4 h-4 text-primary-400 dark:text-primary-400" />
                 </div>
-                <span className="!text-white dark:!text-white group-hover:!text-white dark:group-hover:!text-white transition-colors">bahocoffee@gmail.com</span>
-              </div>
+                <span className="!text-white dark:!text-white group-hover:!text-white dark:group-hover:!text-white transition-colors">
+                  info@bahocoffee.com
+                </span>
+              </a>
             </div>
           </div>
 

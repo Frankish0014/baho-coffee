@@ -28,13 +28,13 @@ export const staffMembers: StaffMember[] = [
     photo: "/hero/Andrew.jpg",
     bio: "Andrew is responsible for the operations of the company, including the management of the company's staff and the company's operations. He also oversees the company's operations and the company's operations.",
   },
-  {
-    id: "4",
-    name: "Ishimwe Gentile",
-    role: "Quality Assurance Officer",
-    photo: "/hero/Gentile.jpg",
-    // bio: "Our leadership team oversees 80+ permanent staff and 16+ washing stations across Rwanda, working with over 16,000 smallholder farmers.",
-  },
+  // {
+  //   id: "4",
+  //   name: "Ishimwe Gentile",
+  //   role: "Quality Assurance Officer",
+  //   photo: "/hero/Gentile.jpg",
+  //   // bio: "Our leadership team oversees 80+ permanent staff and 16+ washing stations across Rwanda, working with over 16,000 smallholder farmers.",
+  // },
   {
     id: "5",
     name: "Esther Umuhoza",
@@ -64,13 +64,13 @@ export const staffMembers: StaffMember[] = [
     photo: "/hero/Straton Humure manager.jpg",
     // bio: "Our leadership team oversees 80+ permanent staff and 16+ washing stations across Rwanda, working with over 16,000 smallholder farmers.",
   },
-  {
-    id: "9",
-    name: "Inkoramutima Bertrand",
-    role: "Logistics Manager",
-    photo: "/hero/Bertrand.jpg",
-    // bio: "Our leadership team oversees 80+ permanent staff and 16+ washing stations across Rwanda, working with over 16,000 smallholder farmers.",
-  },
+  // {
+  //   id: "9",
+  //   name: "Inkoramutima Bertrand",
+  //   role: "Logistics Manager",
+  //   photo: "/hero/Bertrand.jpg",
+  //   // bio: "Our leadership team oversees 80+ permanent staff and 16+ washing stations across Rwanda, working with over 16,000 smallholder farmers.",
+  // },
   {
     id: "10",
     name: "Frank Ishimwe",

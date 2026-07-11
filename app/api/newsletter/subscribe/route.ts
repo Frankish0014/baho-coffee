@@ -48,7 +48,8 @@ export async function POST(request: NextRequest) {
           : "Welcome to Baho Coffee Newsletter!";
         
         await resend.emails.send({
-          from: process.env.RESEND_FROM_EMAIL || "Baho Coffee <noreply@bahocoffee.com>",
+          // Always send newsletter confirmations from noreply@bahocoffee.com
+          from: "Baho Coffee <noreply@bahocoffee.com>",
           to: email,
           subject: emailSubject,
           html: `

@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
     // Send confirmation email to the user (if Resend is configured)
     // Note: For testing, use onboarding@resend.dev. For production, verify your domain in Resend
     const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
-    const adminEmail = process.env.ADMIN_EMAIL || "bahocoffee@gmail.com";
+    const adminEmail = process.env.ADMIN_EMAIL || "info@bahocoffee.com";
     
     let emailSent = false;
     let emailError: any = null;
