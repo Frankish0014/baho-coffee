@@ -30,7 +30,7 @@ function SafeStaffImage({
       src={src}
       alt={alt}
       className={`absolute inset-0 w-full h-full object-cover ${
-        photoPosition ? "scale-[1.18] origin-top" : ""
+        photoPosition ? "scale-[1.00] origin-center" : ""
       }`}
       style={photoPosition ? { objectPosition: photoPosition } : undefined}
       onError={() => setHasError(true)}
