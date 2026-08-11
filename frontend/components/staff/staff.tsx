@@ -27,6 +27,32 @@ function SafeStaffImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
+function StaffBio({ bio }: { bio: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const needsToggle = bio.length > 140;
+
+  return (
+    <div>
+      <p
+        className={`text-gray-600 dark:text-gray-400 text-sm leading-relaxed ${
+          expanded ? "" : "line-clamp-4"
+        }`}
+      >
+        {bio}
+      </p>
+      {needsToggle && (
+        <button
+          type="button"
+          onClick={() => setExpanded((prev) => !prev)}
+          className="mt-2 text-sm font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+        >
+          {expanded ? "Show less" : "Read more"}
+        </button>
+      )}
+    </div>
+  );
+}
+
 interface StaffProps {
   staff?: StaffMember[];
 }
@@ -81,11 +107,7 @@ export default function Staff({ staff: staffProp }: StaffProps) {
                 <p className="text-primary-600 dark:text-primary-400 font-semibold mb-3">
                   {member.role}
                 </p>
-                {member.bio && (
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-4">
-                    {member.bio}
-                  </p>
-                )}
+                {member.bio && <StaffBio bio={member.bio} />}
               </div>
             </motion.div>
           ))}
