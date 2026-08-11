@@ -6,7 +6,15 @@ import { useInView } from "react-intersection-observer";
 import { Users, UserCircle } from "lucide-react";
 import { StaffMember, getAllStaff } from "@/backend/lib/staffData";
 
-function SafeStaffImage({ src, alt }: { src: string; alt: string }) {
+function SafeStaffImage({
+  src,
+  alt,
+  photoPosition,
+}: {
+  src: string;
+  alt: string;
+  photoPosition?: string;
+}) {
   const [hasError, setHasError] = useState(false);
 
   if (hasError) {
@@ -21,7 +29,10 @@ function SafeStaffImage({ src, alt }: { src: string; alt: string }) {
     <img
       src={src}
       alt={alt}
-      className="absolute inset-0 w-full h-full object-cover"
+      className={`absolute inset-0 w-full h-full object-cover ${
+        photoPosition ? "scale-[1.18] origin-top" : ""
+      }`}
+      style={photoPosition ? { objectPosition: photoPosition } : undefined}
       onError={() => setHasError(true)}
     />
   );
@@ -97,8 +108,12 @@ export default function Staff({ staff: staffProp }: StaffProps) {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-700"
             >
-              <div className="relative h-96">
-                <SafeStaffImage src={member.photo} alt={member.name} />
+              <div className="relative h-96 overflow-hidden">
+                <SafeStaffImage
+                  src={member.photo}
+                  alt={member.name}
+                  photoPosition={member.photoPosition}
+                />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">

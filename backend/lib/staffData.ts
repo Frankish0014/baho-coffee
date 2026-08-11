@@ -4,6 +4,8 @@ export interface StaffMember {
   role: string;
   photo: string;
   bio?: string;
+  /** CSS object-position for portrait framing (e.g. "center top") */
+  photoPosition?: string;
 }
 
 export const staffMembers: StaffMember[] = [
@@ -76,6 +78,7 @@ export const staffMembers: StaffMember[] = [
     name: "Joy Grace Barikunde",
     role: "Communication Officer & Professional Photographer at Baho",
     photo: "/hero/joy.jpeg",
+    photoPosition: "center top",
   },
 ];
 
