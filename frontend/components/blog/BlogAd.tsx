@@ -40,10 +40,10 @@ export default function BlogAd({ variant = "default" }: BlogAdProps) {
               </div>
               <div className="flex-1">
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                  NAEB Coffee Competition 2024
+                  Best of Rwanda Specialty Coffee 2026
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base leading-relaxed mb-3">
-                  Join Rwanda's premier coffee competition! Showcase your specialty coffee and compete for recognition in quality, innovation, and sustainability.
+                  Discover the best coffee from the land of a thousand hills. Join Rwanda&apos;s premier specialty coffee auction and bid on exceptional lots from top producers.
                 </p>
               </div>
             </div>
@@ -52,22 +52,22 @@ export default function BlogAd({ variant = "default" }: BlogAdProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <Calendar className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                <span>Registration Open Now</span>
+                <span>21 October 2026</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <Trophy className="w-4 h-4 text-primary-600 dark:text-primary-400" />
-                <span>Prestigious Awards</span>
+                <span>Global Online Auction</span>
               </div>
             </div>
 
             {/* CTA Button */}
             <Link
-              href="https://naeb.gov.rw" 
+              href="https://www.bestofrwandacoffee.com"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-6 py-3 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
-              <span>Learn More</span>
+              <span>Read more</span>
               <ExternalLink className="w-4 h-4" />
             </Link>
           </div>
