@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
-import { MapPin, Coffee, Users, Calendar, Image as ImageIcon, Award, UserCircle, X } from "lucide-react";
+import { MapPin, Coffee, Calendar, Image as ImageIcon, Award, UserCircle, X, ArrowUpRight } from "lucide-react";
 import { WashingStation } from "@/types";
 import LeafletLoader from "./LeafletLoader";
+import { bestOfRwanda2026Meta } from "@/backend/lib/bestOfRwanda2026Data";
 
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
@@ -213,31 +215,114 @@ export default function WashingStationDetails({
 
         {/* Farmers */}
         {station.farmers.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-2xl font-semibold mb-6">Our Farmers</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {station.farmers.map((farmer) => (
-                <div
-                  key={farmer.id}
-                  className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg"
-                >
-                  <div className="h-24 w-24 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4 mx-auto">
-                    <Users className="w-12 h-12 text-gray-400" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-center mb-2">
-                    {farmer.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-2">
-                    {farmer.location}
-                  </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-4">
-                    {farmer.yearsOfExperience} years of experience
-                  </p>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">
-                    {farmer.story}
-                  </p>
-                </div>
-              ))}
+          <div className="mb-16">
+            <div className="mb-8 max-w-2xl">
+              <p className="text-[11px] tracking-[0.2em] uppercase text-primary-600 dark:text-primary-400 mb-3">
+                The people behind the coffee
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
+                Featured farmers
+              </h2>
+            </div>
+
+            <div className="space-y-12">
+              {station.farmers.map((farmer) => {
+                const gallery =
+                  farmer.photos && farmer.photos.length > 0
+                    ? farmer.photos
+                    : farmer.photo
+                      ? [farmer.photo]
+                      : [];
+
+                return (
+                  <article
+                    key={farmer.id}
+                    className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start"
+                  >
+                    {gallery.length > 0 && (
+                      <div
+                        className={`grid gap-3 lg:col-span-5 ${
+                          gallery.length > 1 ? "grid-cols-2" : "grid-cols-1"
+                        }`}
+                      >
+                        {gallery.map((src) => (
+                          <div
+                            key={src}
+                            className="relative aspect-[3/4] overflow-hidden bg-gray-100 dark:bg-gray-900"
+                          >
+                            <Image
+                              src={src}
+                              alt={`${farmer.name} — ${station.name}`}
+                              fill
+                              className="object-cover"
+                              sizes="(max-width: 1024px) 50vw, 20vw"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className={gallery.length > 0 ? "lg:col-span-7" : "lg:col-span-12"}>
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-3">
+                        <span className="text-[11px] tracking-[0.16em] uppercase text-gray-400 dark:text-gray-500">
+                          {farmer.role || "Coffee farmer"}
+                        </span>
+                        {farmer.awardLabel && (
+                          <>
+                            <span className="text-gray-300 dark:text-gray-700">·</span>
+                            <span className="text-[11px] tracking-[0.14em] uppercase text-primary-600 dark:text-primary-400">
+                              {farmer.awardLabel}
+                              {farmer.awardScore ? ` · ${farmer.awardScore}` : ""}
+                            </span>
+                          </>
+                        )}
+                      </div>
+
+                      <h3 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight mb-3">
+                        {farmer.name}
+                      </h3>
+
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">
+                        {farmer.location}
+                        {farmer.yearsOfExperience
+                          ? ` · ${farmer.yearsOfExperience} years of experience`
+                          : ""}
+                      </p>
+
+                      <p className="text-[15px] md:text-base text-gray-600 dark:text-gray-300 leading-relaxed max-w-xl mb-6">
+                        {farmer.story}
+                      </p>
+
+                      {farmer.awardLabel && (
+                        <div className="pt-5 border-t border-gray-100 dark:border-gray-800">
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 max-w-lg leading-relaxed">
+                            This farmer&apos;s lot is headed to the Best of Rwanda Auction 2026—
+                            on the Best of Rwanda platform powered by V-Auction.
+                          </p>
+                          <div className="flex flex-wrap items-center gap-5">
+                            <Link
+                              href="/best-of-rwanda-2026"
+                              className="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                            >
+                              View winning lot
+                              <ArrowUpRight className="w-4 h-4" />
+                            </Link>
+                            <a
+                              href={bestOfRwanda2026Meta.auctionUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-700 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 transition-colors"
+                            >
+                              Register to bid
+                              <ArrowUpRight className="w-4 h-4" />
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
         )}

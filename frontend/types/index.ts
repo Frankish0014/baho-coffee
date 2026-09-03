@@ -56,10 +56,14 @@ export interface Farmer {
   id: string;
   name: string;
   photo?: string;
+  photos?: string[];
   story: string;
   location: string;
   yearsOfExperience: number;
   varieties: string[];
+  role?: string;
+  awardLabel?: string;
+  awardScore?: string;
 }
 
 export interface BlogPost {

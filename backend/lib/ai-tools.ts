@@ -61,7 +61,7 @@ export const AI_TOOLS = [
           },
           limit: {
             type: "number",
-            description: "Max number to return (default 15)",
+            description: "Max number to return (default 25)",
           },
         },
       },
@@ -178,7 +178,7 @@ export async function executeTool(name: ToolName, args: Record<string, unknown>)
 
       case "get_washing_stations": {
         const search = (args.search as string)?.toLowerCase() || "";
-        const limit = Math.min((args.limit as number) || 15, 25);
+        const limit = Math.min((args.limit as number) || 25, 30);
         let stations = getAllWashingStations();
         if (search) {
           stations = stations.filter((s) => {

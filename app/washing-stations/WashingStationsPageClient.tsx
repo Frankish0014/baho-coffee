@@ -9,7 +9,7 @@ export default function WashingStationsPageClient() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <PageHeader
           title="Our Washing Stations"
-          description="Discover the washing stations where our coffee is processed. Each station has its own unique story and contributes to the exceptional quality of our coffee."
+          description="Discover our 20 washing stations across Rwanda. Each station has its own unique story and contributes to the exceptional quality of our coffee."
         />
         <PageAnimation direction="up" delay={0.2}>
           <WashingStationsList />

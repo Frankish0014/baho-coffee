@@ -108,7 +108,7 @@ export default function AIAgentWidget() {
 
     // Washing station questions
     if (lowerMessage.includes("washing station") || lowerMessage.includes("station") || lowerMessage.includes("farm")) {
-      return "We work with several washing stations across Rwanda, including Humure CWS, Fugi CWS, Gitoki CWS, and many others. Each station is located in different regions of Rwanda and produces unique coffee profiles. Would you like information about a specific washing station?";
+      return "We work with 20 washing stations across Rwanda, including Akagera, Bugoyi, Mukura, Bweyeye, Cyabingo, Fugi, Buheta, Gitoki, Humure, Karambi, Kinazi, Matyazo, Muganza, Kamegeri, Gaseke, Muzo, Ngoma, Ngororero, Neza, and Shara. Each station is located in a different region and produces unique coffee profiles. Would you like information about a specific washing station?";
     }
 
     // Order/Purchase questions

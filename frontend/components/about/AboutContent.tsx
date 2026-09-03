@@ -238,7 +238,7 @@ export default function AboutContent() {
                 We process fully washed, Arabica coffee, honey coffee, natural coffee, and anaerobic coffee. We are committed to improving efficiencies in the supply chain with affordable price to thousands of small coffee farmers throughout Rwanda.
               </p>
               <p className="font-semibold text-primary-600 dark:text-primary-400">
-                We are running more than 15 coffee washing stations located in all potential areas of the country.
+                We are running 20 coffee washing stations located in all potential areas of the country.
               </p>
             </div>
           </motion.div>
@@ -356,7 +356,7 @@ export default function AboutContent() {
                   Upon completion of my First Degree in 2005, I returned to my roots and began working as a wet mill manager, and later promoted as a Zone Supervision Manager in the biggest multinational export company working in Rwanda, where I was at last given the position of Head of Specialty, Sustainability & Certification department.
                 </p>
                 <p>
-                  12 years since I joined the industry, I started my own business with one wet mill acquired through a Bank loan, and today my Company owns <strong>14 Coffee washing stations</strong> and runs <strong>six more from partners</strong>.
+                  12 years since I joined the industry, I started my own business with one wet mill acquired through a Bank loan, and today my Company operates <strong>20 coffee washing stations</strong>.
                 </p>
                 <p>
                   Over time, I developed a strong passion for improving the livelihoods of farmers in my country, Rwanda. This led me to found Baho Coffee, where I now serve as CEO, working to promote quality and sustainability while empowering coffee-growing communities, improving coffee processing approaches and influencing positive changes to build new reputation of Rwandan coffee on international market level.
@@ -392,7 +392,7 @@ export default function AboutContent() {
               <div className="text-primary-100">Smallholder Farmers</div>
             </div>
             <div>
-              <div className="text-4xl font-bold mb-2">16+</div>
+              <div className="text-4xl font-bold mb-2">20</div>
               <div className="text-primary-100">Washing Stations</div>
             </div>
             <div>

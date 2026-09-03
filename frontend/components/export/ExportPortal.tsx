@@ -45,7 +45,7 @@ export default function ExportPortal() {
               Every bean tells a story of dedication, quality, and community. Our green coffee comes directly from Rwanda&apos;s finest washing stations, where traditional methods meet modern quality standards.
             </p>
             <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-              We work with over <strong className="text-primary-600 dark:text-primary-400">16,000 smallholder farmers</strong> across <strong className="text-primary-600 dark:text-primary-400">15+ washing stations</strong>, ensuring every cup reflects the unique terroir of Rwanda&apos;s diverse regions.
+              We work with over <strong className="text-primary-600 dark:text-primary-400">16,000 smallholder farmers</strong> across <strong className="text-primary-600 dark:text-primary-400">20 washing stations</strong>, ensuring every cup reflects the unique terroir of Rwanda&apos;s diverse regions.
             </p>
             <div className="flex flex-wrap gap-4">
               {[
@@ -156,7 +156,7 @@ export default function ExportPortal() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 { number: "16,000+", label: "Farmers Supported" },
-                { number: "15+", label: "Washing Stations" },
+                { number: "20", label: "Washing Stations" },
                 { number: "100%", label: "Traceable" },
               ].map((stat, index) => (
                 <div key={index} className="text-center">
