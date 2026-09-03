@@ -331,8 +331,8 @@ export class InventoryStorage {
       { id: "gitoki-natural", name: "Gitoki Natural", quantity: 2900 },
       { id: "muzo-washed", name: "Muzo Washed", quantity: 3800 },
       { id: "muzo-honey", name: "Muzo Honey", quantity: 2700 },
-      { id: "gakenke-washed", name: "Gakenke Washed", quantity: 3600 },
-      { id: "gakenke-natural", name: "Gakenke Natural", quantity: 2400 },
+      { id: "gaseke-washed", name: "Gaseke Washed", quantity: 3600 },
+      { id: "gaseke-natural", name: "Gaseke Natural", quantity: 2400 },
       { id: "cyabingo-washed", name: "Cyabingo Washed", quantity: 3300 },
       { id: "cyabingo-honey", name: "Cyabingo Honey", quantity: 2600 },
       { id: "ngoma-washed", name: "Ngoma Washed", quantity: 4100 },
@@ -344,8 +344,14 @@ export class InventoryStorage {
       { id: "kinazi-washed", name: "Kinazi Washed", quantity: 3700 },
       { id: "kinazi-honey", name: "Kinazi Honey", quantity: 2300 },
       { id: "kinazi-natural", name: "Kinazi Natural", quantity: 2100 },
-      { id: "karambi-washed", name: "Karambi Washed", quantity: 4000 },
-      { id: "karambi-natural", name: "Karambi Natural", quantity: 2800 },
+      { id: "buheta-washed", name: "Buheta Washed", quantity: 4000 },
+      { id: "buheta-natural", name: "Buheta Natural", quantity: 2800 },
+      { id: "kamegeri-washed", name: "Kamegeri Washed", quantity: 3500 },
+      { id: "kamegeri-natural", name: "Kamegeri Natural", quantity: 2500 },
+      { id: "neza-washed", name: "Neza Washed", quantity: 3400 },
+      { id: "neza-honey", name: "Neza Honey", quantity: 2200 },
+      { id: "mukura-washed", name: "Mukura Washed", quantity: 3300 },
+      { id: "mukura-natural", name: "Mukura Natural", quantity: 2400 },
     ];
 
     try {

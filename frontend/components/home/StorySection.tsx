@@ -62,7 +62,7 @@ export default function StorySection() {
                 communities across Rwanda.
               </p>
               <p>
-                Through our washing stations across Rwanda, including Humure, Fugi, Gitoki, Muzo, Gakenke, Cyabingo, Ngoma, Akagera, Bugoyi, Matyazo, Bweyeye, Kinazi, Ngororero, Shangi, Mugera, Shara, and Karambi, we&apos;re able to trace every bean back to its origin, ensuring transparency and quality at every step.
+                Through our 20 washing stations across Rwanda—Akagera, Bugoyi, Mukura, Bweyeye, Cyabingo, Fugi, Buheta, Gitoki, Humure, Karambi, Kinazi, Matyazo, Muganza, Kamegeri, Gaseke, Muzo, Ngoma, Ngororero, Neza, and Shara—we&apos;re able to trace every bean back to its origin, ensuring transparency and quality at every step.
               </p>
             </div>
             <motion.a

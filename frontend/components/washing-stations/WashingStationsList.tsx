@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { MapPin, Coffee, Users, Calendar } from "lucide-react";
+import { MapPin, Coffee, Users, Calendar, Mountain } from "lucide-react";
 import { WashingStation } from "@/types";
 import { getAllWashingStations } from "@/backend/lib/washingStationsData";
 
@@ -72,6 +72,12 @@ function StationCard({
             <MapPin className="w-4 h-4" />
             <span>{station.location.address}</span>
           </div>
+          {station.location.altitude && (
+            <div className="flex items-center space-x-2">
+              <Mountain className="w-4 h-4" />
+              <span>Altitude: {station.location.altitude}</span>
+            </div>
+          )}
           <div className="flex items-center space-x-2">
             <Coffee className="w-4 h-4" />
             <span>Processing: {station.processingMethods.join(", ")}</span>
