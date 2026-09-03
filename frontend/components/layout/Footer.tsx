@@ -11,6 +11,7 @@ export default function Footer() {
       { href: "/about", label: "About Us" },
       { href: "/staff", label: "Our Team" },
       { href: "/washing-stations", label: "Washing Stations" },
+      { href: "/best-of-rwanda-2026", label: "Best of Rwanda 2026" },
       { href: "/blog", label: "Blog" },
       { href: "/contact", label: "Contact" },
     ],

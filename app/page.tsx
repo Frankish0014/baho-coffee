@@ -1,6 +1,7 @@
 import Hero from "@/components/home/Hero";
 import StorySection from "@/components/home/StorySection";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
+import BestOfRwanda2026Section from "@/components/best-of-rwanda/BestOfRwanda2026Section";
 import OriginStory from "@/components/home/OriginStory";
 import Certifications from "@/components/home/Certifications";
 import InstagramFeed from "@/components/home/InstagramFeed";
@@ -20,6 +21,7 @@ export default function HomePage() {
       <Hero />
       <StorySection />
       <FeaturedProducts />
+      <BestOfRwanda2026Section />
       <OriginStory />
       <Certifications />
       <InstagramFeed />
