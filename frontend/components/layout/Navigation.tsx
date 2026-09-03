@@ -36,13 +36,13 @@ export default function Navigation() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/products", label: "Products" },
-    { href: "/washing-stations", label: "Washing Stations" },
+    { href: "/washing-stations", label: "Stations" },
+    { href: "/best-of-rwanda-2026", label: "Best of Rwanda" },
     { href: "/blog", label: "Blog" },
     { href: "/export", label: "Export" },
-    // { href: "/sales", label: "Digital Sales" },
     { href: "/roasters", label: "Roasters" },
     { href: "/about", label: "About" },
-    { href: "/staff", label: "Our Team" },
+    { href: "/staff", label: "Team" },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -51,33 +51,28 @@ export default function Navigation() {
       data-nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg border-b border-gray-200/50 dark:border-gray-800/50"
+          ? "bg-white/90 dark:bg-gray-950/90 backdrop-blur-md border-b border-gray-200/60 dark:border-gray-800/60"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo with hover effect */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link href="/" className="flex items-center group">
-              <Image
-                src="/hero/logo.avif"
-                alt="Baho Coffee"
-                width={300}
-                height={100}
-                className={`h-16 w-auto transition-all duration-300 ${
-                  useWhiteText ? "brightness-0 invert" : ""
-                } group-hover:opacity-90`}
-                priority
-              />
-            </Link>
-          </motion.div>
+        <div className="flex items-center justify-between h-16 md:h-[4.5rem]">
+          {/* Logo */}
+          <Link href="/" className="flex items-center shrink-0">
+            <Image
+              src="/hero/logo.avif"
+              alt="Baho Coffee"
+              width={260}
+              height={88}
+              className={`h-12 md:h-14 w-auto transition-all duration-300 ${
+                useWhiteText ? "brightness-0 invert" : ""
+              }`}
+              priority
+            />
+          </Link>
 
-          {/* Desktop Navigation with modern hover effects */}
-          <div className="hidden md:flex items-center space-x-1">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -85,54 +80,41 @@ export default function Navigation() {
                   key={link.href}
                   href={link.href}
                   style={{ color: linkColor }}
-                  className="relative px-4 py-2 rounded-lg transition-all duration-300 font-medium group hover:opacity-90"
+                  className={`relative px-2.5 xl:px-3 py-2 text-[13px] tracking-wide transition-opacity duration-300 ${
+                    isActive ? "opacity-100 font-medium" : "opacity-80 hover:opacity-100"
+                  }`}
                 >
                   <span className="relative z-10">{link.label}</span>
                   {isActive && (
                     <motion.div
                       layoutId="activeNav"
-                      className={`absolute inset-0 rounded-lg ${
-                        shouldBeWhite
-                          ? "bg-white/20"
-                          : "bg-primary-100/50 dark:bg-white/20"
-                      }`}
-                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                      className="absolute left-2.5 right-2.5 xl:left-3 xl:right-3 bottom-1 h-px bg-current opacity-70"
+                      transition={{ type: "spring", stiffness: 500, damping: 35 }}
                     />
                   )}
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-500 to-primary-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"
-                    whileHover={{ scaleX: 1 }}
-                  />
                 </Link>
               );
             })}
-            <motion.button
+            <button
               onClick={toggleTheme}
-              whileHover={{ scale: 1.1, rotate: 15 }}
-              whileTap={{ scale: 0.9 }}
               style={{ color: linkColor }}
-              className={`p-2.5 rounded-xl transition-all duration-300 ${
-                useWhiteText ? "hover:bg-white/20" : "hover:bg-gray-100"
-              }`}
+              className="ml-2 p-2 opacity-80 hover:opacity-100 transition-opacity"
               aria-label="Toggle theme"
             >
               {theme === "light" ? (
-                <Moon className="w-5 h-5" />
+                <Moon className="w-4 h-4" />
               ) : (
-                <Sun className="w-5 h-5" />
+                <Sun className="w-4 h-4" />
               )}
-            </motion.button>
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <motion.button
+          <div className="lg:hidden flex items-center gap-1">
+            <button
               onClick={toggleTheme}
-              whileTap={{ scale: 0.9 }}
               style={{ color: linkColor }}
-              className={`p-2.5 rounded-xl transition-all ${
-                useWhiteText ? "hover:bg-white/20" : "hover:bg-gray-100"
-              }`}
+              className="p-2 opacity-80 hover:opacity-100 transition-opacity"
               aria-label="Toggle theme"
             >
               {theme === "light" ? (
@@ -140,53 +122,44 @@ export default function Navigation() {
               ) : (
                 <Sun className="w-5 h-5" />
               )}
-            </motion.button>
-            <motion.button
+            </button>
+            <button
               onClick={() => setIsOpen(!isOpen)}
-              whileTap={{ scale: 0.9 }}
               style={{ color: linkColor }}
-              className={`p-2.5 rounded-xl transition-all ${
-                useWhiteText ? "hover:bg-white/20" : "hover:bg-gray-100"
-              }`}
+              className="p-2 opacity-80 hover:opacity-100 transition-opacity"
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </motion.button>
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Enhanced Mobile Menu */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-800/50 shadow-xl"
+            className="lg:hidden bg-white/95 dark:bg-gray-950/95 backdrop-blur-md border-t border-gray-200/50 dark:border-gray-800/50"
           >
-            <div className="px-4 py-6 space-y-2">
-              {navLinks.map((link, index) => {
+            <div className="px-4 py-5 space-y-1">
+              {navLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
-                  <motion.div
+                  <Link
                     key={link.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`block px-3 py-2.5 text-sm transition-colors ${
+                      isActive
+                        ? "text-primary-700 dark:text-primary-300 font-medium"
+                        : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                    }`}
                   >
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`block px-4 py-3 rounded-lg transition-all font-medium ${
-                        isActive
-                          ? "bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300"
-                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary-600 dark:hover:text-primary-400"
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.div>
+                    {link.label}
+                  </Link>
                 );
               })}
             </div>
