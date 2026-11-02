@@ -8,12 +8,22 @@ import InstagramFeed from "@/components/home/InstagramFeed";
 // import Partners from "@/components/home/Partners";
 import Testimonials from "@/components/home/Testimonials";
 import { Metadata } from "next";
+import { pageMetadata } from "@/backend/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Home",
+export const metadata: Metadata = pageMetadata({
+  title: "Baho Coffee | Specialty Coffee Exporter from Rwanda",
   description:
-    "Baho Coffee - Exporting specialty coffee from Rwanda. Discover our story, washing stations, and the finest Rwandan coffee.",
-};
+    "Baho Coffee exports traceable specialty coffee from Rwanda. Meet the washing stations and see what our four Best of Rwanda 2026 lots sold for.",
+  path: "/",
+  absoluteTitle: true,
+  keywords: [
+    "Baho Coffee",
+    "Rwanda specialty coffee",
+    "green coffee exporter",
+    "Best of Rwanda 2026",
+    "coffee washing stations Rwanda",
+  ],
+});
 
 export default function HomePage() {
   return (

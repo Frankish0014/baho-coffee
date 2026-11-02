@@ -7,7 +7,6 @@ import dynamic from "next/dynamic";
 import { MapPin, Coffee, Calendar, Image as ImageIcon, Award, UserCircle, X, ArrowUpRight } from "lucide-react";
 import { WashingStation } from "@/types";
 import LeafletLoader from "./LeafletLoader";
-import { bestOfRwanda2026Meta } from "@/backend/lib/bestOfRwanda2026Data";
 
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
@@ -296,27 +295,15 @@ export default function WashingStationDetails({
                       {farmer.awardLabel && (
                         <div className="pt-5 border-t border-gray-100 dark:border-gray-800">
                           <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 max-w-lg leading-relaxed">
-                            This farmer&apos;s lot is headed to the Best of Rwanda Auction 2026—
-                            on the Best of Rwanda platform powered by V-Auction.
+                            This farmer&apos;s lot sold at the Best of Rwanda 2026 auction.
                           </p>
-                          <div className="flex flex-wrap items-center gap-5">
-                            <Link
-                              href="/best-of-rwanda-2026"
-                              className="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                            >
-                              View winning lot
-                              <ArrowUpRight className="w-4 h-4" />
-                            </Link>
-                            <a
-                              href={bestOfRwanda2026Meta.auctionUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-700 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 transition-colors"
-                            >
-                              Register to bid
-                              <ArrowUpRight className="w-4 h-4" />
-                            </a>
-                          </div>
+                          <Link
+                            href="/best-of-rwanda-2026"
+                            className="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                          >
+                            See the auction result
+                            <ArrowUpRight className="w-4 h-4" />
+                          </Link>
                         </div>
                       )}
                     </div>

@@ -91,9 +91,9 @@ export default function Staff({ staff: staffProp }: StaffProps) {
               Our Team
             </span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-4">
             Meet Our Leadership
-          </h2>
+          </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             The people behind Baho Coffee—dedicated to quality, sustainability, and empowering Rwanda&apos;s coffee communities.
           </p>
@@ -116,9 +116,9 @@ export default function Staff({ staff: staffProp }: StaffProps) {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
                   {member.name}
-                </h3>
+                </h2>
                 <p className="text-primary-600 dark:text-primary-400 font-semibold mb-3">
                   {member.role}
                 </p>

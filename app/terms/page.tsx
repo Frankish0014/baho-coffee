@@ -1,11 +1,14 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { Scale, FileCheck, AlertCircle, CheckCircle } from "lucide-react";
+import { pageMetadata } from "@/backend/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms of Service | Baho Coffee",
-  description: "Terms of service and conditions for using Baho Coffee's website and services.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Terms of Service",
+  description:
+    "Terms of service for using the Baho Coffee website, requesting samples, and buying Rwandan specialty coffee.",
+  path: "/terms",
+});
 
 export default function TermsOfServicePage() {
   return (

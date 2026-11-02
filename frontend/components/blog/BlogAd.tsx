@@ -23,8 +23,8 @@ export default function BlogAd({ variant = "default" }: BlogAdProps) {
       >
         <div className="relative md:col-span-5 min-h-[180px] md:min-h-[220px]">
           <Image
-            src="/washing-stations/ngoma-cws-1.jpg"
-            alt="Best of Rwanda Auction 2026"
+            src="/best-of-rwanda-2026/ngoma-lot-05.jpg"
+            alt="Ngoma Coffee Washing Station sold at Best of Rwanda 2026 for $54.80 per pound"
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
             sizes="(max-width: 768px) 100vw, 40vw"
@@ -34,16 +34,16 @@ export default function BlogAd({ variant = "default" }: BlogAdProps) {
 
         <div className="md:col-span-7 flex flex-col justify-center p-6 md:p-8">
           <p className="text-[10px] tracking-[0.2em] uppercase text-emerald-300/80 mb-3">
-            Best of Rwanda 2026 · V-Auction
+            Best of Rwanda 2026 · Results
           </p>
           <h3 className="font-serif text-2xl font-bold tracking-tight mb-3 leading-tight">
-            Winning lots headed to auction
+            Four lots sold
           </h3>
           <p className="text-sm text-white/70 leading-relaxed mb-5 max-w-md">
-            Four Baho lots. 21 October 2026. Bid on the Best of Rwanda platform powered by V-Auction.
+            Ngoma brought $54.80 per pound. See the buyers and prices from the 2026 auction.
           </p>
           <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white group-hover:gap-2.5 transition-all">
-            Explore lots
+            See the results
             <ArrowUpRight className="w-4 h-4" />
           </span>
         </div>

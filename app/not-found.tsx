@@ -1,5 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Home } from "lucide-react";
+import { pageMetadata } from "@/backend/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Page not found",
+  description: "This page is not on the Baho Coffee website.",
+  path: "/404",
+  noIndex: true,
+});
 
 export default function NotFound() {
   return (

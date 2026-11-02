@@ -4,23 +4,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const slides = [
   {
-    image: "/washing-stations/ngoma-cws-1.jpg",
+    image: "/best-of-rwanda-2026/celebration.jpg",
+    imageAlt: "Raised drying beds at a Baho Coffee washing station in Rwanda",
     title: "Best of Rwanda 2026",
     subtitle:
-      "Four winning lots go to auction on 21 October—via Best of Rwanda, powered by V-Auction.",
-    accent: "Going to auction",
-    primaryCta: { href: "/best-of-rwanda-2026", label: "View winning lots" },
-    secondaryCta: {
-      href: "https://www.bestofrwandacoffee.com",
-      label: "Register to bid",
-      external: true,
-    },
+      "All four lots sold. Ngoma Coffee Washing Station brought $54.80 per pound.",
+    accent: "Auction results",
+    primaryCta: { href: "/best-of-rwanda-2026", label: "See the results" },
+    secondaryCta: { href: "/products", label: "Explore our coffee", external: false },
   },
   {
     image: "/hero/BAHO_61.jpg",
+    imageAlt: "Ripe coffee cherries harvested for Baho Coffee in Rwanda",
     title: "Rwandan Specialty Coffee",
     subtitle: "From farm to cup—excellence in every bean.",
     accent: "Baho Coffee Company",
@@ -29,6 +28,7 @@ const slides = [
   },
   {
     image: "/hero/Ngoma.jpg",
+    imageAlt: "Coffee farmers and the landscape around Ngoma, Rwanda",
     title: "Empowering Communities",
     subtitle: "Supporting farmers and connecting people through coffee.",
     accent: "People & place",
@@ -37,6 +37,7 @@ const slides = [
   },
   {
     image: "/hero/hero-3.jpg",
+    imageAlt: "Coffee plants growing at a Baho Coffee origin in Rwanda",
     title: "Traceable & Sustainable",
     subtitle: "Know your coffee’s journey from seed to cup.",
     accent: "Origin with care",
@@ -71,9 +72,13 @@ export default function Hero() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1.1, ease: "easeInOut" }}
               >
-                <div
-                  className="absolute inset-0 bg-cover bg-center scale-105"
-                  style={{ backgroundImage: `url(${s.image})` }}
+                <Image
+                  src={s.image}
+                  alt={s.imageAlt}
+                  fill
+                  priority={index === 0}
+                  className="object-cover object-center scale-105"
+                  sizes="100vw"
                 />
                 <div className="absolute inset-0 bg-black/45" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/35" />
@@ -141,7 +146,7 @@ export default function Hero() {
                     className="inline-flex items-center gap-2 text-sm text-white/75 hover:text-white transition-colors"
                   >
                     <span className="border-b border-white/35 hover:border-white pb-px">
-                      Best of Rwanda 2026 — view winning lots
+                      Best of Rwanda 2026 — auction results
                     </span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </Link>

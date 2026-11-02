@@ -47,14 +47,11 @@ export default function Footer() {
         {/* Newsletter Section - Full Width */}
         <div className="mb-12 pb-8 border-b border-gray-800/50 dark:border-gray-800/50">
           <div className="text-center mb-6">
-            <h3 className="text-2xl md:text-3xl font-bold text-white dark:text-white mb-2">
-              Get our stories delivered?
-            </h3>
-            <p className="text-lg text-gray-300 dark:text-gray-300 mb-4">
-              From us to your inbox weekly.
-            </p>
-            <p className="text-sm text-gray-400 dark:text-gray-400">
-              Enter your email to subscribe!
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-white dark:text-white mb-2">
+              Notes from the stations
+            </h2>
+            <p className="text-base text-gray-300 dark:text-gray-300">
+              Harvest news, lot stories, and export updates from Rwanda.
             </p>
           </div>
           <div className="max-w-2xl mx-auto">
@@ -78,22 +75,22 @@ export default function Footer() {
               Exporting specialty coffee from Rwanda. Connecting farmers
               with the world through exceptional quality and sustainable practices.
             </p>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center space-x-3 group cursor-pointer">
-                <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 dark:group-hover:bg-primary-500/20 transition-colors">
+            <address className="space-y-3 text-sm not-italic">
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg">
                   <MapPin className="w-4 h-4 text-primary-400 dark:text-primary-400" />
                 </div>
-                <span className="!text-white dark:!text-white group-hover:!text-white dark:group-hover:!text-white transition-colors">Kigali, Rwanda</span>
+                <span className="!text-white dark:!text-white">Kigali, Rwanda</span>
               </div>
-              <div className="flex items-center space-x-3 group cursor-pointer">
+              <a href="tel:+250788302976" className="flex items-center space-x-3 group">
                 <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 dark:group-hover:bg-primary-500/20 transition-colors">
                   <Phone className="w-4 h-4 text-primary-400 dark:text-primary-400" />
                 </div>
-                <span className="!text-white dark:!text-white group-hover:!text-white dark:group-hover:!text-white transition-colors">+250 788 302 976  </span>
-              </div>
+                <span className="!text-white dark:!text-white group-hover:!text-white dark:group-hover:!text-white transition-colors">+250 788 302 976</span>
+              </a>
               <a
                 href="mailto:info@bahocoffee.com"
-                className="flex items-center space-x-3 group cursor-pointer"
+                className="flex items-center space-x-3 group"
               >
                 <div className="p-2 bg-primary-500/10 dark:bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 dark:group-hover:bg-primary-500/20 transition-colors">
                   <Mail className="w-4 h-4 text-primary-400 dark:text-primary-400" />
@@ -102,12 +99,12 @@ export default function Footer() {
                   info@bahocoffee.com
                 </span>
               </a>
-            </div>
+            </address>
           </div>
 
           {/* Company Links */}
-          <div>
-            <h4 className="!text-white dark:!text-white font-semibold mb-6 text-lg">Company</h4>
+          <nav aria-label="Company">
+            <h2 className="!text-white dark:!text-white font-semibold mb-6 text-lg">Company</h2>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
@@ -121,11 +118,11 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Products Links */}
-          <div>
-            <h4 className="!text-white dark:!text-white font-semibold mb-6 text-lg">Products</h4>
+          <nav aria-label="Products">
+            <h2 className="!text-white dark:!text-white font-semibold mb-6 text-lg">Products</h2>
             <ul className="space-y-3">
               {footerLinks.products.map((link) => (
                 <li key={link.href}>
@@ -139,10 +136,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
           {/* Legal & Social */}
-          <div>
-            <h4 className="!text-white dark:!text-white font-semibold mb-6 text-lg">Legal</h4>
+          <nav aria-label="Legal">
+            <h2 className="!text-white dark:!text-white font-semibold mb-6 text-lg">Legal</h2>
             <ul className="space-y-3 mb-8">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
@@ -173,7 +170,7 @@ export default function Footer() {
                 );
               })}
             </div>
-          </div>
+          </nav>
         </div>
 
         <div className="border-t border-gray-800/50 dark:border-gray-800/50 mt-12 pt-8">

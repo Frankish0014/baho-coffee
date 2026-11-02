@@ -2,10 +2,11 @@ import { MetadataRoute } from "next";
 import { getAllBlogPosts } from "@/backend/lib/blogData";
 import { getAllProducts } from "@/backend/lib/productsData";
 import { getAllWashingStations } from "@/backend/lib/washingStationsData";
+import { CONTENT_UPDATED, SITE_URL } from "@/backend/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://bahocoffee.com";
-  const currentDate = new Date();
+  const baseUrl = SITE_URL;
+  const currentDate = CONTENT_UPDATED;
 
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
@@ -30,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/best-of-rwanda-2026`,
       lastModified: currentDate,
-      changeFrequency: "weekly",
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {

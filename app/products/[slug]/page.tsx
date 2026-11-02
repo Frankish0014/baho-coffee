@@ -3,6 +3,9 @@ import ProductDetails from "@/components/products/ProductDetails";
 import { CoffeeProduct } from "@/types";
 import { getAllWashingStations } from "@/backend/lib/washingStationsData";
 import { getProductBySlug, getAllProducts } from "@/backend/lib/productsData";
+import JsonLd from "@/components/seo/JsonLd";
+import { generateProductSchema } from "@/backend/lib/schema";
+import { breadcrumbJsonLd, pageMetadata } from "@/backend/lib/seo";
 
 // Helper function to create URL-friendly slugs from processing method names
 function createSlugFromProcessingMethod(method: string): string {
@@ -139,20 +142,28 @@ export async function generateMetadata({
   const product = await getProduct(slug);
 
   if (!product) {
-    return {
-      title: "Product Not Found",
-    };
+    return pageMetadata({
+      title: "Product not found",
+      description: "This coffee is not listed on the Baho Coffee website.",
+      path: `/products/${slug}`,
+      noIndex: true,
+    });
   }
 
-  return {
+  return pageMetadata({
     title: product.name,
     description: product.description,
-    openGraph: {
-      title: product.name,
-      description: product.description,
-      images: product.images,
-    },
-  };
+    path: `/products/${product.slug}`,
+    image: product.images[0],
+    imageAlt: `${product.name} — specialty coffee from Rwanda`,
+    keywords: [
+      product.name,
+      product.processingMethod,
+      product.region,
+      "Rwandan specialty coffee",
+      "Baho Coffee",
+    ],
+  });
 }
 
 export default async function ProductPage({
@@ -176,6 +187,16 @@ export default async function ProductPage({
 
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-300 min-h-screen">
+      <JsonLd
+        data={[
+          generateProductSchema(product),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Specialty Coffees", path: "/products" },
+            { name: product.name, path: `/products/${product.slug}` },
+          ]),
+        ]}
+      />
       <ProductDetails product={product} />
     </div>
   );

@@ -1,11 +1,14 @@
 import { Metadata } from "next";
 import RoastersPageClient from "./RoastersPageClient";
+import { pageMetadata } from "@/backend/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Roaster Portal",
+export const metadata: Metadata = pageMetadata({
+  title: "For Coffee Roasters",
   description:
-    "Engage with Baho Coffee as a roaster. Access exclusive resources, connect with our team, and discover partnership opportunities.",
-};
+    "Partner with Baho Coffee for traceable Rwandan lots, samples, and direct relationships with washing stations.",
+  path: "/roasters",
+  keywords: ["coffee roasters Rwanda", "specialty coffee sourcing", "Baho Coffee roasters"],
+});
 
 export default function RoastersPage() {
   return <RoastersPageClient />;

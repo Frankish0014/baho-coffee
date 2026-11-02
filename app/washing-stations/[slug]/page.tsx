@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import WashingStationDetails from "@/components/washing-stations/WashingStationDetails";
 import { WashingStation } from "@/types";
 import { getWashingStationBySlug, getAllWashingStations } from "@/backend/lib/washingStationsData";
+import JsonLd from "@/components/seo/JsonLd";
+import { absoluteUrl, breadcrumbJsonLd, pageMetadata } from "@/backend/lib/seo";
 
 // Get washing station by slug
 async function getWashingStation(
@@ -26,15 +28,22 @@ export async function generateMetadata({
   const station = await getWashingStation(slug);
 
   if (!station) {
-    return {
-      title: "Washing Station Not Found",
-    };
+    return pageMetadata({
+      title: "Washing station not found",
+      description: "This washing station is not listed on the Baho Coffee website.",
+      path: `/washing-stations/${slug}`,
+      noIndex: true,
+    });
   }
 
-  return {
+  return pageMetadata({
     title: station.name,
     description: station.description,
-  };
+    path: `/washing-stations/${station.slug}`,
+    image: station.photos[0],
+    imageAlt: `${station.name} in Rwanda`,
+    keywords: [station.name, "coffee washing station", "Rwanda", "Baho Coffee"],
+  });
 }
 
 export default async function WashingStationPage({
@@ -58,6 +67,33 @@ export default async function WashingStationPage({
 
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-300 min-h-screen">
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Place",
+            name: station.name,
+            description: station.description,
+            url: absoluteUrl(`/washing-stations/${station.slug}`),
+            image: station.photos.map((photo) => absoluteUrl(photo)),
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: station.location.address,
+              addressCountry: "RW",
+            },
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: station.location.coordinates[0],
+              longitude: station.location.coordinates[1],
+            },
+          },
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Washing Stations", path: "/washing-stations" },
+            { name: station.name, path: `/washing-stations/${station.slug}` },
+          ]),
+        ]}
+      />
       <WashingStationDetails station={station} />
     </div>
   );

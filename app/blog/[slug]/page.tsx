@@ -6,6 +6,8 @@ import { Calendar, User, ArrowLeft, Tag } from "lucide-react";
 import { getBlogPostBySlug, getAllBlogPosts } from "@/backend/lib/blogData";
 import MarkdownContent from "@/components/blog/MarkdownContent";
 import BlogAd from "@/components/blog/BlogAd";
+import JsonLd from "@/components/seo/JsonLd";
+import { articleJsonLd, breadcrumbJsonLd, pageMetadata } from "@/backend/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -27,22 +29,25 @@ export async function generateMetadata({
   const post = getBlogPostBySlug(slug);
 
   if (!post) {
-    return {
-      title: "Post Not Found",
-    };
+    return pageMetadata({
+      title: "Story not found",
+      description: "This story is not published on the Baho Coffee website.",
+      path: `/blog/${slug}`,
+      noIndex: true,
+    });
   }
 
-  return {
+  return pageMetadata({
     title: post.seoTitle || post.title,
     description: post.seoDescription || post.excerpt,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      images: [post.image],
-      type: "article",
-      publishedTime: post.publishedAt,
-    },
-  };
+    path: `/blog/${post.slug}`,
+    image: post.image,
+    imageAlt: post.title,
+    type: "article",
+    publishedTime: post.publishedAt,
+    modifiedTime: post.updatedAt,
+    keywords: post.tags,
+  });
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
@@ -65,6 +70,24 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="pt-20 pb-20 min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <JsonLd
+        data={[
+          articleJsonLd({
+            title: post.title,
+            description: post.seoDescription || post.excerpt,
+            slug: post.slug,
+            image: post.image,
+            publishedAt: post.publishedAt,
+            updatedAt: post.updatedAt,
+            author: post.author,
+          }),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Stories", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug}` },
+          ]),
+        ]}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Link */}
         <Link
@@ -100,12 +123,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {post.category.replace("-", " ")}
               </span>
               <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                <Calendar className="w-4 h-4 mr-2" />
-                {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+                <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
+                <time dateTime={post.publishedAt}>
+                  {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
               </div>
             </div>
 

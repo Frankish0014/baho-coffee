@@ -1,11 +1,15 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { Award, CheckCircle, Leaf, Users, Globe } from "lucide-react";
+import { pageMetadata } from "@/backend/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Certifications & Standards | Baho Coffee",
-  description: "Learn about Baho Coffee's certifications, quality standards, and commitment to sustainable and ethical coffee production.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Certifications and Quality Standards",
+  description:
+    "Baho Coffee quality and sustainability standards, including specialty cupping scores and the certifications behind our stations.",
+  path: "/certifications",
+  keywords: ["coffee certifications Rwanda", "Baho Coffee quality", "specialty coffee standards"],
+});
 
 export default function CertificationsPage() {
   const certifications = [

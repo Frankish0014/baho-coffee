@@ -1,11 +1,14 @@
 import { Metadata } from "next";
 import MediaPageClient from "./MediaPageClient";
+import { pageMetadata } from "@/backend/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Media & Downloads",
+export const metadata: Metadata = pageMetadata({
+  title: "Media and Downloads",
   description:
-    "Browse our photo gallery, watch videos, and download reports and certifications from Baho Coffee.",
-};
+    "Photos, video, and downloads from Baho Coffee washing stations, farmers, and specialty coffee work in Rwanda.",
+  path: "/media",
+  keywords: ["Baho Coffee photos", "Rwanda coffee media"],
+});
 
 export default function MediaPage() {
   return <MediaPageClient />;

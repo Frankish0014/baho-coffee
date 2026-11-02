@@ -10,6 +10,16 @@
  * npm install sanity @sanity/vision next-sanity
  */
 
+import type { Metadata } from "next";
+import { pageMetadata } from "@/backend/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Studio",
+  description: "Private content studio.",
+  path: "/studio",
+  noIndex: true,
+});
+
 export const dynamic = 'force-static'
 
 export default function StudioPage() {

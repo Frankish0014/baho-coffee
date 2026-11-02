@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import type { BestOfRwandaLot } from "@/backend/lib/bestOfRwanda2026Data";
+import { formatBuyers, formatPricePerLb } from "@/backend/lib/bestOfRwanda2026Data";
 
 interface BestOfRwandaLotCardProps {
   lot: BestOfRwandaLot;
@@ -9,47 +10,58 @@ interface BestOfRwandaLotCardProps {
 }
 
 export default function BestOfRwandaLotCard({ lot, index }: BestOfRwandaLotCardProps) {
-  const stationPhoto = lot.cwsPhotos?.[0] ?? lot.image;
+  const reversed = index % 2 === 1;
 
   return (
     <article id={`lot-${lot.id}`} className="scroll-mt-28 group">
-      <div
-        className={`grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-12 items-stretch ${
-          index % 2 === 1 ? "" : ""
-        }`}
-      >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
         <div
-          className={`relative aspect-[5/4] lg:aspect-auto lg:min-h-[440px] overflow-hidden bg-gray-100 dark:bg-gray-900 ${
-            index % 2 === 1 ? "lg:col-span-5 lg:order-2" : "lg:col-span-5"
+          className={`relative aspect-[4/5] overflow-hidden bg-gray-950 ${
+            reversed ? "lg:col-span-5 lg:order-2" : "lg:col-span-5"
           }`}
         >
           <Image
-            src={stationPhoto}
-            alt={`${lot.cwsName} — Lot ${lot.lotRef}`}
+            src={lot.sale.image}
+            alt={`${lot.cwsName} Best of Rwanda 2026 Lot ${lot.sale.auctionLot}, sold to ${formatBuyers(lot.sale.buyers)} at ${formatPricePerLb(lot.sale.pricePerLb)} per pound`}
             fill
-            className="object-cover object-[center_35%] transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            className="object-cover object-center"
             sizes="(max-width: 1024px) 100vw, 42vw"
             priority={index < 2}
           />
         </div>
 
         <div
-          className={`flex flex-col justify-center py-8 lg:py-4 ${
-            index % 2 === 1 ? "lg:col-span-7 lg:order-1" : "lg:col-span-7"
+          className={`flex flex-col justify-center ${
+            reversed ? "lg:col-span-7 lg:order-1" : "lg:col-span-7"
           }`}
         >
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] tracking-[0.18em] uppercase text-gray-400 dark:text-gray-500 mb-4">
-            <span>Lot {lot.lotRef}</span>
+            <span>Lot {lot.sale.auctionLot}</span>
+            <span className="text-gray-300 dark:text-gray-700">·</span>
+            <span className="text-primary-600 dark:text-primary-400">Sold</span>
             {lot.awardPlace && (
               <>
                 <span className="text-gray-300 dark:text-gray-700">·</span>
-                <span className="text-primary-600 dark:text-primary-400">
+                <span>
                   {lot.awardPlace}
                   {lot.awardScore ? ` · ${lot.awardScore}` : ""}
                 </span>
               </>
             )}
           </div>
+
+          <p className="font-serif text-5xl md:text-6xl font-bold text-gray-900 dark:text-white tracking-tight leading-none mb-2">
+            {formatPricePerLb(lot.sale.pricePerLb)}
+            <span className="text-xl md:text-2xl font-normal text-gray-400 dark:text-gray-500">
+              /lb
+            </span>
+          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+            Bought by{" "}
+            <span className="text-gray-900 dark:text-white font-medium">
+              {formatBuyers(lot.sale.buyers)}
+            </span>
+          </p>
 
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight mb-2">
             {lot.cwsName}
@@ -64,6 +76,10 @@ export default function BestOfRwandaLotCard({ lot, index }: BestOfRwandaLotCardP
 
           <p className="text-[15px] md:text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-6 max-w-xl">
             {lot.description}
+          </p>
+
+          <p className="text-[15px] text-gray-700 dark:text-gray-200 leading-relaxed mb-6 max-w-xl">
+            {lot.sale.note}
           </p>
 
           <blockquote className="border-l border-primary-500/40 pl-5 mb-8 max-w-xl">
@@ -96,23 +112,6 @@ export default function BestOfRwandaLotCard({ lot, index }: BestOfRwandaLotCardP
               </a>
             )}
           </div>
-
-          {lot.awardCertificate && (
-            <a
-              href={lot.awardCertificate}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 block relative aspect-[16/9] max-w-md overflow-hidden bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800"
-            >
-              <Image
-                src={lot.awardCertificate}
-                alt={`${lot.cwsName} — Best of Rwanda 2026 Winner certificate`}
-                fill
-                className="object-cover object-center"
-                sizes="(max-width: 768px) 100vw, 28vw"
-              />
-            </a>
-          )}
         </div>
       </div>
     </article>

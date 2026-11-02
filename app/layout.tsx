@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
@@ -13,6 +13,8 @@ import ChunkLoadErrorHandler from "@/components/effects/ChunkLoadErrorHandler";
 import CookieConsent from "@/components/analytics/CookieConsent";
 import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 import WhiteFavicon from "@/components/ui/WhiteFavicon";
+import JsonLd from "@/components/seo/JsonLd";
+import { organizationJsonLd } from "@/backend/lib/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,25 +28,37 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#111827" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   title: {
-    default: "BAHO COFFEE COMPANY LTD | RWANDA Specialty Coffee Company",
-    template: "%s | BAHO COFFEE COMPANY LTD",
+    default: "Baho Coffee | Specialty Coffee from Rwanda",
+    template: "%s | Baho Coffee",
   },
   description:
-    "Baho Coffee exports specialty coffee from Rwanda. Discover our washing stations, meet our farmers, and experience the finest Rwandan coffee.",
+    "Baho Coffee Company Ltd exports traceable specialty coffee from Rwanda. Explore washing stations, farmers, and the Best of Rwanda 2026 auction results.",
   keywords: [
     "Rwanda coffee",
     "specialty coffee",
     "Baho Coffee",
     "green coffee exporter",
     "Rwandan coffee",
-    "women in coffee",
     "coffee washing stations",
+    "Best of Rwanda 2026",
   ],
-  authors: [{ name: "Baho Coffee" }],
-  creator: "Baho Coffee",
-  publisher: "Baho Coffee",
+  applicationName: "Baho Coffee",
+  authors: [{ name: "Baho Coffee Company Ltd", url: "https://bahocoffee.com" }],
+  creator: "Baho Coffee Company Ltd",
+  publisher: "Baho Coffee Company Ltd",
+  category: "Food & Beverage",
+  referrer: "origin-when-cross-origin",
   metadataBase: new URL("https://bahocoffee.com"),
   // Icons - WhiteFavicon component overrides for dark mode; this prevents 404
   icons: {
@@ -55,24 +69,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://bahocoffee.com",
-    siteName: "BAHO COFFEE COMPANY LTD",
-    title: "BAHO COFFEE COMPANY LTD | RWANDA Specialty Coffee Company",
+    siteName: "Baho Coffee",
+    title: "Baho Coffee | Specialty Coffee from Rwanda",
     description:
-      "Exporting specialty coffee from Rwanda. Discover our washing stations and meet our farmers.",
+      "Traceable specialty coffee from Rwanda. Washing stations, farmers, and Best of Rwanda 2026 auction results.",
     images: [
       {
         url: "/hero/BAHOCOFFEECOMPANYLTD._29.jpg",
         width: 1200,
         height: 630,
-        alt: "BAHO COFFEE COMPANY LTD | RWANDA Specialty Coffee Company",
+        alt: "Baho Coffee — specialty coffee from Rwanda",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BAHO COFFEE COMPANY LTD | RWANDA Specialty Coffee Company",
+    title: "Baho Coffee | Specialty Coffee from Rwanda",
     description:
-      "Exporting specialty coffee from Rwanda. Discover our washing stations and meet our farmers.",
+      "Traceable specialty coffee from Rwanda. Washing stations, farmers, and Best of Rwanda 2026 auction results.",
     images: ["/hero/BAHOCOFFEECOMPANYLTD._29.jpg"],
   },
   robots: {
@@ -123,15 +137,24 @@ export default function RootLayout({
             `,
           }}
         />
+        <JsonLd data={organizationJsonLd()} />
         <WhiteFavicon />
         <ThemeProvider>
           <AnalyticsProvider />
           <SuppressMetaMaskErrors />
           <ChunkLoadErrorHandler />
           <CursorTrail />
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[80] focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-gray-900 focus:shadow-lg"
+          >
+            Skip to content
+          </a>
           <div className="relative z-10 flex min-h-screen flex-col">
             <Navigation />
-            <main className="flex-1">{children}</main>
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
             <Footer />
           </div>
           <WhatsAppButton />

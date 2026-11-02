@@ -204,7 +204,7 @@ export const washingStations: WashingStation[] = [
           "/washing-stations/ngoma-farmer-2.jpg",
         ],
         story:
-          "Ngayabarambirwa Jean Bosco farms professionally across more than 7 hectares of young coffee trees, delivering exceptional cherries for Ngoma CWS and Best of Rwanda 2026 lot 1.",
+          "Ngayabarambirwa Jean Bosco farms professionally across more than 7 hectares of young coffee trees, delivering exceptional cherries for Ngoma CWS. The station’s Best of Rwanda 2026 lot sold to COMANSA.KR at $54.80 per pound.",
         location: "Bushekeri, Nyamasheke District",
         yearsOfExperience: 8,
         varieties: ["Red Bourbon"],
@@ -324,7 +324,7 @@ export const washingStations: WashingStation[] = [
           "/washing-stations/bweyeye-farmer-2.jpg",
         ],
         story:
-          "Hakizamungu Elizaphan is a coffee farmer representing ten partner farmers from Bweyeye Sector whose cherries are processed at Baho Bweyeye CWS. Their lot 001 placed among the Best of Rwanda 2026 winners and will be offered at auction.",
+          "Hakizamungu Elizaphan is a coffee farmer representing ten partner farmers from Bweyeye Sector whose cherries are processed at Baho Bweyeye CWS. Their Best of Rwanda 2026 lot sold to BREW92 at $27.00 per pound.",
         location: "Bweyeye, Rusizi District",
         yearsOfExperience: 25,
         varieties: ["Red Bourbon"],
@@ -366,7 +366,7 @@ export const washingStations: WashingStation[] = [
           "/washing-stations/kinazi-farmer-2.jpg",
         ],
         story:
-          "Mukarugira Emertha is a coffee farmer representing Kinazi growers for lot 71 in Best of Rwanda 2026, harvesting ripe cherries with clean equipment for direct delivery to the station.",
+          "Mukarugira Emertha is a coffee farmer representing Kinazi growers for Best of Rwanda 2026. Their lot sold to Alinea Coffee Roaster and Caffeinelab Coffee Roaster at $30.00 per pound.",
         location: "Kinazi, Ruhango District",
         yearsOfExperience: 15,
         varieties: ["Arabica"],
@@ -460,7 +460,7 @@ export const washingStations: WashingStation[] = [
           "/washing-stations/muganza-farmer-2.jpg",
         ],
         story:
-          "Kabera Frederick is a coffee farmer at Muganza CWS whose lot 004 placed among the Best of Rwanda 2026 winners and will be offered at auction.",
+          "Kabera Frederick is a coffee farmer at Muganza CWS. Their Best of Rwanda 2026 lot sold to ROW Specialty Coffee at $42.10 per pound.",
         location: "Kibirizi, Nyamagabe District",
         yearsOfExperience: 20,
         varieties: ["Arabica"],

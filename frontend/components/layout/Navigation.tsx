@@ -48,6 +48,7 @@ export default function Navigation() {
 
   return (
     <nav
+      aria-label="Primary"
       data-nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
@@ -80,6 +81,7 @@ export default function Navigation() {
                   key={link.href}
                   href={link.href}
                   style={{ color: linkColor }}
+                  aria-current={isActive ? "page" : undefined}
                   className={`relative px-2.5 xl:px-3 py-2 text-[13px] tracking-wide transition-opacity duration-300 ${
                     isActive ? "opacity-100 font-medium" : "opacity-80 hover:opacity-100"
                   }`}
@@ -152,6 +154,7 @@ export default function Navigation() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
+                    aria-current={isActive ? "page" : undefined}
                     className={`block px-3 py-2.5 text-sm transition-colors ${
                       isActive
                         ? "text-primary-700 dark:text-primary-300 font-medium"

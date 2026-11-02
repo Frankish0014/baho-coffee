@@ -1,10 +1,13 @@
 import { Metadata } from "next";
 import AdminDashboard from "@/components/admin/AdminDashboard";
+import { pageMetadata } from "@/backend/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Admin Dashboard",
-  description: "Admin dashboard for managing Baho Coffee content",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Admin",
+  description: "Private dashboard for managing Baho Coffee content.",
+  path: "/admin",
+  noIndex: true,
+});
 
 export const dynamic = "force-dynamic";
 

@@ -1,24 +1,36 @@
-import { CoffeeProduct, WashingStation } from "@/types";
+import { CoffeeProduct } from "@/types";
+import { absoluteUrl, SITE_NAME, SITE_URL } from "@/backend/lib/seo";
 
 export function generateProductSchema(product: CoffeeProduct) {
+  const offerPrice = product.price ?? product.packagingOptions.find((option) => option.price)?.price;
+
   return {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
     description: product.description,
-    image: product.images,
+    image: product.images.map((image) => absoluteUrl(image)),
+    url: absoluteUrl(`/products/${product.slug}`),
     brand: {
       "@type": "Brand",
       name: "Baho Coffee",
     },
-    offers: product.price
+    category: "Specialty coffee",
+    countryOfOrigin: "Rwanda",
+    offers: offerPrice
       ? {
           "@type": "Offer",
-          price: product.price,
+          price: String(offerPrice),
           priceCurrency: product.currency || "USD",
           availability: product.available
             ? "https://schema.org/InStock"
             : "https://schema.org/OutOfStock",
+          url: absoluteUrl(`/products/${product.slug}`),
+          seller: {
+            "@type": "Organization",
+            name: SITE_NAME,
+            url: SITE_URL,
+          },
         }
       : undefined,
   };
@@ -28,44 +40,17 @@ export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Baho Coffee",
-    url: "https://bahocoffee.com",
-    logo: "https://bahocoffee.com/logo.png",
-    description:
-      "Baho Coffee exports specialty coffee from Rwanda. Connecting farmers with the world.",
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "RW",
-      addressLocality: "Kigali",
-    },
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: "+250 788 302 976",
-      contactType: "customer service",
-      email: "bahocoffee@gmail.com",
-    },
-    sameAs: [
-      "https://facebook.com/bahocoffee",
-      "https://instagram.com/bahocoffee",
-      "https://twitter.com/bahocoffee",
-    ],
-  };
-}
-
-export function generateLocalBusinessSchema() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Baho Coffee",
-    image: "https://bahocoffee.com/logo.png",
-    "@id": "https://bahocoffee.com",
-    url: "https://bahocoffee.com",
-    telephone: "+250 788 302 976",
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: absoluteUrl("/hero/logo.avif"),
+    email: "info@bahocoffee.com",
+    telephone: "+250788302976",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Kigali",
       addressCountry: "RW",
     },
+    sameAs: ["https://instagram.com/bahocoffee"],
   };
 }
 

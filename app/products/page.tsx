@@ -1,11 +1,14 @@
 import { Metadata } from "next";
+import { pageMetadata } from "@/backend/lib/seo";
 import ProductsPageClient from "./ProductsPageClient";
 
-export const metadata: Metadata = {
-  title: "Products",
+export const metadata: Metadata = pageMetadata({
+  title: "Specialty Coffees",
   description:
-    "Explore our selection of Rwandan specialty coffees. Each coffee is carefully selected and traceable to its origin.",
-};
+    "Browse traceable Rwandan specialty coffees from Baho Coffee washing stations, with origin, process, and flavor notes for each lot.",
+  path: "/products",
+  keywords: ["Rwandan specialty coffee", "green coffee", "Baho Coffee products"],
+});
 
 export default function ProductsPage() {
   return <ProductsPageClient />;

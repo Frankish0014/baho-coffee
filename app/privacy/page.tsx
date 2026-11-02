@@ -1,11 +1,14 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { Shield, Lock, Eye, FileText } from "lucide-react";
+import { pageMetadata } from "@/backend/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | Baho Coffee",
-  description: "Baho Coffee's privacy policy. Learn how we collect, use, and protect your personal information.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Privacy Policy",
+  description:
+    "How Baho Coffee collects, uses, and protects personal information on bahocoffee.com.",
+  path: "/privacy",
+});
 
 export default function PrivacyPolicyPage() {
   return (
