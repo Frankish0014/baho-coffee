@@ -8,8 +8,8 @@ import Image from "next/image";
 
 const slides = [
   {
-    image: "/best-of-rwanda-2026/celebration.jpg",
-    imageAlt: "Raised drying beds at a Baho Coffee washing station in Rwanda",
+    image: "/washing-stations/ngoma-cws-1.jpg",
+    imageAlt: "Coffee cherries at Ngoma Coffee Washing Station",
     title: "Best of Rwanda 2026",
     subtitle:
       "All four lots sold. Ngoma Coffee Washing Station brought $54.80 per pound.",
